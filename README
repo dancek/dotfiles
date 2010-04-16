@@ -1,0 +1,10 @@
+These are some of my dotfiles. Nothing fancy.
+
+This is a very simple setup, I just created a git repo in my home dir and
+excluded "*". I only need the following features at the time:
+ * version control
+ * backups
+ * a way to update my dotfiles on different machines
+
+I used to have a script for syncing my dotfiles but it wasn't very fun to
+maintain... I guess this might be a better option.

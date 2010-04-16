@@ -1,0 +1,15 @@
+# git global ignores
+
+# general
+.DS_Store
+*~
+
+# C/C++
+*.a
+*.o
+
+# Java
+*.class
+
+# Python
+*.pyc

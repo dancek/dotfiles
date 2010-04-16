@@ -1,0 +1,4 @@
+screen -t alpine 1 alpine
+screen -t irssi 2 ssh -t kekkonen.cs.hut.fi screen -URaAD
+screen -t mc 3 mc -x
+screen 4
