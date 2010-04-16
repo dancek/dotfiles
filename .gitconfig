@@ -1,9 +1,0 @@
-[user]
-    name   = Hannu Hartikainen
-    email  = hannu.hartikainen@gmail.com
-[color]
-    diff   = auto
-    branch = auto
-    status = auto
-[core]
-    excludesfile = /Users/dance/.gitignore
