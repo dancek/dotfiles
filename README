@@ -8,3 +8,12 @@ excluded "*". I only need the following features at the time:
 
 I used to have a script for syncing my dotfiles but it wasn't very fun to
 maintain... I guess this might be a better option.
+
+
+Note to self: cloning to a new place works like this:
+cd
+git init
+git remote add origin git://github.com/dancek/dotfiles.git
+git fetch
+git branch master origin/master
+git checkout master
