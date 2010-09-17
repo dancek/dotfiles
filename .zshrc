@@ -51,7 +51,7 @@ if which less > /dev/null; then
     export LESS_TERMCAP_so=$'\E[01;44;33m'
     export LESS_TERMCAP_ue=$'\E[0m'
     export LESS_TERMCAP_us=$'\E[01;32m'
-    which lesspipe > /dev/null && eval `lesspipe`
+    which lesspipe > /dev/null && export LESSOPEN="| lesspipe %s"
     export LESSCHARSET="utf-8"
 fi
 
