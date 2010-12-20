@@ -18,7 +18,7 @@ if [ -n "$terminfo[colors]" ]; then
     if which dircolors > /dev/null; then
         eval `dircolors -b`
         # don't re-alias ls (so aliasing gls in .zshrc-`hostname` works)
-        alias ls || alias ls="ls --color"
+        alias ls > /dev/null || alias ls="ls --color"
     fi
 fi
 
