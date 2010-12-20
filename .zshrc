@@ -17,7 +17,8 @@ autoload zsh/terminfo
 if [ -n "$terminfo[colors]" ]; then
     if which dircolors > /dev/null; then
         eval `dircolors -b`
-        alias ls="ls --color"
+        # don't re-alias ls (so aliasing gls in .zshrc-`hostname` works)
+        alias ls || alias ls="ls --color"
     fi
 fi
 
@@ -43,7 +44,7 @@ WATCHFMT='%n %a %l from %m at %T.'
 # set $PAGER and do some magic for less
 if which less > /dev/null; then
     export PAGER=less
-    export LESS="-mq"
+    export LESS="-mqr"
     export LESS_TERMCAP_mb=$'\E[01;31m'
     export LESS_TERMCAP_md=$'\E[01;31m'
     export LESS_TERMCAP_me=$'\E[0m'
