@@ -39,6 +39,9 @@ $(document).ready(function() {
         $text.find(matcher).remove();
     });
     $text.find('sup').removeAttr('class').removeAttr('id');
+    $text.contents().filter(function() {
+        return this.nodeType == 8;
+    }).remove();
 
     var text = $text.html();
     text = text.replace(/<br *\/?>/gi, '<br />\n> ');
