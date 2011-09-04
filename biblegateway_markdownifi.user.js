@@ -44,10 +44,13 @@ $(document).ready(function() {
     }).remove();
 
     var text = $text.html();
-    text = text.replace(/<br *\/?>/gi, '<br />\n> ');
+    text = text.replace(/<br *\/?>/gi, '\n');
     text = text.replace(/<p><\/p>/gi, '');
-    text = text.replace(/<p>/gi, '<br />\n> ');
+    text = text.replace(/<p>/gi, '\n');
     text = text.replace(/<\/p>/gi, '');
+
+    var lines = text.split('\n');
+    text = lines.join(' <br />\n> ');
 
     // generate the complete markdown
     var markdown = markdownTemplate.format(
