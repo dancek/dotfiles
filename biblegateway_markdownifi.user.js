@@ -35,7 +35,8 @@ $(document).ready(function() {
     var $text = $("div.result-text-style-normal").clone();
 
     // remove unnecessary stuff
-    $.each(['div', 'sup.xref', 'sup.footnote'], function(i, matcher) {
+    $.each(['div', 'sup.xref', 'sup.footnote', 'h3', 'h4', 'h5', 'font'],
+            function(i, matcher) {
         $text.find(matcher).remove();
     });
     $text.find('sup').removeAttr('class').removeAttr('id');
