@@ -15,8 +15,8 @@ echo $PATH | grep ~/bin > /dev/null || export PATH=$PATH:~/bin
 # setup ls colors if terminal supports colors
 autoload zsh/terminfo
 if [ -n "$terminfo[colors]" ]; then
-    which gdircolors > /dev/null && eval `gdircolors -b`
-    which dircolors > /dev/null && eval `dircolors -b`
+    which gdircolors > /dev/null && eval `gdircolors -b ~/.dircolors`
+    which dircolors > /dev/null && eval `dircolors -b ~/.dircolors`
     # don't re-alias ls (so aliasing gls in .zshrc-`hostname` works)
     alias ls > /dev/null || alias ls="ls --color"
 fi
