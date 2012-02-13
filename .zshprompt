@@ -1,6 +1,19 @@
 # a ZSH prompt showing the basics plus VCS info
 
+setopt prompt_subst
+
 autoload -U colors && colors
 autoload -Uz vcs_info
 
+# vcs_info
+zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' formats "%{$fg[yellow]%}%b%{$reset_color%}"
+zstyle ':vcs_info:*' actionformats "%{$fg[red]%}%a%f%{$reset_color%}:%{$fg[yellow]%}%b%{$reset_color%}"
+ 
+precmd () { vcs_info }
+
+# prompt
 PS1="%(?..%{$fg_bold[red]%}%?%{$reset_color%}:)%{$fg[green]%}%n%{$reset_color%}@%{$fg_bold[green]%}%m %{$reset_color$fg[yellow]%}%30<…<%~%{$reset_color%} %B%#%b "
+
+# right prompt with vcs info
+RPROMPT='${vcs_info_msg_0_}'
