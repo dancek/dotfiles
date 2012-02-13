@@ -1445,6 +1445,9 @@ else
     execute "inoremap <silent> <buffer> " . g:xml_tag_completion_map . " ><Esc>:call <SID>CloseTagFun()<Cr>"
 endif
 
+"""" edits by dancek
+" end tags in insert mode
+inoremap <silent> <buffer> <C-e> <Esc>:call <SID>EndTag()<Cr>a
 
 
 finish
