@@ -81,10 +81,11 @@ endif " has("autocmd")
 colo koehler
 
 " map <LocalLeader>
-let maplocalleader = ","
+"let maplocalleader = ","
+"nvm, with US keymap I rather like "\"
 
-" set indentation to 4 spaces
-set ts=4 sw=4 expandtab
+" set indentation
+set ts=4 sw=4 sts=4 expandtab autoindent
 
 " use mouse
 set mouse=a
@@ -92,18 +93,16 @@ set mouse=a
 " split windows "the right way"
 set splitbelow splitright
 
-" settings for 2html.vim
-let use_xhtml=1
-let html_use_css=1
-let html_number_lines=1
-let html_ignore_folding=1
+" xml.vim
+let xml_use_xhtml=1
+let xml_tag_completion_map = "<C-l>"
 
 " python specific
 let python_highlight_all=1
 
 " html specific
-autocmd FileType html,xhtml setlocal ts=2 sw=2 expandtab
-autocmd FileType html,xhtml setlocal foldmethod=marker
+autocmd FileType xml,html,xhtml,css setlocal ts=2 sw=2 sts=2 et ai
+autocmd FileType xml,html,xhtml setlocal foldmethod=marker
 
 " ensure that all omni completions are turned on
 autocmd FileType python set omnifunc=pythoncomplete#Complete
