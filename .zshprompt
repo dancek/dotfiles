@@ -13,7 +13,7 @@ zstyle ':vcs_info:*' actionformats "%{$fg[red]%}%a%f%{$reset_color%}:%{$fg[yello
 precmd () { vcs_info }
 
 # prompt
-PS1="%(?..%{$fg_bold[red]%}%?%{$reset_color%}:)%{$fg[green]%}%n%{$reset_color%}@%{$fg_bold[green]%}%m %{$reset_color$fg[yellow]%}%30<…<%~%{$reset_color%} %B%#%b "
+PS1="%(?..%{$fg_bold[red]%}%?%{$reset_color%}:)%{$fg_bold[green]%}%m %{$reset_color$fg[yellow]%}%30<…<%~%{$reset_color%} %B%#%b "
 
 # right prompt with vcs info
 RPROMPT='${vcs_info_msg_0_}'
