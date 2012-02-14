@@ -11,7 +11,7 @@ zstyle ':vcs_info:*' formats "%{$fg[yellow]%}%b%{$reset_color%}"
 zstyle ':vcs_info:*' actionformats "%{$fg[red]%}%a%f%{$reset_color%}:%{$fg[yellow]%}%b%{$reset_color%}"
 
 # zsh-git-prompt
-source .zsh/git-prompt/zshrc.sh
+source $HOME/.zsh/git-prompt/zshrc.sh
 
 precmd () { vcs_info }
 
