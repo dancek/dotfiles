@@ -77,7 +77,7 @@ case $TERM in (xterm*)
     bindkey '\e[H' beginning-of-line
     bindkey '\e[F' end-of-line
 esac
-							     
+
 
 # The following lines were added by compinstall
 
