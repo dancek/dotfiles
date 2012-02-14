@@ -6,7 +6,7 @@ I created this setup with the following in mind:
  * a way to update my dotfiles on different machines
  * option not to have a git repository in my $HOME
 
-Cloning to a new place works like this:
+Cloning (read-only) to a new place works like this:
 git clone git://github.com/dancek/dotfiles.git ~/.config/dotfiles
 cd ~/.config/dotfiles
 ./create-symlinks.sh
