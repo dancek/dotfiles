@@ -5,15 +5,18 @@ setopt prompt_subst
 autoload -U colors && colors
 autoload -Uz vcs_info
 
-# vcs_info
-zstyle ':vcs_info:*' enable git svn
+# vcs_info (but not for git!)
+zstyle ':vcs_info:*' enable svn
 zstyle ':vcs_info:*' formats "%{$fg[yellow]%}%b%{$reset_color%}"
 zstyle ':vcs_info:*' actionformats "%{$fg[red]%}%a%f%{$reset_color%}:%{$fg[yellow]%}%b%{$reset_color%}"
- 
+
+# zsh-git-prompt
+source .zsh/git-prompt/zshrc.sh
+
 precmd () { vcs_info }
 
 # prompt
 PS1="%(?..%{$fg_bold[red]%}%?%{$reset_color%}:)%{$fg_bold[green]%}%m %{$reset_color$fg[yellow]%}%30<…<%~%{$reset_color%} %B%#%b "
 
 # right prompt with vcs info
-RPROMPT='${vcs_info_msg_0_}'
+RPROMPT='${vcs_info_msg_0_}$(git_super_status)'
