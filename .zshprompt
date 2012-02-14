@@ -15,8 +15,16 @@ source .zsh/git-prompt/zshrc.sh
 
 precmd () { vcs_info }
 
+# root in red
+if [[ "$EUID" = "0" ]] || [[ "$USER" = 'root' ]]
+then
+    user_color=red
+else
+    user_color=green
+fi
+
 # prompt
-PS1="%(?..%{$fg_bold[red]%}%?%{$reset_color%}:)%{$fg_bold[green]%}%m %{$reset_color$fg[yellow]%}%30<…<%~%{$reset_color%} %B%#%b "
+PS1="%(?..%{$fg_bold[red]%}%?%{$reset_color%}:)%{$fg_bold[$user_color]%}%m %{$reset_color$fg[yellow]%}%30<…<%~%{$reset_color%} %B%#%b "
 
 # right prompt with vcs info
 RPROMPT='${vcs_info_msg_0_}$(git_super_status)'
