@@ -3,6 +3,7 @@
 # general
 .DS_Store
 *~
+*.swp
 
 # C/C++
 *.a
