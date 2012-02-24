@@ -35,6 +35,10 @@ map Q gq
 " text is lost and it only works for putting the current register.
 "vnoremap p "_dp
 
+" load Go support (if $GOROOT is defined) and gofmt after saving
+set rtp+=$GOROOT/misc/vim
+autocmd BufWritePost *.go :silent Fmt
+
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
