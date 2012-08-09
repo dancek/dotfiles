@@ -49,10 +49,8 @@ if which vim > /dev/null; then
     fi
 fi
 
-# set $PAGER to m if available, otherwise less (with some options)
-if which m > /dev/null; then
-    export PAGER=m
-elif which less > /dev/null; then
+# set $PAGER to less (with some options)
+if which less > /dev/null; then
     export PAGER=less
     export LESS="-mqR"
     export LESS_TERMCAP_mb=$'\E[01;31m'
