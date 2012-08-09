@@ -58,6 +58,8 @@ fi
 # ensure we use vim if possible
 if which vim > /dev/null; then
     alias vi=vim
+    # use vim as a less-like pager
+    alias m="vim -R --noplugin -c 'set laststatus=0 ignorecase smartcase ts=8' -c 'runtime! macros/less.vim'"
 fi
 
 # if MacVim is installed, allow starting it with 'gvim'
