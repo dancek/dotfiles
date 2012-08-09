@@ -40,8 +40,19 @@ REPORTTIME=30
 #WATCH=notme
 WATCHFMT='%n %a %l from %m at %T.'
 
-# set $PAGER and do some magic for less
-if which less > /dev/null; then
+# ensure we use vim if possible
+if which vim > /dev/null; then
+    alias vi=vim
+    # use vim as a less-like pager, see https://github.com/huyz/less.vim
+    if [ -x ~/.vim/macros/m ]; then
+        export PATH=$PATH:~/.vim/macros
+    fi
+fi
+
+# set $PAGER to m if available, otherwise less (with some options)
+if which m > /dev/null; then
+    export PAGER=m
+elif which less > /dev/null; then
     export PAGER=less
     export LESS="-mqR"
     export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -53,13 +64,6 @@ if which less > /dev/null; then
     export LESS_TERMCAP_us=$'\E[01;32m'
     which lesspipe > /dev/null && export LESSOPEN="| lesspipe %s"
     export LESSCHARSET="utf-8"
-fi
-
-# ensure we use vim if possible
-if which vim > /dev/null; then
-    alias vi=vim
-    # use vim as a less-like pager
-    alias m="vim -R --noplugin -c 'set laststatus=0 ignorecase smartcase ts=8' -c 'runtime! macros/less.vim'"
 fi
 
 # if MacVim is installed, allow starting it with 'gvim'
