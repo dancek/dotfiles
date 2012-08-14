@@ -82,7 +82,16 @@ endif " has("autocmd")
 " my own modifications... guess this'll grow over time
 
 " color scheme
-colo koehler
+colorscheme wombat
+
+" fonts
+if has("gui_running")
+    if has("gui_win32")
+        set guifont=Consolas:h11:cANSI
+    else
+        set guifont=Consolas\ 11
+    endif
+endif
 
 " map <LocalLeader>
 "let maplocalleader = ","
