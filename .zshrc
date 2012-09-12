@@ -10,7 +10,14 @@ if hostname | grep .hut.fi; then
 fi
 
 # add my own ~/bin to $PATH (unless it exists already)
-echo $PATH | grep ~/bin > /dev/null || export PATH=$PATH:~/bin
+echo $PATH | grep ~/bin > /dev/null || PATH=$PATH:~/bin
+
+# add ~/.cabal/bin to $PATH if it exists
+if [ -d ~/.cabal/bin ]; then
+    PATH=$PATH:~/.cabal/bin
+fi
+
+export PATH
 
 # setup ls colors if terminal supports colors
 autoload zsh/terminfo
