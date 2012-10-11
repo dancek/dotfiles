@@ -126,9 +126,15 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
+" nicer filename completion
+set wildmenu
 
 " minibufexpl.vim
 let g:miniBufExplMapWindowNavVim = 1 
 let g:miniBufExplForceSyntaxEnable = 1
 let g:miniBufExplUseSingleClick = 1
 let g:miniBufExplModSelTarget = 1
+
+" C/C++ include paths
+set path+=/usr/include/**
+set path+=/usr/local/include/**
