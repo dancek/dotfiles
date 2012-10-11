@@ -151,3 +151,5 @@ Bundle 'gmarik/vundle'
 "
 " original repos on github
 Bundle 'fholgado/minibufexpl.vim'
+Bundle 'ervandew/supertab'
+Bundle 'int3/vim-taglist-plus'
