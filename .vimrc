@@ -151,5 +151,5 @@ Bundle 'gmarik/vundle'
 "
 " original repos on github
 Bundle 'fholgado/minibufexpl.vim'
-Bundle 'ervandew/supertab'
+" Bundle 'ervandew/supertab'    " this causes exit value 1. why?
 Bundle 'int3/vim-taglist-plus'
