@@ -19,6 +19,11 @@ fi
 
 export PATH
 
+# use rbenv if it's installed
+if which rbenv > /dev/null; then
+    eval "$(rbenv init -)"
+fi
+
 # setup ls colors if terminal supports colors
 autoload zsh/terminfo
 if [ -n "$terminfo[colors]" ]; then
