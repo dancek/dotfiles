@@ -36,47 +36,8 @@ map Q gq
 "vnoremap p "_dp
 
 " load Go support (if $GOROOT is defined) and gofmt after saving
-set rtp+=$GOROOT/misc/vim
+set rtp+=~/.vim,$GOROOT/misc/vim
 autocmd BufWritePost *.go :silent Fmt
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
-
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
-
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
-
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-
-  augroup END
-
-else
-
-  set autoindent		" always set autoindenting on
-
-endif " has("autocmd")
 
 
 " my own modifications... guess this'll grow over time
@@ -100,6 +61,9 @@ endif
 " set indentation
 set ts=4 sw=4 sts=4 expandtab autoindent
 
+" use utf8
+set enc=utf8 nobomb
+
 " use mouse
 set mouse=a
 
@@ -113,8 +77,8 @@ let xml_tag_completion_map = "<C-l>"
 " python specific
 let python_highlight_all=1
 
-" html specific
-autocmd FileType xml,html,xhtml,css setlocal ts=2 sw=2 sts=2 et ai
+" html/js specific
+autocmd FileType xml,html,xhtml,css,javascript setlocal ts=2 sw=2 sts=2 et ai
 autocmd FileType xml,html,xhtml setlocal foldmethod=marker
 
 " ensure that all omni completions are turned on
@@ -139,7 +103,17 @@ let g:miniBufExplModSelTarget = 1
 set path+=/usr/include/**
 set path+=/usr/local/include/**
 
+" FuzzyFinder bindings
+map ,b :FufBuffer<CR>
+map ,f :FufFile<CR>
+map ,d :FufDir<CR>
+map ,h :FufHelp<CR>
+
 """ Vundle configs
+
+" needed before loading vundle https://github.com/gmarik/vundle/issues/176
+filetype on
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -150,6 +124,49 @@ Bundle 'gmarik/vundle'
 " My Bundles here:
 "
 " original repos on github
-Bundle 'fholgado/minibufexpl.vim'
+" Bundle 'fholgado/minibufexpl.vim'
 " Bundle 'ervandew/supertab'    " this causes exit value 1. why?
 Bundle 'int3/vim-taglist-plus'
+Bundle "pangloss/vim-javascript"
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'mattn/zencoding-vim'
+
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
+" The filetype stuff needs to come after Vundle.
+filetype plugin indent on " required!
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+
+  " Put these in an autocmd group, so that we can delete them easily.
+  augroup vimrcEx
+  au!
+
+  " For all text files set 'textwidth' to 78 characters.
+  autocmd FileType text setlocal textwidth=78
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  augroup END
+
+else
+
+  set autoindent		" always set autoindenting on
+
+endif " has("autocmd")
+
