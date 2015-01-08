@@ -7,3 +7,5 @@
     co = checkout
 [github]
 	user = dancek
+[push]
+	default = simple
