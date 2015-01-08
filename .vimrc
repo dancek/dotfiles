@@ -80,7 +80,7 @@ let xml_tag_completion_map = "<C-l>"
 let python_highlight_all=1
 
 " html/js specific
-autocmd FileType xml,html,xhtml,css,javascript setlocal ts=2 sw=2 sts=2 et ai
+autocmd FileType xml,html,xhtml,css,javascript,ruby setlocal ts=2 sw=2 sts=2 et ai
 autocmd FileType xml,html,xhtml setlocal foldmethod=marker
 
 " ensure that all omni completions are turned on
