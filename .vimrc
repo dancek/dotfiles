@@ -135,6 +135,7 @@ Bundle 'mattn/zencoding-vim'
 
 Bundle 'L9'
 Bundle 'FuzzyFinder'
+Bundle 'kien/ctrlp.vim'
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
