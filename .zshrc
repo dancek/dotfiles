@@ -24,6 +24,11 @@ if ! zgen saved; then
     zgen save
 fi
 
+# config zsh-history-substring-search
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
 
 ### LOCAL
 
