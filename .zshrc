@@ -14,6 +14,7 @@ if ! zgen saved; then
 
     # prezto components
     zgen load sorin-ionescu/prezto modules/environment
+    zgen load sorin-ionescu/prezto modules/editor
     zgen load sorin-ionescu/prezto modules/gnu-utility
     zgen load sorin-ionescu/prezto modules/completion
 
@@ -24,6 +25,7 @@ if ! zgen saved; then
     # other plugins
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zsh-history-substring-search
+    zgen load supercrabtree/k
 
     # completions
     zgen load zsh-users/zsh-completions src
