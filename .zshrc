@@ -1,16 +1,35 @@
-### ANTIGEN
+### ZGEN
 
-# start by loading antigen and the oh-my-zsh lib
-source ~/.zsh/antigen/antigen.zsh
-antigen use oh-my-zsh
+# start by loading zgen and the oh-my-zsh lib
+source ~/.zsh/zgen/zgen.zsh
 
-# read local config if it exists
+# check if there's no init script
+if ! zgen saved; then
+    echo "Creating a zgen save"
+
+    zgen oh-my-zsh
+
+    # plugins
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen load zsh-users/zsh-history-substring-search
+
+    # completions
+    zgen load zsh-users/zsh-completions src
+
+    # theme
+    #zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+    zgen load fdv/platypus platypus
+
+    # save all to init script
+    zgen save
+fi
+
+
+### LOCAL
+
 if [ -r ~/.zshrc-`hostname -s` ]; then
     . ~/.zshrc-`hostname -s`
 fi
-
-# tell antigen that we're done
-antigen apply
 
 
 ### PATH
