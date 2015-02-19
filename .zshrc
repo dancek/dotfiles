@@ -1,3 +1,7 @@
+# start by loading antigen and the oh-my-zsh lib
+source ~/.zsh/antigen/antigen.zsh
+antigen use oh-my-zsh
+
 # read local config if it exists
 if [ -r ~/.zshrc-`hostname -s` ]; then
     . ~/.zshrc-`hostname -s`
@@ -109,4 +113,5 @@ autoload -U compinit
 compinit
 # End of lines added by compinstall
 
-
+# tell antigen that we're done
+antigen apply
