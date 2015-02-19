@@ -1,4 +1,9 @@
+# enable colors (prezto doesn't do this)
+autoload -U colors && colors
+
+
 ### ZGEN
+# for hints about plugins, see https://github.com/unixorn/awesome-zsh-plugins
 
 # start by loading zgen and the oh-my-zsh lib
 source ~/.zsh/zgen/zgen.zsh
@@ -7,9 +12,16 @@ source ~/.zsh/zgen/zgen.zsh
 if ! zgen saved; then
     echo "Creating a zgen save"
 
-    zgen oh-my-zsh
+    # prezto components
+    zgen load sorin-ionescu/prezto modules/environment
+    zgen load sorin-ionescu/prezto modules/gnu-utility
+    zgen load sorin-ionescu/prezto modules/completion
 
-    # plugins
+    # oh-my-zsh: just the stuff needed for prompts
+    zgen load robbyrussell/oh-my-zsh lib/git.zsh
+    zgen load robbyrussell/oh-my-zsh lib/theme-and-appearance.zsh
+
+    # other plugins
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zsh-history-substring-search
 
