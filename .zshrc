@@ -15,6 +15,7 @@ if ! zgen saved; then
     # prezto components
     zgen load sorin-ionescu/prezto modules/environment
     zgen load sorin-ionescu/prezto modules/editor
+    zgen load sorin-ionescu/prezto modules/history
     zgen load sorin-ionescu/prezto modules/gnu-utility
     zgen load sorin-ionescu/prezto modules/completion
 
