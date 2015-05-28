@@ -3,8 +3,6 @@
 	email = hannu.hartikainen@gmail.com
 [alias]
     st = status
-    ci = commit
-    co = checkout
 [github]
 	user = dancek
 [push]
