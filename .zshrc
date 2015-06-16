@@ -91,3 +91,6 @@ fi
 if [ -x /Applications/MacVim.app/Contents/MacOS/Vim ]; then
     alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
 fi
+
+# enable fzf completions
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
