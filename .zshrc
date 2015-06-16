@@ -16,8 +16,11 @@ if ! zgen saved; then
     zgen load sorin-ionescu/prezto modules/environment
     zgen load sorin-ionescu/prezto modules/editor
     zgen load sorin-ionescu/prezto modules/history
-    zgen load sorin-ionescu/prezto modules/gnu-utility
     zgen load sorin-ionescu/prezto modules/completion
+    
+    # i used to have this, but some gnu utils are worse than zsh builtins
+    # eg. fzf fails due to features missing in g[ and gprintf
+    #zgen load sorin-ionescu/prezto modules/gnu-utility
 
     # oh-my-zsh: just the stuff needed for prompts
     zgen load robbyrussell/oh-my-zsh lib/git.zsh
