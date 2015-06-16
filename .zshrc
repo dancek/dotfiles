@@ -95,5 +95,34 @@ if [ -x /Applications/MacVim.app/Contents/MacOS/Vim ]; then
     alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
 fi
 
-# enable fzf completions
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# enable fzf completions; define useful macros
+if [ -f ~/.fzf.zsh ]; then
+    source ~/.fzf.zsh
+    
+    # fh - repeat history
+    fh() {
+      print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+    }
+
+    # fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
+    fshow() {
+      local out shas sha q k
+      while out=$(
+          git log --graph --color=always \
+              --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+          fzf --ansi --multi --no-sort --reverse --query="$q" \
+              --print-query --expect=ctrl-d --toggle-sort=\`); do
+        q=$(head -1 <<< "$out")
+        k=$(head -2 <<< "$out" | tail -1)
+        shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
+        [ -z "$shas" ] && continue
+        if [ "$k" = ctrl-d ]; then
+          git diff --color=always $shas | less -R
+        else
+          for sha in $shas; do
+            git show --color=always $sha | less -R
+          done
+        fi
+      done
+    }
+fi
