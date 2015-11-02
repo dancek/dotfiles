@@ -88,6 +88,9 @@ if which less > /dev/null; then
     export LESS_TERMCAP_us=$'\E[01;32m'
     which lesspipe > /dev/null && export LESSOPEN="| lesspipe %s"
     export LESSCHARSET="utf-8"
+
+    # grotty misbehaves on Fedora 22
+    export GROFF_NO_SGR=1
 fi
 
 # if MacVim is installed, allow starting it with 'gvim'
