@@ -7,3 +7,5 @@
 	user = dancek
 [push]
 	default = simple
+[core]
+	editor = vim
