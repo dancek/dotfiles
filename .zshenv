@@ -23,4 +23,6 @@ export JAVA_TEXT_ENCODING="UTF-8"
 
 export RUBYOPT="rubygems"
 
+export MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
+
 umask 022
