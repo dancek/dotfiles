@@ -9,3 +9,5 @@
 	default = simple
 [core]
 	editor = vim
+[merge]
+	tool = kdiff3
