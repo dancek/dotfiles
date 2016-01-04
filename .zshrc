@@ -13,6 +13,7 @@ if ! zgen saved; then
     echo "Creating a zgen save"
 
     # prezto components
+    zgen load sorin-ionescu/prezto modules/directory
     zgen load sorin-ionescu/prezto modules/environment
     zgen load sorin-ionescu/prezto modules/editor
     zgen load sorin-ionescu/prezto modules/history
