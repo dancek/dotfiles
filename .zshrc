@@ -130,3 +130,6 @@ if [ -f ~/.fzf.zsh ]; then
       done
     }
 fi
+
+# load Nix package manager configs
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
