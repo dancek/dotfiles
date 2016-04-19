@@ -8,11 +8,8 @@ I created this setup with the following in mind:
 
 Cloning (read-only) to a new place works like this:
 
-    git clone git://github.com/dancek/dotfiles.git ~/.config/dotfiles
+    git clone --recursive git@github.com:dancek/dotfiles.git ~/.config/dotfiles
     cd ~/.config/dotfiles
     ./create-symlinks.sh
-    # Vundle is setup as a git submodule
-    git submodule init
-    git submodule update
 
 (If the directory is something else than ~/.config/dotfiles, you need to tell that to create-symlinks.sh)
