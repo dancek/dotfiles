@@ -8,26 +8,15 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the gummiboot efi boot loader.
+  # Use the gummiboot efi boot loader. (disable legacy BIOS emulation!)
   boot.loader.gummiboot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "grave"; # Define your hostname.
-  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.hostName = "grave";
   networking.networkmanager.enable = true;
 
-  # Select internationalisation properties.
-  # i18n = {
-  #   consoleFont = "Lat2-Terminus16";
-  #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
-
-  # Set your time zone.
   time.timeZone = "Europe/Helsinki";
 
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     # essentials
     wget
@@ -37,6 +26,8 @@
 
     binutils
     nix
+    acpi
+    usbutils
 
     # X essentials
     rxvt_unicode
@@ -85,13 +76,8 @@
     displayManager.slim = {
       enable = true;
       defaultUser = "dance";
-      extraConfig = "/run/current-system/sw/bin/sessionstart_cmd xscreensaver -nosplash &";
     };
   };
-
-  # trackpoint support (touchpad disabled in this config)
-  hardware.trackpoint.enable = true;
-  hardware.trackpoint.emulateWheel = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.dance = {
@@ -105,5 +91,23 @@
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.03";
+
+
+  ### Thinkpad X220i specific
+
+  # TPM has hardware RNG
+  security.rngd.enable = true;
+
+  # TLP Linux Advanced Power Management
+  services.tlp.enable = true;
+
+  # trackpoint support (touchpad disabled in this config)
+  hardware.trackpoint.enable = true;
+  hardware.trackpoint.emulateWheel = true;
+
+  # fingerprint reader: use X with fingerprint (if you add one with `fprintd-enroll`)
+  services.fprintd.enable = true;
+  security.pam.services.slim.fprintAuth = true;
+  security.pam.services.xscreensaver.fprintAuth = true;
 }
 # vim: et:sw=2:ts=2:ai
