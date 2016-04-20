@@ -1,6 +1,4 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# my configuration.nix for Thinkpad X220i
 
 { config, pkgs, ... }:
 
@@ -15,7 +13,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "grave"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;
 
   # Select internationalisation properties.
   # i18n = {
@@ -88,17 +87,11 @@
       defaultUser = "dance";
       extraConfig = "/run/current-system/sw/bin/sessionstart_cmd xscreensaver -nosplash &";
     };
-    libinput = {
-      enable = true;
-      # scrollButton = 2;
-      additionalOptions = ''
-                          Option "ScrollButton" "2"
-			  Option "ScrollMethod" "button"
-                          '';
-      clickMethod = "clickfinger";
-      tapping = false;
-    };
   };
+
+  # trackpoint support (touchpad disabled in this config)
+  hardware.trackpoint.enable = true;
+  hardware.trackpoint.emulateWheel = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.dance = {
@@ -106,7 +99,7 @@
     isNormalUser = true;
     uid = 1000;
     home = "/home/dance";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "networkmanager" ];
     shell = "/run/current-system/sw/bin/zsh";
   };
 
