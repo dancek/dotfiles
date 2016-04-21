@@ -111,6 +111,9 @@
   # alternatively, touchpad with two-finger scrolling
   #services.xserver.libinput.enable = true;
 
+  # enable volume control buttons
+  sound.enableMediaKeys = true;
+
   # fingerprint reader: login and unlock with fingerprint (if you add one with `fprintd-enroll`)
   #services.fprintd.enable = true;
   #security.pam.services.login.fprintAuth = true;
