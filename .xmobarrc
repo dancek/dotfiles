@@ -34,16 +34,18 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                                 ["-L", "33", "-H", "80",
                                  "-w", "2"] 20
                     , Run BatteryP ["BAT0"]
-                                   ["-t", "<acstatus><watts>W (<left>%)",
+                                   ["-t", "<watts>W (<left>% <timeleft>)",
                                     "-L", "10", "-H", "50", "-p", "2",
                                     "-l", "red", "-n", "yellow", "-h", "green",
                                     "--", "-O", "Charging ", "-i", "", "-o", "",
-                                    "-L", "-10", "-H", "-6",
+                                    "-L", "-10", "-H", "-6", "-p", "darkgreen",
                                     "-l", "red", "-m", "blue", "-h", "green"] 50
-                    , Run Date "%a %_d %b %Y %H:%M:%S" "date" 10
+                    , Run Date "%F %H:%M:%S" "date" 10
+                    , Run CoreTemp ["-t", "<core0>C"] 10
+                    -- , Run CpuFreq ["-t", "<cpu0>GHz"] 10
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "Cpu: %cpu% | Mem: %memory% | Disk: %disku% r/w: %diskio% | %wlp3s0% - %wlp3s0wi% | %battery% }\
-                    \{ <fc=#ee9a00>%date%</fc>| %EFHF%"
+       , template = "Cpu: %cpu% %coretemp% | Mem: %memory% | Disk: %disku% r/w: %diskio% | %wlp3s0% - %wlp3s0wi% | %battery% }\
+                    \{ <fc=#ee9a00>%date%</fc> | %EFHF%"
        }
