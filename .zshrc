@@ -61,9 +61,16 @@ fi
 # add my own ~/bin to $PATH (unless it exists already)
 echo $PATH | grep ~/bin > /dev/null || PATH=$PATH:~/bin
 
-# add ~/.cabal/bin to $PATH if it exists
+# add tool-specific directories to $PATH if they exist
+
+# Haskell
 if [ -d ~/.cabal/bin ]; then
     PATH=$PATH:~/.cabal/bin
+fi
+
+# Rust
+if [ -d ~/.cargo/bin ]; then
+    PATH=$PATH:~/.cargo/bin
 fi
 
 export PATH
@@ -130,6 +137,3 @@ if [ -f ~/.fzf.zsh ]; then
       done
     }
 fi
-
-# load Nix package manager configs
-if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
