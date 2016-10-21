@@ -109,13 +109,13 @@ call vundle#rc()
 
 " let Vundle manage Vundle
 " required! 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
-" My Bundles here:
-Bundle 'ctrlpvim/ctrlp.vim'
-Bundle 'rust-lang/rust.vim'
-Bundle 'pangloss/vim-javascript'
-Bundle 'mattn/emmet-vim'
+" My Plugins here:
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'rust-lang/rust.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mattn/emmet-vim'
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
