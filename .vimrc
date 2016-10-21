@@ -95,21 +95,9 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 " nicer filename completion
 set wildmenu
 
-" minibufexpl.vim
-let g:miniBufExplMapWindowNavVim = 1 
-let g:miniBufExplForceSyntaxEnable = 1
-let g:miniBufExplUseSingleClick = 1
-let g:miniBufExplModSelTarget = 1
-
 " C/C++ include paths
 set path+=/usr/include/**
 set path+=/usr/local/include/**
-
-" FuzzyFinder bindings
-map ,b :FufBuffer<CR>
-map ,f :FufFile<CR>
-map ,d :FufDir<CR>
-map ,h :FufHelp<CR>
 
 """ Vundle configs
 
@@ -124,19 +112,10 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " My Bundles here:
-"
-" original repos on github
-" Bundle 'fholgado/minibufexpl.vim'
-" Bundle 'ervandew/supertab'    " this causes exit value 1. why?
-Bundle 'int3/vim-taglist-plus'
-Bundle "pangloss/vim-javascript"
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'mattn/zencoding-vim'
-
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'kien/ctrlp.vim'
-Bundle 'wting/rust.vim'
+Bundle 'ctrlpvim/ctrlp.vim'
+Bundle 'rust-lang/rust.vim'
+Bundle 'pangloss/vim-javascript'
+Bundle 'mattn/emmet-vim'
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
