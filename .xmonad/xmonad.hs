@@ -15,4 +15,5 @@ main = do
         , startupHook = setWMName "LG3D"
         } `additionalKeysP`
         [ ("<XF86ScreenSaver>", spawn "xscreensaver-command -lock")
+        , ("<XF86Launch1>", spawn "chromium") -- ThinkVantage button
         ]
