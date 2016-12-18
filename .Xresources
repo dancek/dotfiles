@@ -1,4 +1,7 @@
-! urxvt colors
+!!! urxvt config
+
+! colors
+!
 URxvt*background: #000000
 URxvt*foreground: #B2B2B2
 ! black
@@ -25,3 +28,14 @@ URxvt*color14: #54FFFF
 ! white
 URxvt*color7:  #B2B2B2
 URxvt*color15: #FFFFFF
+
+! scrollbar
+URxvt.scrollBar: False
+
+! secondary scrolling (eg. less)
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+URxvt.secondaryWheel: 1
+
+! fade unfocused windows
+URxvt.fading: 20
