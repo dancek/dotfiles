@@ -8,8 +8,8 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the gummiboot efi boot loader. (disable legacy BIOS emulation!)
-  boot.loader.gummiboot.enable = true;
+  # Use the efi boot loader. (disable legacy BIOS emulation!)
+  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "grave";
@@ -95,6 +95,12 @@
 
   ### Thinkpad X220i specific
 
+  # microcode updates
+  hardware.cpu.intel.updateMicrocode = true;
+
+  # bluetooth support
+  hardware.bluetooth.enable = true;
+
   # TPM has hardware RNG
   security.rngd.enable = true;
 
@@ -104,12 +110,11 @@
   # hard disk protection if the laptop falls
   services.hdapsd.enable = true;
 
-  # trackpoint support (touchpad disabled in this config)
+  # trackpoint support
   hardware.trackpoint.enable = true;
   hardware.trackpoint.emulateWheel = true;
-
-  # alternatively, touchpad with two-finger scrolling
-  #services.xserver.libinput.enable = true;
+  services.xserver.synaptics.enable = true;
+  services.xserver.synaptics.twoFingerScroll = true;
 
   # enable volume control buttons
   sound.enableMediaKeys = true;
