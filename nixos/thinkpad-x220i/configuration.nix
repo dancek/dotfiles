@@ -119,6 +119,12 @@
   # enable volume control buttons
   sound.enableMediaKeys = true;
 
+  # wifi chip: intel 6205
+  boot.extraModprobeConfig = ''
+    options iwlwifi bt_coex_active=0 power_save=Y
+    options iwldvm force_cam=N
+  '';
+
   # fingerprint reader: login and unlock with fingerprint (if you add one with `fprintd-enroll`)
   #services.fprintd.enable = true;
   #security.pam.services.login.fprintAuth = true;
