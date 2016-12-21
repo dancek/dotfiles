@@ -106,6 +106,11 @@
 
   # TLP Linux Advanced Power Management
   services.tlp.enable = true;
+  services.tlp.extraConfig = ''
+    DEVICES_TO_DISABLE_ON_STARTUP="bluetooth"
+    START_CHARGE_THRESH_BAT0=85
+    STOP_CHARGE_THRESH_BAT0=90
+  '';
 
   # hard disk protection if the laptop falls
   services.hdapsd.enable = true;
