@@ -73,6 +73,11 @@ if [ -d ~/.cargo/bin ]; then
     PATH=$PATH:~/.cargo/bin
 fi
 
+# NPM (local)
+if [ -d ~/.npm-packages/bin ]; then
+    PATH=$PATH:~/.npm-packages/bin
+fi
+
 export PATH
 
 
