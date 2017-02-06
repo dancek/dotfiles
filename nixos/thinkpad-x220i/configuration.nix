@@ -130,7 +130,7 @@
   services.xserver.synaptics.twoFingerScroll = true;
 
   # enable volume control buttons
-  sound.enableMediaKeys = true;
+  sound.mediaKeys.enable = true;
 
   # wifi chip: intel 6205
   boot.extraModprobeConfig = ''
