@@ -16,7 +16,7 @@
   ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/f3fe1c6f-327e-4ce2-bd8d-5d70f44eb2c4";
+    { device = "/dev/disk/by-label/ssd-nixos";
       fsType = "ext4";
     };
 
@@ -26,7 +26,7 @@
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/b3001acc-354f-4d39-b7e3-ed9265cc343d"; }
+    [ { device = "/dev/disk/by-label/ssd-swap"; }
     ];
 
   nix.maxJobs = lib.mkDefault 4;
