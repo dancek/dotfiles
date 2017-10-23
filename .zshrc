@@ -67,6 +67,9 @@ echo $PATH | grep ~/bin > /dev/null || PATH=$PATH:~/bin
 if [ -d ~/.cabal/bin ]; then
     PATH=$PATH:~/.cabal/bin
 fi
+if [ -d ~/.local/bin ]; then
+    PATH=$PATH:~/.local/bin
+fi
 
 # Rust
 if [ -d ~/.cargo/bin ]; then
