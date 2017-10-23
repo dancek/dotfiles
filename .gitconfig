@@ -6,7 +6,7 @@
 [github]
 	user = dancek
 [push]
-	default = simple
+	default = current
 [core]
 	editor = vim
 [merge]
