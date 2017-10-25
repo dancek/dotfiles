@@ -1,6 +1,28 @@
 # enable colors (prezto doesn't do this)
 autoload -U colors && colors
 
+### my config helper functions
+# these are used in local .zshrc variations so don't remove them :)
+_add_path() {
+    if [ -d "$1" ]; then
+        path+="$1"
+    fi
+}
+_prepend_path() {
+    if [ -d "$1" ]; then
+        path=("$1" $path)
+    fi
+}
+_add_manpath() {
+    if [ -d "$1" ]; then
+        MANPATH="$MANPATH:$1"
+    fi
+}
+_prepend_manpath() {
+    if [ -d "$1" ]; then
+        MANPATH="$1:$MANPATH"
+    fi
+}
 
 ### ZGEN
 # for hints about plugins, see https://github.com/unixorn/awesome-zsh-plugins
@@ -18,7 +40,7 @@ if ! zgen saved; then
     zgen load sorin-ionescu/prezto modules/editor
     zgen load sorin-ionescu/prezto modules/history
     zgen load sorin-ionescu/prezto modules/completion
-    
+
     # i used to have this, but some gnu utils are worse than zsh builtins
     # eg. fzf fails due to features missing in g[ and gprintf
     #zgen load sorin-ionescu/prezto modules/gnu-utility
@@ -58,36 +80,40 @@ fi
 
 ### PATH
 
+# prevent duplicates in $PATH
+typeset -U path
+
 # add my own ~/bin to $PATH (unless it exists already)
-echo $PATH | grep ~/bin > /dev/null || PATH=$PATH:~/bin
+_add_path ~/bin
 
 # add tool-specific directories to $PATH if they exist
+_add_path ~/.cabal/bin          # Cabal (Haskell)
+_add_path ~/.local/bin          # Stack (Haskell)
+_add_path ~/.cargo/bin          # Cargo (Rust)
+_add_path ~/.npm-packages/bin   # NPM homedir global installs (Node.js)
 
-# Haskell
-if [ -d ~/.cabal/bin ]; then
-    PATH=$PATH:~/.cabal/bin
+# macOS / Homebrew GNU tools
+if [[ "$(uname)" == "Darwin" ]]; then
+    _use_gnu_from_homebrew() {
+        _prepend_path "/usr/local/opt/$1/libexec/gnubin"
+        _prepend_manpath "/usr/local/opt/$1/libexec/gnuman"
+    }
+
+    # Put GNU tools in front of PATH and MANPATH. Last line becomes first item.
+    _use_gnu_from_homebrew gnu-tar
+    _use_gnu_from_homebrew gnu-sed
+    _use_gnu_from_homebrew coreutils
+
+    unfunction _use_gnu_from_homebrew
 fi
-if [ -d ~/.local/bin ]; then
-    PATH=$PATH:~/.local/bin
-fi
-
-# Rust
-if [ -d ~/.cargo/bin ]; then
-    PATH=$PATH:~/.cargo/bin
-fi
-
-# NPM (local)
-if [ -d ~/.npm-packages/bin ]; then
-    PATH=$PATH:~/.npm-packages/bin
-fi
-
-export PATH
-
 
 ### VIM and LESS
 
-# ensure we use vim if possible
-if which vim > /dev/null; then
+# ensure we use (neo)vim if possible
+if which nvim > /dev/null; then
+    alias vi=nvim
+    alias vim=nvim
+elif which vim > /dev/null; then
     alias vi=vim
 fi
 
@@ -117,7 +143,7 @@ fi
 # enable fzf completions; define useful macros
 if [ -f ~/.fzf.zsh ]; then
     source ~/.fzf.zsh
-    
+
     # fh - repeat history
     fh() {
       print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
@@ -145,3 +171,11 @@ if [ -f ~/.fzf.zsh ]; then
       done
     }
 fi
+
+### unset config helpers
+unfunction _add_path
+unfunction _add_manpath
+unfunction _prepend_path
+unfunction _prepend_manpath
+
+export MANPATH
