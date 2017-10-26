@@ -73,8 +73,8 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 
 ### LOCAL
 
-if [ -r ~/.zshrc-`hostname -s` ]; then
-    . ~/.zshrc-`hostname -s`
+if [ -r ~/.zshrc-$(hostname -s) ]; then
+    . ~/.zshrc-$(hostname -s)
 fi
 
 
@@ -143,11 +143,6 @@ fi
 # enable fzf completions; define useful macros
 if [ -f ~/.fzf.zsh ]; then
     source ~/.fzf.zsh
-
-    # fh - repeat history
-    fh() {
-      print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
-    }
 
     # fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
     fshow() {
