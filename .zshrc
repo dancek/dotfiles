@@ -23,6 +23,16 @@ _prepend_manpath() {
         MANPATH="$1:$MANPATH"
     fi
 }
+_source() {
+    if [ -f "$1" ]; then
+	    source "$1"
+    fi
+}
+
+
+### LOCAL
+_source ~/.zshrc-$(hostname -s)
+
 
 ### ZGEN
 # for hints about plugins, see https://github.com/unixorn/awesome-zsh-plugins
@@ -69,13 +79,6 @@ fi
 zmodload zsh/terminfo
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
-
-
-### LOCAL
-
-if [ -r ~/.zshrc-$(hostname -s) ]; then
-    . ~/.zshrc-$(hostname -s)
-fi
 
 
 ### PATH
@@ -135,11 +138,6 @@ if which less > /dev/null; then
     export GROFF_NO_SGR=1
 fi
 
-# if MacVim is installed, allow starting it with 'gvim'
-if [ -x /Applications/MacVim.app/Contents/MacOS/Vim ]; then
-    alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
-fi
-
 # enable fzf completions; define useful macros
 if [ -f ~/.fzf.zsh ]; then
     source ~/.fzf.zsh
@@ -172,5 +170,6 @@ unfunction _add_path
 unfunction _add_manpath
 unfunction _prepend_path
 unfunction _prepend_manpath
+#unfunction _source
 
 export MANPATH
