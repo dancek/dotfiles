@@ -165,6 +165,10 @@ if [ -f ~/.fzf.zsh ]; then
     }
 fi
 
+
+### ASDF (version manager)
+_source /usr/local/opt/asdf/asdf.sh
+
 ### unset config helpers
 unfunction _add_path
 unfunction _add_manpath
