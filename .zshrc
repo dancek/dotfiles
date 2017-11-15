@@ -114,17 +114,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
     unfunction _use_gnu_from_homebrew
 fi
 
-### VIM and LESS
+### TOOLS
 
-# ensure we use (neo)vim if possible
-if which nvim > /dev/null; then
-    alias vi=nvim
-    alias vim=nvim
-elif which vim > /dev/null; then
-    alias vi=vim
-fi
-
-# set $PAGER to less (with some options)
+# $PAGER: less with some options
 if which less > /dev/null; then
     export PAGER=less
     export LESS="-mqR"
@@ -137,9 +129,6 @@ if which less > /dev/null; then
     export LESS_TERMCAP_us=$'\E[01;32m'
     which lesspipe > /dev/null && export LESSOPEN="| lesspipe %s"
     export LESSCHARSET="utf-8"
-
-    # grotty misbehaves on Fedora 22
-    export GROFF_NO_SGR=1
 fi
 
 # enable fzf completions; define useful macros
@@ -170,8 +159,9 @@ if [ -f ~/.fzf.zsh ]; then
 fi
 
 
-### ASDF (version manager)
+# asdf (version manager)
 _source /usr/local/opt/asdf/asdf.sh
+
 
 ### unset config helpers
 unfunction _add_path
