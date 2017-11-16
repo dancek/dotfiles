@@ -1,13 +1,11 @@
 " Hannu Hartikainen's init.vim / .vimrc.
-" Rewritten in 2017.
+" Rewritten (greatly simplified) in 2017.
 "
 " QUICK START:
 "   :PlugUpdate | PlugUpgrade
 
-set nocompatible
-
 " indentation defaults I like
-set tabstop=4 shiftwidth=4 expandtab autoindent
+set softtabstop=4 shiftwidth=4 expandtab autoindent
 
 """""""""
 " PLUGINS
@@ -25,5 +23,8 @@ let g:airline_powerline_fonts = 1
 
 " language support
 Plug 'sheerun/vim-polyglot'     " pretty much every language
+
+" local code-stats-vim instance
+Plug '~/dev/code-stats-vim'
 
 call plug#end()
