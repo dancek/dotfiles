@@ -107,6 +107,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     }
 
     # Put GNU tools in front of PATH and MANPATH. Last line becomes first item.
+    _use_gnu_from_homebrew make
     _use_gnu_from_homebrew gnu-tar
     _use_gnu_from_homebrew gnu-sed
     _use_gnu_from_homebrew coreutils
@@ -134,6 +135,10 @@ fi
 # enable fzf completions; define useful macros
 if [ -f ~/.fzf.zsh ]; then
     source ~/.fzf.zsh
+
+    if which less > /dev/null; then
+        export FZF_DEFAULT_COMMAND='fd --type f'
+    fi
 
     # fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
     fshow() {
