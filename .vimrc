@@ -8,6 +8,11 @@
 set softtabstop=4 shiftwidth=4 expandtab autoindent
 set mouse=a
 
+" interactive :substitute
+if exists('+inccommand')
+    set inccommand=nosplit
+endif
+
 " load Code::Stats API keys from a file excluded from git
 runtime _secrets.vim
 
