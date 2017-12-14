@@ -71,6 +71,7 @@ if ! zgen saved; then
     zgen load fdv/platypus platypus
 
     # other plugins
+    zgen load zsh-users/zsh-history-substring-search
     zgen load supercrabtree/k
     zgen load zsh-users/zsh-syntax-highlighting
 
