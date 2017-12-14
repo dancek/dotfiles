@@ -60,8 +60,8 @@ if ! zgen saved; then
     zgen load robbyrussell/oh-my-zsh lib/theme-and-appearance.zsh
 
     # Code::Stats (my plugin!)
-    #zgen load git@gitlab.com:code-stats/code-stats-zsh.git
-    zgen load "${HOME}/dev/zsh-codestats"
+    zgen load git@gitlab.com:code-stats/code-stats-zsh.git
+    #zgen load "${HOME}/dev/code-stats-zsh"
 
     # completions
     zgen load zsh-users/zsh-completions src
@@ -71,7 +71,6 @@ if ! zgen saved; then
     zgen load fdv/platypus platypus
 
     # other plugins
-    zgen load zsh-users/zsh-history-substring-search
     zgen load supercrabtree/k
     zgen load zsh-users/zsh-syntax-highlighting
 
