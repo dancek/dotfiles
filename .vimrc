@@ -26,6 +26,9 @@ call plug#begin('~/.vim/plugged')
 
 " basic UI
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'         " Note: fzf should be installed globally
