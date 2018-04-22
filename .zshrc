@@ -60,7 +60,7 @@ if ! zgen saved; then
     zgen load robbyrussell/oh-my-zsh lib/theme-and-appearance.zsh
 
     # Code::Stats (my plugin!)
-    zgen load git@gitlab.com:code-stats/code-stats-zsh.git
+    zgen load https://gitlab.com/code-stats/code-stats-zsh.git
     #zgen load "${HOME}/dev/code-stats-zsh"
 
     # completions
