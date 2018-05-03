@@ -25,7 +25,7 @@ _prepend_manpath() {
 }
 _source() {
     if [ -f "$1" ]; then
-	    source "$1"
+        source "$1"
     fi
 }
 
@@ -44,36 +44,36 @@ source ~/.zsh/zgen/zgen.zsh
 if ! zgen saved; then
     echo "Creating a zgen save"
 
+    # prezto config
+    zgen prezto prompt theme sorin
+    zgen prezto syntax-highlighting color yes
+
     # prezto components
-    zgen load sorin-ionescu/prezto modules/directory
-    zgen load sorin-ionescu/prezto modules/environment
-    zgen load sorin-ionescu/prezto modules/editor
-    zgen load sorin-ionescu/prezto modules/history
-    zgen load sorin-ionescu/prezto modules/completion
+    zgen prezto
+    zgen prezto utility
+    zgen prezto directory
+    zgen prezto environment
+    zgen prezto editor
+    zgen prezto history
+    zgen prezto completion
+    zgen prezto git
+    zgen prezto spectrum
 
     # i used to have this, but some gnu utils are worse than zsh builtins
     # eg. fzf fails due to features missing in g[ and gprintf
     #zgen load sorin-ionescu/prezto modules/gnu-utility
 
-    # oh-my-zsh: just the stuff needed for prompts
-    zgen load robbyrussell/oh-my-zsh lib/git.zsh
-    zgen load robbyrussell/oh-my-zsh lib/theme-and-appearance.zsh
-
     # Code::Stats (my plugin!)
     zgen load https://gitlab.com/code-stats/code-stats-zsh.git
     #zgen load "${HOME}/dev/code-stats-zsh"
 
-    # completions
-    zgen load zsh-users/zsh-completions src
-
-    # theme
-    #zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
-    zgen load fdv/platypus platypus
-
     # other plugins
-    zgen load zsh-users/zsh-history-substring-search
     zgen load supercrabtree/k
-    zgen load zsh-users/zsh-syntax-highlighting
+
+    # prezto modules that need to be loaded last (and configs)
+    zgen prezto history-substring-search
+    zgen prezto syntax-highlighting
+    zgen prezto prompt
 
     # save all to init script
     zgen save
