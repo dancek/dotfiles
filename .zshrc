@@ -45,14 +45,14 @@ if ! zgen saved; then
     echo "Creating a zgen save"
 
     # prezto config
+    zgen prezto '*:*' color yes
     zgen prezto prompt theme sorin
-    zgen prezto syntax-highlighting color yes
 
     # prezto components
     zgen prezto
+    zgen prezto environment
     zgen prezto utility
     zgen prezto directory
-    zgen prezto environment
     zgen prezto editor
     zgen prezto history
     zgen prezto completion
