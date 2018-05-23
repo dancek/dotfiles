@@ -9,8 +9,14 @@
     ];
 
   # Use the efi boot loader. (disable legacy BIOS emulation!)
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    device = "nodev";
+  };
+  boot.loader.efi = {
+    canTouchEfiVariables = true;
+  };
 
   networking.hostName = "grave";
   networking.networkmanager.enable = true;
@@ -64,6 +70,7 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
+    autorun = false;
     layout = "us";
     xkbVariant = "altgr-intl";
     windowManager.xmonad = {
@@ -92,11 +99,14 @@
     shell = "/run/current-system/sw/bin/zsh";
   };
 
+  # who needs security
+  security.sudo.wheelNeedsPassword = false;
+
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "16.03";
+  system.nixos.stateVersion = "18.03";
 
   # for developing NixOS
-  nix.useSandbox = true;
+  #nix.useSandbox = true;
 
 
   ### Thinkpad X220i specific
