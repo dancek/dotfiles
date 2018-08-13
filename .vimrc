@@ -37,6 +37,9 @@ Plug 'vim-airline/vim-airline'
 " language support
 Plug 'sheerun/vim-polyglot'     " pretty much every language
 
+" note-keeping: vimwiki
+Plug 'vimwiki/vimwiki'
+
 " code-stats-vim
 "Plug '~/dev/code-stats-vim'    " local instance
 Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
