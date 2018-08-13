@@ -1,5 +1,5 @@
-export EDITOR="vi"
-export VISUAL="vi"
+export EDITOR="vim"
+export VISUAL="vim"
 export HOST
 
 # locale specific stuff: make everything utf8, use Finnish settings but
