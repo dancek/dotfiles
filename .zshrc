@@ -85,6 +85,12 @@ bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
 
+### CUSTOM CONFIG
+
+# avoid `zsh: no matches found: HEAD^`
+unsetopt nomatch
+
+
 ### PATH
 
 # prevent duplicates in $PATH
