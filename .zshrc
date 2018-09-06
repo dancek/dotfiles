@@ -90,6 +90,10 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 # avoid `zsh: no matches found: HEAD^`
 unsetopt nomatch
 
+# report CPU time and memory used for processes that last over 5 seconds
+REPORTTIME=5
+TIMEFMT="$fg_bold[white]::: $fg[green]%*U user $fg_bold[white]| $fg[cyan]%*S system $fg_bold[white]| $fg[yellow]%P cpu $fg_bold[white]| $fg[magenta]%*E total $fg_bold[white]| $fg[red]%MkB $reset_color"
+
 
 ### PATH
 
