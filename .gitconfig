@@ -1,13 +1,26 @@
 [user]
     name = Hannu Hartikainen
     email = hannu.hartikainen@gmail.com
-[alias]
-    st = status
 [github]
     user = dancek
-[push]
-    default = current
+
 [core]
     editor = vim
+
+[alias]
+    st = status --short
+    tree = log --graph --oneline --all --decorate --abbrev-commit
+
+[fetch]
+    prune = true
+[pull]
+    rebase = true
+[push]
+    default = current
+    follow-tags = true
+[rebase]
+    autoSquash = true
+    missingCommitsCheck = warn
+    stat = true
 [merge]
     tool = kdiff3
