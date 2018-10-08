@@ -28,6 +28,11 @@ _source() {
         source "$1"
     fi
 }
+# usage:
+# if _cmd less; then ... fi
+_cmd() {
+    which $1 > /dev/null
+}
 
 
 ### LOCAL
@@ -128,7 +133,7 @@ fi
 ### TOOLS
 
 # $PAGER: less with some options
-if which less > /dev/null; then
+if _cmd less; then
     export PAGER=less
     export LESS="-mqR"
     export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -143,10 +148,11 @@ if which less > /dev/null; then
 fi
 
 # enable fzf completions; define useful macros
-if [ -f ~/.fzf.zsh ]; then
-    source ~/.fzf.zsh
+if _cmd fzf; then
+    _source ~/.fzf.zsh
+    _source /usr/share/fzf/key-bindings.zsh
 
-    if which less > /dev/null; then
+    if _cmd fd; then
         export FZF_DEFAULT_COMMAND='fd --type f'
     fi
 
