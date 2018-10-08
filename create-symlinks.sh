@@ -1,50 +1,65 @@
 #!/bin/sh
 set -e
 
-# a backup function
-make_backups() {
-    mkdir -p backup
-    echo Making backups in `pwd`/backup...
-    for file in .??* # make sure we exclude . and .. even in Bourne shell
-    do
-        if [ x"$file" != x".git" ]; then    # don't touch .git
-            existing=$HOME/$file
-            if [ -w $existing ]; then
-                mv $existing backup/
-            fi
-        fi
-    done
-}
-
-# the actual work is done here, all the rest is just safeguards
-make_symlinks() {
-    for file in .??* # make sure we exclude . and .. even in Bourne shell
-    do
-        if [ x"$file" != x".git" ]; then    # don't touch .git
-            ln -s $linkprefix/$file $HOME
-        fi
-    done
-}
-
-# set link prefix from first argument with a default
-linkprefix=${1:-.config/dotfiles}
-
-# check $linkprefix is legit
-if [ ! -d $HOME/$linkprefix ] || [ ! -r $HOME/$linkprefix ]
-then
-    echo "$HOME/$linkprefix doesn't seem to be a readable directory. Please supply a relative path inside $HOME as the sole argument to this script."
-    exit 2
+### sanity checks
+if [ "$HOME/.config/dotfiles" != "$(pwd)" ]; then
+    echo "Please clone this repo to ~/.config/dotfiles and run from there."
+    exit 1
 fi
 
+### create backup dir
+backupdir="backup/$(date +%Y-%m-%d_%H%M)"
+mkdir -p "$backupdir"
+
+backup_and_symlink() {
+    _target="$1"
+    _linkprefix="$2"
+    _filename="$3"
+
+    printf "%s " "$_filename"
+
+    existing="$HOME/$_filename"
+    if [ -h "$existing" ] || [ -w "$existing" ]; then
+        mv "$existing" "$backupdir"
+        printf "Backed up. "
+    fi
+    ln -s "$_linkprefix/$_filename" "$_target"
+    printf "Linked.\n"
+}
+
+link_dotfiles() {
+    for file in .??* # make sure we exclude . and .. even in Bourne shell
+    do
+        # skip .git and .config
+        case "$file" in
+            .git )      continue ;;
+            .config )   continue ;;
+        esac
+        backup_and_symlink "$HOME" ".config/dotfiles" "$file"
+    done
+}
+
+link_config_subdirs() {
+    # note: dotfiles inside .config are intentionally not handled
+    for file in .config/*
+    do
+        case "$file" in
+            dotfiles )      continue ;;
+            .config/\* )    continue ;;
+        esac
+        backup_and_symlink "$HOME/.config" "dotfiles" "$file"
+    done
+}
+
 # ask for confirmation
-echo "This script is about to replace your existing dotfiles with symlinks to the ones in $linkprefix (DANGEROUS). Are you sure? [yn] "
+echo "This script is about to replace your existing dotfiles with symlinks to the ones in $(pwd) (DANGEROUS). Are you sure? [yn] "
 read choice
 
 case $choice in
     [Yy]* )
         # go for it!
-        make_backups
-        make_symlinks
+        link_dotfiles
+        link_config_subdirs
         ;;
     * )
         exit 1
