@@ -7,24 +7,25 @@ if [ "$HOME/.config/dotfiles" != "$(pwd)" ]; then
     exit 1
 fi
 
-### create backup dir
-backupdir="backup/$(date +%Y-%m-%d_%H%M)"
-mkdir -p "$backupdir"
+### functions
 
 backup_and_symlink() {
     _target="$1"
     _linkprefix="$2"
     _filename="$3"
 
-    printf "%s " "$_filename"
+    printf "%50s  " "$_filename"
 
     existing="$HOME/$_filename"
     if [ -h "$existing" ] || [ -w "$existing" ]; then
         mv "$existing" "$backupdir"
-        printf "Backed up. "
+        printf "[backup] "
+    else
+        printf "[      ] "
     fi
     ln -s "$_linkprefix/$_filename" "$_target"
-    printf "Linked.\n"
+    printf "[symlink]\n"
+    handled=$((handled + 1))
 }
 
 link_dotfiles() {
@@ -51,15 +52,24 @@ link_config_subdirs() {
     done
 }
 
-# ask for confirmation
-echo "This script is about to replace your existing dotfiles with symlinks to the ones in $(pwd) (DANGEROUS). Are you sure? [yn] "
-read choice
+
+### global vars
+backupdir="backup/$(date +%Y-%m-%d_%H%M)"
+handled=0
+
+
+### ask for confirmation
+printf "This script is about to replace your existing dotfiles with symlinks to the ones in %s (DANGEROUS). Are you sure? [yn] " "$(pwd)"
+read -r choice
 
 case $choice in
-    [Yy]* )
+    [Yy] )
         # go for it!
+        mkdir -p "$backupdir"
+        printf "\nMaking backups in %s.\n" "$backupdir"
         link_dotfiles
         link_config_subdirs
+        printf "\n%d symlinks successfully created.\n" $handled
         ;;
     * )
         exit 1
