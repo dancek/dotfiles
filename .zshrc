@@ -50,7 +50,8 @@ if ! zgen saved; then
     echo "Creating a zgen save"
 
     # prezto config
-    zgen prezto '*:*' color yes
+    zgen prezto '*:*' color true
+    zgen prezto utility safe-ops false  # things like rm=rm -i
     zgen prezto prompt theme sorin
 
     # prezto components
