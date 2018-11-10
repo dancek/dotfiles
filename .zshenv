@@ -1,3 +1,6 @@
+# macOS and friends are so unfriendly with the stuff they run for me
+setopt noglobalrcs
+
 export EDITOR="vim"
 export VISUAL="vim"
 export HOST
