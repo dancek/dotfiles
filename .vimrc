@@ -16,7 +16,7 @@ endif
 " load Code::Stats API keys from a file excluded from git
 runtime _secrets.vim
 
-"""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS
 "
 " Use vim-plug; see https://github.com/junegunn/vim-plug .
@@ -47,13 +47,14 @@ Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
 call plug#end()
 
 
-""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN CONFIGS
 
 """ fzf.vim
 nmap <c-p> :Files<CR>
 nmap <c-h> :Helptags<CR>
 nmap <c-f> :Lines<CR>
+nmap <c-b> :Buffers<CR>
 
 
 """ vim-airline
@@ -67,3 +68,12 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CUSTOM KEYBINDS
+" inspired by https://amp.rs
+nmap <Tab> :bnext<CR>
+nmap <S-Tab> :bprevious<CR>
+nmap <Space> :Files<CR>
+nmap Q :bdelete<CR>
+" TODO: clever-f or even easymotion, once i get used to these
