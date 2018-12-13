@@ -6,6 +6,7 @@
 
 [core]
     editor = vim
+    excludesfile = ~/.gitignore
 
 [alias]
     st = status --short
