@@ -1,5 +1,5 @@
 # enable colors (prezto doesn't do this)
-autoload -U colors && colors
+autoload -Uz colors && colors
 
 ### my config helper functions
 # these are used in local .zshrc variations so don't remove them :)
@@ -179,6 +179,9 @@ if _cmd fzf; then
       done
     }
 fi
+
+# utils shipped with zsh
+autoload -Uz zmv zcalc
 
 
 # asdf (version manager)
