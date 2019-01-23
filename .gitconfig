@@ -25,6 +25,7 @@
     follow-tags = true
 [rebase]
     autoSquash = true
+    autoStash = true
     missingCommitsCheck = warn
     stat = true
 [merge]
