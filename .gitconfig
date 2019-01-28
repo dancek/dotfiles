@@ -22,7 +22,7 @@
     rebase = true
 [push]
     default = current
-    follow-tags = true
+    followTags = true
 [rebase]
     autoSquash = true
     autoStash = true
