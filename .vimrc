@@ -77,3 +77,10 @@ nmap <S-Tab> :bprevious<CR>
 nmap <Space> :Files<CR>
 nmap Q :bdelete<CR>
 " TODO: clever-f or even easymotion, once i get used to these
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MISC autocmds
+
+" vimwiki: autosave
+autocmd FileType vimwiki autocmd TextChanged,TextChangedI <buffer> silent write
