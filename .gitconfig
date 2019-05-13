@@ -13,9 +13,6 @@
     tree = log --graph --oneline --all --decorate --abbrev-commit
     delete-merged-branches = !git branch --merged | grep -v ' master$' | xargs -n1 git branch -d
 
-[pager]
-    tag = false
-
 [fetch]
     prune = true
 [pull]
