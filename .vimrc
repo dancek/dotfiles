@@ -69,6 +69,10 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+""" vimwiki
+let g:vimwiki_autowriteall = 1
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CUSTOM KEYBINDS
 " inspired by https://amp.rs
@@ -78,9 +82,3 @@ nmap <Space> :Files<CR>
 nmap Q :bdelete<CR>
 " TODO: clever-f or even easymotion, once i get used to these
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MISC autocmds
-
-" vimwiki: autosave
-autocmd FileType vimwiki autocmd TextChanged,TextChangedI <buffer> silent write
