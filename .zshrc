@@ -33,6 +33,11 @@ _source() {
 _cmd() {
     which $1 > /dev/null
 }
+_alias() {
+    if _cmd $2; then
+        alias $1=${@:2}
+    fi
+}
 
 
 ### LOCAL
@@ -177,6 +182,7 @@ if _cmd fzf; then
     }
 fi
 
+
 # utils shipped with zsh
 autoload -Uz zmv zcalc
 
@@ -185,11 +191,18 @@ autoload -Uz zmv zcalc
 _source /usr/local/opt/asdf/asdf.sh
 
 
+### ALIASES
+_alias l exa
+_alias vi nvim
+
+
 ### unset config helpers
 unfunction _add_path
 unfunction _add_manpath
 unfunction _prepend_path
 unfunction _prepend_manpath
+unfunction _cmd
+unfunction _alias
 #unfunction _source
 
 export MANPATH
