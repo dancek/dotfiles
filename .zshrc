@@ -73,9 +73,6 @@ if ! zgen saved; then
     zgen load https://gitlab.com/code-stats/code-stats-zsh.git
     #zgen load "${HOME}/dev/code-stats-zsh"
 
-    # other plugins
-    zgen load supercrabtree/k
-
     # prezto modules that need to be loaded last (and configs)
     zgen prezto history-substring-search
     zgen prezto syntax-highlighting
