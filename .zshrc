@@ -47,7 +47,7 @@ _source ~/.zshrc-$(hostname -s)
 ### ZGEN
 # for hints about plugins, see https://github.com/unixorn/awesome-zsh-plugins
 
-# start by loading zgen and the oh-my-zsh lib
+# start by loading zgen
 source ~/.zsh/zgen/zgen.zsh
 
 # check if there's no init script
