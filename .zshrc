@@ -153,11 +153,16 @@ fi
 # enable fzf completions; define useful macros
 if _cmd fzf; then
     _source ~/.fzf.zsh
-    _source /usr/share/fzf/key-bindings.zsh
 
     if _cmd fd; then
         export FZF_DEFAULT_COMMAND='fd --type f'
     fi
+
+    fzf-completion-notrigger() {
+        FZF_COMPLETION_TRIGGER="" fzf-completion
+    }
+    zle -N fzf-completion-notrigger
+    bindkey '^ ' fzf-completion-notrigger
 
     # fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
     fshow() {
