@@ -209,6 +209,10 @@ _source /usr/local/opt/asdf/asdf.sh
 _alias l exa
 _alias vi nvim
 
+# default to python3
+_alias python python3
+_alias pip pip3
+
 
 ### unset config helpers
 unfunction _add_path
