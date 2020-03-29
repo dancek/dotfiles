@@ -44,6 +44,14 @@ _alias() {
 _source ~/.zshrc-$(hostname -s)
 
 
+### ZSH CONFIG
+
+# git aliases
+zstyle ':completion:*:*:git:*' user-commands \
+    'delete-merged-branches' \
+    'tree'
+
+
 ### ZGEN
 # for hints about plugins, see https://github.com/unixorn/awesome-zsh-plugins
 
@@ -57,6 +65,7 @@ if ! zgen saved; then
     # prezto config
     zgen prezto '*:*' color true
     zgen prezto utility safe-ops false  # things like rm=rm -i
+    zgen prezto git:alias skip yes
     zgen prezto prompt theme sorin
 
     # prezto components
