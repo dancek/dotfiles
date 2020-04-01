@@ -4,7 +4,7 @@ source ~/.zsh/helpers.zsh
 autoload -Uz colors && colors
 
 ### LOCAL
-_source ~/.zshrc-$(hostname -s)
+__source ~/.zshrc-$(hostname -s)
 
 
 ### ZSH CONFIG
@@ -81,34 +81,34 @@ TIMEFMT="$fg_bold[white]::: $fg[green]%*U user $fg_bold[white]| $fg[cyan]%*S sys
 typeset -U path
 
 # add my own ~/bin to $PATH (unless it exists already)
-_add_path ~/bin
+__add_path ~/bin
 
 # add tool-specific directories to $PATH if they exist
-_add_path ~/.cabal/bin          # Cabal (Haskell)
-_add_path ~/.local/bin          # Stack (Haskell)
-_add_path ~/.cargo/bin          # Cargo (Rust)
-_add_path ~/.npm-packages/bin   # NPM homedir global installs (Node.js)
+__add_path ~/.cabal/bin          # Cabal (Haskell)
+__add_path ~/.local/bin          # Stack (Haskell)
+__add_path ~/.cargo/bin          # Cargo (Rust)
+__add_path ~/.npm-packages/bin   # NPM homedir global installs (Node.js)
 
 # macOS / Homebrew GNU tools
 if [[ "$(uname)" == "Darwin" ]]; then
-    _use_gnu_from_homebrew() {
-        _prepend_path "/usr/local/opt/$1/libexec/gnubin"
-        _prepend_manpath "/usr/local/opt/$1/libexec/gnuman"
+    __use_gnu_from_homebrew() {
+        __prepend_path "/usr/local/opt/$1/libexec/gnubin"
+        __prepend_manpath "/usr/local/opt/$1/libexec/gnuman"
     }
 
     # Put GNU tools in front of PATH and MANPATH. Last line becomes first item.
-    _use_gnu_from_homebrew make
-    _use_gnu_from_homebrew gnu-tar
-    _use_gnu_from_homebrew gnu-sed
-    _use_gnu_from_homebrew coreutils
+    __use_gnu_from_homebrew make
+    __use_gnu_from_homebrew gnu-tar
+    __use_gnu_from_homebrew gnu-sed
+    __use_gnu_from_homebrew coreutils
 
-    unfunction _use_gnu_from_homebrew
+    unfunction __use_gnu_from_homebrew
 fi
 
 ### TOOLS
 
 # $PAGER: less with some options
-if _cmd less; then
+if __cmd less; then
     export PAGER=less
     export LESS="-FKMRqX"
     export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -123,10 +123,10 @@ if _cmd less; then
 fi
 
 # enable fzf completions; define useful macros
-if _cmd fzf; then
-    _source ~/.fzf.zsh
+if __cmd fzf; then
+    __source ~/.fzf.zsh
 
-    if _cmd fd; then
+    if __cmd fd; then
         export FZF_DEFAULT_COMMAND='fd --type f'
     fi
 
@@ -165,28 +165,28 @@ autoload -Uz zmv zcalc
 
 
 # asdf (version manager)
-_source /usr/local/opt/asdf/asdf.sh
+__source /usr/local/opt/asdf/asdf.sh
 
 
 ### ALIASES
-_alias l exa
-_alias vi nvim
-_alias gr git-revise
-_alias ger git-review
+__alias l exa
+__alias vi nvim
+__alias gr git-revise
+__alias ger git-review
 
 # default to python3
-_alias python python3
-_alias pip pip3
+__alias python python3
+__alias pip pip3
 
 
 ### unset config helpers
-unfunction _add_path
-unfunction _add_manpath
-unfunction _prepend_path
-unfunction _prepend_manpath
-unfunction _cmd
-unfunction _alias
-#unfunction _source
+unfunction __add_path
+unfunction __add_manpath
+unfunction __prepend_path
+unfunction __prepend_manpath
+unfunction __cmd
+unfunction __alias
+unfunction __source
 
 export MANPATH
 
