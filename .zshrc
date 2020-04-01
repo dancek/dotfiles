@@ -1,44 +1,7 @@
+source ~/.zsh/helpers.zsh
+
 # enable colors (prezto doesn't do this)
 autoload -Uz colors && colors
-
-### my config helper functions
-# these are used in local .zshrc variations so don't remove them :)
-_add_path() {
-    if [ -d "$1" ]; then
-        path+="$1"
-    fi
-}
-_prepend_path() {
-    if [ -d "$1" ]; then
-        path=("$1" $path)
-    fi
-}
-_add_manpath() {
-    if [ -d "$1" ]; then
-        MANPATH="$MANPATH:$1"
-    fi
-}
-_prepend_manpath() {
-    if [ -d "$1" ]; then
-        MANPATH="$1:$MANPATH"
-    fi
-}
-_source() {
-    if [ -f "$1" ]; then
-        source "$1"
-    fi
-}
-# usage:
-# if _cmd less; then ... fi
-_cmd() {
-    which $1 > /dev/null
-}
-_alias() {
-    if _cmd $2; then
-        alias $1=${@:2}
-    fi
-}
-
 
 ### LOCAL
 _source ~/.zshrc-$(hostname -s)
@@ -208,6 +171,8 @@ _source /usr/local/opt/asdf/asdf.sh
 ### ALIASES
 _alias l exa
 _alias vi nvim
+_alias gr git-revise
+_alias ger git-review
 
 # default to python3
 _alias python python3
@@ -224,3 +189,6 @@ unfunction _alias
 #unfunction _source
 
 export MANPATH
+
+# When developing completions, uncomment this
+#autoload -U compinit && compinit -D
