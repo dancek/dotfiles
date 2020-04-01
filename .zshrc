@@ -102,6 +102,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
     __use_gnu_from_homebrew gnu-sed
     __use_gnu_from_homebrew coreutils
 
+    # remove git-completion.zsh; see https://github.com/Homebrew/homebrew-core/pull/52324
+    __rm /usr/local/share/zsh/site-functions/_git
+
     unfunction __use_gnu_from_homebrew
 fi
 
@@ -178,15 +181,9 @@ __alias ger git-review
 __alias python python3
 __alias pip pip3
 
-
 ### unset config helpers
-unfunction __add_path
-unfunction __add_manpath
-unfunction __prepend_path
-unfunction __prepend_manpath
-unfunction __cmd
-unfunction __alias
-unfunction __source
+__unload_helpers
+
 
 export MANPATH
 
