@@ -181,6 +181,11 @@ __alias ger git-review
 __alias python python3
 __alias pip pip3
 
+# docker
+docker-wtf() { docker run --rm --interactive --tty $(docker build --quiet --file="$1" "$(mktemp -d)") bash }
+alias docker-cleanup="docker system prune --volumes"
+
+
 ### unset config helpers
 __unload_helpers
 
