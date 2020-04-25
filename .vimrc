@@ -82,3 +82,5 @@ nmap <Space> :Files<CR>
 nmap Q :bdelete<CR>
 " TODO: clever-f or even easymotion, once i get used to these
 
+" Ctrl-c for system clipboard
+map <C-c> "+y
