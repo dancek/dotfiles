@@ -14,6 +14,8 @@
     delete-merged-branches = !git branch --merged | grep -v ' master$' | xargs -n1 git branch -d
     l = log --oneline -10
     co = !git rev-parse --verify $1 && git stash && git checkout $1 && git stash pop && :
+    ours = "!f() { git checkout --ours -- \"${@:-.}\"; git add -u \"${@:-.}\"; }; f"
+    theirs = "!f() { git checkout --theirs -- \"${@:-.}\"; git add -u \"${@:-.}\"; }; f"
 
 [fetch]
     prune = true
