@@ -55,6 +55,9 @@ if ! zgen saved; then
     zgen prezto syntax-highlighting
     zgen prezto prompt
 
+    # ZLE vi mode bindings
+    zgen load softmoth/zsh-vim-mode
+
     # save all to init script
     zgen save
 fi
@@ -66,6 +69,10 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 
 
 ### CUSTOM CONFIG
+
+# vi mode
+bindkey -v
+KEYTIMEOUT=5
 
 # avoid `zsh: no matches found: HEAD^`
 unsetopt nomatch
