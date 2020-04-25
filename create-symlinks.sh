@@ -1,13 +1,33 @@
 #!/bin/sh
 set -e
 
+reldir=".config/dotfiles"
+
 ### sanity checks
-if [ "$HOME/.config/dotfiles" != "$(pwd)" ]; then
-    echo "Please clone this repo to ~/.config/dotfiles and run from there."
+if [ "$HOME/$reldir" != "$(pwd)" ]; then
+    echo "Please clone this repo to ~/$reldir and run from there."
     exit 1
 fi
 
 ### functions
+
+confirm() {
+    choice=n
+    printf "%s [yn] " "$1"
+
+    # allow single-key responses on shells that support it, fall back to POSIX-compatible
+    # shellcheck disable=SC2039
+    read -n1 -r choice 2> /dev/null || read -r choice
+    printf "\n\n"
+
+    case $choice in
+        [Yy] )
+            ;;
+        * )
+            exit 1
+            ;;
+    esac
+}
 
 backup_and_symlink() {
     _target="$1"
@@ -17,7 +37,11 @@ backup_and_symlink() {
     printf "%50s  " "$_filename"
 
     existing="$HOME/$_filename"
-    if [ -h "$existing" ] || [ -w "$existing" ]; then
+    if [ -L "$existing" ] &&
+       [ "$_linkprefix/$_filename" = "$(readlink $existing)" ]; then
+        printf "[already linked]\n"
+        return
+    elif [ -h "$existing" ] || [ -w "$existing" ]; then
         mv "$existing" "$backupdir"
         printf "[backup] "
     else
@@ -36,7 +60,7 @@ link_dotfiles() {
             .git )      continue ;;
             .config )   continue ;;
         esac
-        backup_and_symlink "$HOME" ".config/dotfiles" "$file"
+        backup_and_symlink "$HOME" "$reldir" "$file"
     done
 }
 
@@ -59,19 +83,12 @@ handled=0
 
 
 ### ask for confirmation
-printf "This script is about to replace your existing dotfiles with symlinks to the ones in %s (DANGEROUS). Are you sure? [yn] " "$(pwd)"
-read -r choice
+printf "This script is about to replace your existing dotfiles with symlinks to the ones in %s (DANGEROUS).\n" "$(pwd)"
+confirm "Are you sure?"
 
-case $choice in
-    [Yy] )
-        # go for it!
-        mkdir -p "$backupdir"
-        printf "\nMaking backups in %s.\n" "$backupdir"
-        link_dotfiles
-        link_config_subdirs
-        printf "\n%d symlinks successfully created.\n" $handled
-        ;;
-    * )
-        exit 1
-        ;;
-esac
+### run
+mkdir -p "$backupdir"
+printf "\nMaking backups in %s.\n" "$backupdir"
+link_dotfiles
+link_config_subdirs
+printf "\n%d symlinks successfully created.\n" $handled
