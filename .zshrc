@@ -194,6 +194,11 @@ __alias pip pip3
 docker-wtf() { docker run --rm --interactive --tty $(docker build --quiet --file="$1" "$(mktemp -d)") bash }
 alias docker-cleanup="docker system prune --volumes"
 
+# clojure utils
+if __cmd clojure; then
+    alias rebel='clojure -Sdeps "{:deps {com.bhauman/rebel-readline {:git/url \"https://github.com/razum2um/rebel-readline.git\" :sha \"33866bf89633b0df5acd4c67ca74f75f3069f139\" :deps/root \"rebel-readline\"}}}" -m rebel-readline.main'
+fi
+
 
 ### unset config helpers
 __unload_helpers
