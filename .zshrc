@@ -71,8 +71,10 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 ### CUSTOM CONFIG
 
 # vi mode
+KEYTIMEOUT=40
 bindkey -v
-KEYTIMEOUT=5
+bindkey -rpM viins '\e\e'
+bindkey -M viins '\e\e' vi-cmd-mode
 
 # avoid `zsh: no matches found: HEAD^`
 unsetopt nomatch
