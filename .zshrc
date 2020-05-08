@@ -191,6 +191,7 @@ __alias python python3
 __alias pip pip3
 
 # docker
+docker-here() { docker run --rm --interactive --tty --volume "$(pwd)":/here --workdir /here "$1" bash }
 docker-wtf() { docker run --rm --interactive --tty $(docker build --quiet --file="$1" "$(mktemp -d)") bash }
 alias docker-cleanup="docker system prune --volumes"
 
