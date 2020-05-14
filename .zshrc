@@ -181,10 +181,14 @@ __source /usr/local/opt/asdf/asdf.sh
 
 
 ### ALIASES
+
 __alias l exa
 __alias vi nvim
+
+# git
 __alias gr git-revise
 __alias ger git-review
+alias grr="git remote update && git rebase gerrit/master && git review --yes"
 
 # default to python3
 __alias python python3
