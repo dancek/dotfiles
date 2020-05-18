@@ -188,7 +188,7 @@ __alias vi nvim
 # git
 __alias gr git-revise
 __alias ger git-review
-alias grr="git remote update && git rebase gerrit/master && git review --yes"
+alias grr="git remote update && git rebase gerrit/master && git review --yes --no-topic"
 
 # default to python3
 __alias python python3
