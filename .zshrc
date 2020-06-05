@@ -205,6 +205,9 @@ if __cmd clojure; then
 fi
 
 
+# directory aliases
+hash -d dotfiles=~/.config/dotfiles
+
 ### unset config helpers
 __unload_helpers
 
