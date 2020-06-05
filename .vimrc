@@ -44,6 +44,8 @@ Plug 'vimwiki/vimwiki'
 "Plug '~/dev/code-stats-vim'    " local instance
 Plug 'https://gitlab.com/code-stats/code-stats-vim.git'
 
+Plug 'git@git.sr.ht:~dancek/vimini'
+
 call plug#end()
 
 
