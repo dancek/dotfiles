@@ -22,3 +22,6 @@
 *~
 \#*
 .\#*
+
+# dotfiles i shouldn't commit
+/.gitconfig-local

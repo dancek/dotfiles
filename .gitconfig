@@ -31,3 +31,13 @@
     stat = true
 [merge]
     tool = kdiff3
+
+[sendemail]
+    smtpEncryption = tls
+    smtpServer = smtp.gmail.com
+    smtpUser = hannu.hartikainen@gmail.com
+    smtpServerPort = 587
+    annotate = yes
+
+[include]
+    path = .gitconfig-local
