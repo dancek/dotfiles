@@ -199,6 +199,9 @@ docker-here() { docker run --rm --interactive --tty --volume "$(pwd)":/here --wo
 docker-wtf() { docker run --rm --interactive --tty $(docker build --quiet --file="$1" "$(mktemp -d)") bash }
 alias docker-cleanup="docker system prune --volumes"
 
+# rust
+alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
+
 # clojure utils
 if __cmd clojure; then
     alias rebel='clojure -Sdeps "{:deps {com.bhauman/rebel-readline {:git/url \"https://github.com/razum2um/rebel-readline.git\" :sha \"33866bf89633b0df5acd4c67ca74f75f3069f139\" :deps/root \"rebel-readline\"}}}" -m rebel-readline.main'
