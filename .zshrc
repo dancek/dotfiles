@@ -194,6 +194,9 @@ alias grr="git remote update && git rebase gerrit/master && git review --yes --n
 __alias python python3
 __alias pip pip3
 
+# mosh: use the most common locale
+alias mosh="LC_ALL=en_US.UTF-8 mosh"
+
 # docker
 docker-here() { docker run --rm --interactive --tty --volume "$(pwd)":/here --workdir /here "$1" bash }
 docker-wtf() { docker run --rm --interactive --tty $(docker build --quiet --file="$1" "$(mktemp -d)") bash }
