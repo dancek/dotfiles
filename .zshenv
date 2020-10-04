@@ -1,8 +1,8 @@
 # macOS and friends are so unfriendly with the stuff they run for me
 setopt noglobalrcs
 
-export EDITOR="vim"
-export VISUAL="vim"
+export EDITOR="nvim"
+export VISUAL="nvim"
 export HOST
 
 # locale: UTF-8 with standards except ISO8601 :(

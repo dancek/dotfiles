@@ -47,7 +47,7 @@ backup_and_symlink() {
     else
         printf "[      ] "
     fi
-    ln -s "$_linkprefix/$_filename" "$_target"
+    ln -sf "$_linkprefix/$_filename" "$_target"
     printf "[symlink]\n"
     handled=$((handled + 1))
 }
@@ -82,9 +82,11 @@ backupdir="backup/$(date +%Y-%m-%d_%H%M)"
 handled=0
 
 
-### ask for confirmation
-printf "This script is about to replace your existing dotfiles with symlinks to the ones in %s (DANGEROUS).\n" "$(pwd)"
-confirm "Are you sure?"
+### ask for confirmation, except for automated installs
+if [ -z "$DOTFILES_AUTO_INSTALL" ]; then
+  printf "This script is about to replace your existing dotfiles with symlinks to the ones in %s (DANGEROUS).\n" "$(pwd)"
+  confirm "Are you sure?"
+fi
 
 ### run
 mkdir -p "$backupdir"

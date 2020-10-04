@@ -5,7 +5,6 @@
     user = dancek
 
 [core]
-    editor = vim
     excludesfile = ~/.gitignore
 
 [alias]

@@ -1,2 +1,0 @@
-screen -t irssi 1 ssh -t kekkonen.cs.hut.fi screen -URaAD
-screen 2
