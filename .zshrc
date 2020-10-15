@@ -137,6 +137,7 @@ fi
 # enable fzf completions; define useful macros
 if __cmd fzf; then
     __source ~/.fzf.zsh
+    __source /usr/share/fzf/key-bindings.zsh
 
     if __cmd fd; then
         export FZF_DEFAULT_COMMAND='fd --type f'
