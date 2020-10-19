@@ -1,0 +1,68 @@
+theme = "slick"
+icons = "awesome5"
+
+[[block]]
+block = "backlight"
+step_width = 1
+scale = "cubic"
+
+[[block]]
+block = "hueshift"
+max_temp = 6500
+min_temp = 2700
+
+[[block]]
+block = "battery"
+driver = "upower"
+format = "{percentage}% {time}"
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 20
+warning = 20.0
+alert = 10.0
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{Mup}%"
+format_swap = "{SUp}%"
+
+[[block]]
+block = "cpu"
+interval = 1
+
+[[block]]
+block = "temperature"
+
+[[block]]
+block = "load"
+interval = 1
+format = "{1m}"
+
+[[block]]
+block = "sound"
+max_vol = 100
+
+[[block]]
+block = "music"
+buttons = ["play", "next"]
+max_width = 30
+marquee = false
+smart_trim = true
+#dynamic_width = true
+#marquee_speed = 0.3
+#marquee_interval = 3
+on_collapsed_click = "chromium --profile-directory='Profile 1' --app-id=cinhimbnkkaeohfgghhklpknlkffjgod"
+
+[[block]]
+block = "time"
+interval = 1
+format = "%F %T"
+
+[[block]]
+block = "pacman"
