@@ -6,6 +6,7 @@
 
 [core]
     excludesfile = ~/.gitignore
+    pager = delta
 
 [alias]
     st = status --short
