@@ -4,7 +4,7 @@ icons = "awesome5"
 [[block]]
 block = "backlight"
 step_width = 1
-scale = "cubic"
+scale_root = 2.6
 
 [[block]]
 block = "hueshift"
@@ -58,6 +58,27 @@ smart_trim = true
 #marquee_speed = 0.3
 #marquee_interval = 3
 on_collapsed_click = "chromium --profile-directory='Profile 1' --app-id=cinhimbnkkaeohfgghhklpknlkffjgod"
+
+[[block]]
+block = "net"
+device = "wlan0"
+format = "{ssid} {signal_strength}"
+hide_missing = true
+hide_inactive = true
+
+[[block]]
+block = "net"
+device = "enp0s31f6"
+format = "{ip}"
+hide_missing = true
+hide_inactive = true
+
+[[block]]
+block = "net"
+device = "ens1u2u1u2"
+format = "{ip}"
+hide_missing = true
+hide_inactive = true
 
 [[block]]
 block = "time"
