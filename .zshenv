@@ -19,3 +19,6 @@ umask 022
 # homebrew etc. add libraries in /usr/local
 export CPATH="$CPATH:/usr/local/include"
 export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib"
+
+# npm: install globally in homedir
+export NPM_CONFIG_PREFIX="$HOME/.npm-packages"
