@@ -4,7 +4,7 @@ icons = "awesome5"
 [[block]]
 block = "backlight"
 step_width = 1
-scale_root = 2.6
+root_scaling = 2.6
 
 [[block]]
 block = "hueshift"
