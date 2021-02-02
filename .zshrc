@@ -231,7 +231,7 @@ alias mosh="LC_ALL=en_US.UTF-8 mosh"
 
 # docker
 docker-here() { docker run --rm --interactive --tty --volume "$(pwd)":/here --workdir /here "$1" bash }
-docker-wtf() { docker run --rm --interactive --tty $(docker build --quiet --file="$1" "$(mktemp -d)") bash }
+docker-wtf() { docker run --rm --interactive --tty --volume "$(pwd)":/here --workdir /here $(docker build --quiet --file="$1" "$(mktemp -d)") bash }
 alias docker-cleanup="docker system prune --volumes"
 
 # rust
