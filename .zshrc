@@ -24,6 +24,7 @@ source ~/.zsh/zgen/zgen.zsh
 # check if there's no init script
 if ! zgen saved; then
     echo "Creating a zgen save"
+    ZGEN_PREZTO_LOAD_DEFAULT=0
 
     # prezto config
     zgen prezto '*:*' color true
@@ -31,16 +32,21 @@ if ! zgen saved; then
     zgen prezto git:alias skip yes
     zgen prezto prompt theme sorin
 
-    # prezto components
+    # prezto preload
     zgen prezto
+
+    # default components (minus some)
     zgen prezto environment
-    zgen prezto utility
-    zgen prezto directory
+    zgen prezto terminal
     zgen prezto editor
     zgen prezto history
-    zgen prezto completion
-    zgen prezto git
     zgen prezto spectrum
+    zgen prezto utility
+    zgen prezto completion
+    zgen prezto prompt
+
+    # extra components
+    zgen prezto git
 
     # i used to have this, but some gnu utils are worse than zsh builtins
     # eg. fzf fails due to features missing in g[ and gprintf
@@ -76,6 +82,14 @@ bindkey -v
 bindkey -rpM viins '\e\e'
 bindkey -M viins '\e\e' vi-cmd-mode
 
+setopt AUTO_PUSHD           # Push the old directory onto the stack on cd.
+setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
+setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
+setopt PUSHD_TO_HOME        # Push to home directory when no argument is given.
+setopt CDABLE_VARS          # Change directory to a path stored in a variable.
+setopt MULTIOS              # Write to multiple descriptors.
+setopt EXTENDED_GLOB        # Use extended globbing syntax.
+
 # avoid `zsh: no matches found: HEAD^`
 unsetopt nomatch
 
@@ -97,6 +111,7 @@ __add_path ~/.cabal/bin          # Cabal (Haskell)
 __add_path ~/.local/bin          # Stack (Haskell)
 __add_path ~/.cargo/bin          # Cargo (Rust)
 __add_path ~/.npm-packages/bin   # NPM homedir global installs (Node.js)
+__add_path ~/go/bin              # Go
 
 # macOS / Homebrew GNU tools
 if [[ "$(uname)" == "Darwin" ]]; then
