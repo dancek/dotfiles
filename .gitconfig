@@ -41,3 +41,14 @@
 
 [include]
     path = .gitconfig-local
+
+[delta]
+    navigate                      = true
+    minus-style                   = normal "#500001"
+    minus-non-emph-style          = normal "#500001"
+    minus-emph-style              = normal "#901011"
+    minus-empty-line-marker-style = normal "#500001"
+    plus-style                    = syntax "#004000"
+    plus-non-emph-style           = syntax "#004000"
+    plus-emph-style               = syntax "#008000"
+    plus-empty-line-marker-style  = normal "#004000"
