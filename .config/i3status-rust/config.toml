@@ -2,6 +2,13 @@ theme = "slick"
 icons = "awesome5"
 
 [[block]]
+block = "custom"
+command = "echo '{\"text\":\" 📷\"}'"
+interval = "once"
+json = true
+on_click = "maim -s | xclip -selection clipboard -t image/png"
+
+[[block]]
 block = "backlight"
 step_width = 1
 root_scaling = 2.6
@@ -10,11 +17,18 @@ root_scaling = 2.6
 block = "hueshift"
 max_temp = 6500
 min_temp = 2700
+click_temp = 3500
 
 [[block]]
 block = "battery"
 driver = "upower"
 format = "{percentage}% {time}"
+
+[[block]]
+block = "custom"
+command = "curl -sL https://istheshipstillstuck.com/ | pup '[class*=Home_description] text{}' | sed -e 's/.*[Yy]es.*/🚢😭/' -e 's/.*Sort of.*/🚢😕/' -e 's/.*[A-Za-z].*/🚢🥳/'"
+interval = 600
+on_click = "xdg-open https://istheshipstillstuck.com/"
 
 [[block]]
 block = "disk_space"
