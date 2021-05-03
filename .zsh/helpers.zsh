@@ -53,7 +53,7 @@ __cmd() {
 __alias() {
     if __cmd $2; then
         alias $1=${@:2}
-        compdef $1=${@:2} 2&> /dev/null
+        compdef $1=${@:2} &> /dev/null
     fi
 }
 
