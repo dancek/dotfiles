@@ -228,6 +228,7 @@ __source /usr/local/opt/asdf/asdf.sh
 
 __alias l exa
 __alias vi nvim
+__alias netstat ss
 
 # sudo: refresh timeout on every use
 alias sudo="sudo -v && sudo"
