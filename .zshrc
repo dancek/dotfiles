@@ -227,6 +227,8 @@ __source /usr/local/opt/asdf/asdf.sh
 ### ALIASES
 
 __alias l exa
+__alias ll exa -al
+
 __alias vi nvim
 __alias netstat ss
 
