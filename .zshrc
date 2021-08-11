@@ -215,6 +215,9 @@ if __cmd broot; then
     }
 fi
 
+if __cmd zoxide; then
+    eval "$(zoxide init zsh)"
+fi
 
 # utils shipped with zsh
 autoload -Uz zmv zcalc
@@ -272,3 +275,5 @@ export MANPATH
 
 # When developing completions, uncomment this
 #autoload -U compinit && compinit -D
+
+
