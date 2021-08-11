@@ -22,13 +22,7 @@ click_temp = 3500
 [[block]]
 block = "battery"
 driver = "upower"
-format = "{percentage}% {time}"
-
-[[block]]
-block = "custom"
-command = "curl -sL https://istheshipstillstuck.com/ | pup '[class*=Home_description] text{}' | sed -e 's/.*[Yy]es.*/🚢😭/' -e 's/.*Sort of.*/🚢😕/' -e 's/.*[A-Za-z].*/🚢🥳/'"
-interval = 600
-on_click = "xdg-open https://istheshipstillstuck.com/"
+format = "{percentage} {time}"
 
 [[block]]
 block = "disk_space"
@@ -43,8 +37,7 @@ alert = 10.0
 [[block]]
 block = "memory"
 display_type = "memory"
-format_mem = "{Mup}%"
-format_swap = "{SUp}%"
+format_mem = "{mem_used;M}"
 
 [[block]]
 block = "cpu"
@@ -71,7 +64,7 @@ smart_trim = true
 #dynamic_width = true
 #marquee_speed = 0.3
 #marquee_interval = 3
-on_collapsed_click = "chromium --profile-directory='Profile 1' --app-id=cinhimbnkkaeohfgghhklpknlkffjgod"
+on_collapsed_click = "/opt/google/chrome/google-chrome '--profile-directory=Profile 1' --app-id=cinhimbnkkaeohfgghhklpknlkffjgod"
 
 [[block]]
 block = "net"
