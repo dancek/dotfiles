@@ -18,3 +18,4 @@ umask 022
 
 # npm: install globally in homedir
 export NPM_CONFIG_PREFIX="$HOME/.npm-packages"
+path+="$NPM_CONFIG_PREFIX"
