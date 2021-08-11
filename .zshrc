@@ -229,6 +229,11 @@ __source /usr/local/opt/asdf/asdf.sh
 
 ### ALIASES
 
+# mail commands
+if __cmd notmuch; then
+    source ~/.zsh/mail.zsh
+fi
+
 __alias l exa
 __alias ll exa -al
 
