@@ -1,6 +1,6 @@
 [user]
     name = Hannu Hartikainen
-    email = hannu.hartikainen@gmail.com
+    email = hannu@hrtk.in
 [github]
     user = dancek
 
@@ -34,10 +34,8 @@
     tool = kdiff3
 
 [sendemail]
-    smtpEncryption = tls
-    smtpServer = smtp.gmail.com
-    smtpUser = hannu.hartikainen@gmail.com
-    smtpServerPort = 587
+    from = "Hannu Hartikainen <hannu@hrtk.in>"
+    smtpServer = /usr/bin/msmtp
     annotate = yes
 
 [include]
