@@ -51,9 +51,11 @@ __cmd() {
 }
 
 __alias() {
-    if __cmd $2; then
-        alias $1="${*:2}"
-        compdef $1="${*:2}" &> /dev/null
+    a=$1
+    shift
+    if __cmd $1; then
+        alias $a="$*"
+        compdef $a="$*" &> /dev/null
     fi
 }
 
