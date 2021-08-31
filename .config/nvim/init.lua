@@ -34,10 +34,6 @@ vim.cmd([[
   " Ctrl-c for system clipboard
   map <C-c> "+y
 
-  """ vim-airline
-  let g:airline_powerline_fonts = 1
-  let g:airline_section_x = airline#section#create_right(['tagbar', 'filetype', '%{CodeStatsXp()}'])
-
   """ fzf.vim
   nmap <c-p> :Files<CR>
   nmap <c-h> :Helptags<CR>

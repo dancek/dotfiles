@@ -2,9 +2,6 @@ return require('packer').startup(function()
   -- packer itself
   use 'wbthomason/packer.nvim'
   
-  -- theme
-  use 'morhetz/gruvbox'
-
   -- essentials
   use 'tpope/vim-sensible'
   use 'tpope/vim-repeat'
@@ -17,8 +14,16 @@ return require('packer').startup(function()
   
   use 'sheerun/vim-polyglot'
 
-  use 'vim-airline/vim-airline'
-
+  -- UI enhancements
+  use 'morhetz/gruvbox'
+  use {
+    'vim-airline/vim-airline',
+    config = function()
+      vim.g['airline_powerline_fonts'] = 1
+      vim.g['airline_section_x'] = vim.call('airline#section#create_right',
+        {'tagbar', 'filetype', '%{CodeStatsXp()}'})
+    end
+  }
   use {
     'folke/which-key.nvim',
     config = function()
