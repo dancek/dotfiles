@@ -11,7 +11,7 @@
 [alias]
     st = status --short
     tree = log --graph --oneline --all --decorate --abbrev-commit
-    delete-merged-branches = !git branch --merged | grep -v ' master$' | xargs -n1 git branch -d
+    delete-merged-branches = !git branch --merged | egrep -v '^\\*| master$| main$' | ifne vipe | ifne xargs -n1 git branch -d
     l = log --oneline -10
     co = !git rev-parse --verify $1 && git stash && git checkout $1 && git stash pop && :
     ours = "!f() { git checkout --ours -- \"${@:-.}\"; git add -u \"${@:-.}\"; }; f"
