@@ -23,22 +23,16 @@ vim.opt.writebackup   = false
 
 ---- KEYMAP
 -- buffers
-util.nmap('<Tab>', '<cmd>bnext<CR>')
+util.nmap('<Tab>',   '<cmd>bnext<CR>')
 util.nmap('<S-Tab>', '<cmd>bprevious<CR>')
-util.nmap('Q', '<cmd>bdelete<CR>')
+util.nmap('Q',       '<cmd>bdelete<CR>')
 
 -- clipboard
-util.map('<C-c>', '"+y')
+util.map('<C-c>',    '"+y')
 
 vim.cmd([[
   colorscheme gruvbox
 
   runtime _secrets.vim
-
-  """ fzf.vim
-  nmap <c-p> :Files<CR>
-  nmap <c-h> :Helptags<CR>
-  nmap <c-f> :Lines<CR>
-  nmap <c-b> :Buffers<CR>
 ]])
 
