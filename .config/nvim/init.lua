@@ -1,12 +1,11 @@
 -- Hannu Hartikainen's Neovim config
 -- rewritten in lua in 2021
 
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
-  vim.cmd 'packadd packer.nvim'
-end
+require('plugins')
+
+local util = require('util')
+
+-- options
 
 vim.opt.softtabstop   = 4
 vim.opt.shiftwidth    = 4
@@ -20,31 +19,26 @@ vim.opt.timeoutlen    = 500
 vim.opt.termguicolors = true
 vim.opt.inccommand    = 'nosplit'
 
-require('plugins')
+vim.opt.writebackup   = false
+
+---- KEYMAP
+-- buffers
+util.nmap('<Tab>', '<cmd>bnext<CR>')
+util.nmap('<S-Tab>', '<cmd>bprevious<CR>')
+util.nmap('Q', '<cmd>bdelete<CR>')
+
+-- clipboard
+util.map('<C-c>', '"+y')
 
 vim.cmd([[
   colorscheme gruvbox
 
   runtime _secrets.vim
 
-  nmap <Tab> :bnext<CR>
-  nmap <S-Tab> :bprevious<CR>
-  nmap Q :bdelete<CR>
-
-  " Ctrl-c for system clipboard
-  map <C-c> "+y
-
   """ fzf.vim
   nmap <c-p> :Files<CR>
   nmap <c-h> :Helptags<CR>
   nmap <c-f> :Lines<CR>
   nmap <c-b> :Buffers<CR>
-
-  """ vim-easy-align
-  " Start interactive EasyAlign in visual mode (e.g. vipga)
-  xmap ga <Plug>(EasyAlign)
-
-  " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-  nmap ga <Plug>(EasyAlign)
 ]])
 
