@@ -58,6 +58,16 @@ return require('packer').startup(function()
   -- C::S
   use 'https://gitlab.com/code-stats/code-stats-vim.git'
 
+  -- BQN
+  use {
+    'mlochbaum/BQN',
+    rtp = 'editors/vim/',
+    config = function()
+      vim.cmd([[autocmd BufRead,BufNewFile *.bqn setf bqn]])
+    end
+  }
+  use 'https://git.sr.ht/~detegr/nvim-bqn'
+
   -- language support
   use 'sheerun/vim-polyglot'
 
@@ -69,7 +79,7 @@ return require('packer').startup(function()
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, bufnr)
-        local function buf_set_keymap(lhs, rhs)
+        local function bnmap(lhs, rhs)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, { noremap = true, silent = true})
         end
 
