@@ -3,7 +3,6 @@ configuration {
     combi-modi: "window,drun,ssh";
 
     font: "Cantarell 10";
-    theme: "gruvbox-dark";
     show-icons: true;
     icon-theme: "Papirus";
 
@@ -161,3 +160,4 @@ configuration {
 /*	me-accept-entry: "MouseDPrimary";*/
 /*	me-accept-custom: "Control+MouseDPrimary";*/
 }
+@theme "gruvbox-dark"
