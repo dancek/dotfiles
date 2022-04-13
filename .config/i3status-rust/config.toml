@@ -23,6 +23,7 @@ click_temp = 3500
 block = "battery"
 driver = "upower"
 format = "{percentage} {time}"
+allow_missing = true
 
 [[block]]
 block = "disk_space"
