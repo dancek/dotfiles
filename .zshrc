@@ -229,12 +229,13 @@ __source /usr/local/opt/asdf/asdf.sh
 
 ### ALIASES
 
+unalias l # TODO: see if we should disable something in prezto
+
 # mail commands
 if __cmd notmuch; then
     source ~/.zsh/mail.zsh
 fi
 
-__alias l exa
 __alias ll exa -al
 
 __alias vi nvim
@@ -268,6 +269,9 @@ if __cmd clojure; then
     alias rebel='clojure -Sdeps "{:deps {com.bhauman/rebel-readline {:git/url \"https://github.com/razum2um/rebel-readline.git\" :sha \"33866bf89633b0df5acd4c67ca74f75f3069f139\" :deps/root \"rebel-readline\"}}}" -m rebel-readline.main'
 fi
 
+# gif utils
+parrotify() {convert -bordercolor transparent -border 1x1 -delay 4x100 -dispose background "$1" -duplicate 9 -distort SRT '0,0 1 0 %[fx:-30*sin(2*pi*t/10)],%[fx:10-10*cos((2*pi*t-3)/10)]' -shave 1x1 "$(echo $1 | sed 's/\..*/-parrot.gif/')"}
+foreverify() {convert -delay 8x100 -dispose background "$1" -duplicate 17 -distort SRT '%[fx:10*t]' "$(echo $1 | sed 's/\..*/-forever.gif/')"}
 
 # directory aliases
 hash -d dotfiles=~/.config/dotfiles
