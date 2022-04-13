@@ -21,6 +21,8 @@ vim.opt.inccommand    = 'nosplit'
 
 vim.opt.writebackup   = false
 
+vim.opt.helpheight    = 30
+
 ---- KEYMAP
 -- buffers
 util.nmap('<Tab>',   '<cmd>bnext<CR>')
@@ -30,6 +32,11 @@ util.nmap('Q',       '<cmd>bdelete<CR>')
 -- clipboard
 util.map('<C-c>',    '"+y')
 
+-- terminal
+-- util.map('~',        '<cmd>:call jobstart(["i3-msg", "exec", "i3-sensible-terminal", getcwd()])<CR>')
+util.map('~',        '<cmd>:call jobstart(["i3-msg", "exec", "i3-sensible-terminal", expand("%:p:h")])<CR>')
+
+----
 vim.cmd([[
   colorscheme gruvbox
 

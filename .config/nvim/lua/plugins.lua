@@ -15,6 +15,7 @@ return require('packer').startup(function()
   use 'tpope/vim-repeat'
   use 'tpope/vim-sleuth'
   use 'tpope/vim-surround'
+  use 'tpope/vim-commentary'
 
   use {
     'junegunn/vim-easy-align',
@@ -25,6 +26,16 @@ return require('packer').startup(function()
     end
   }
   
+  -- autosave
+  use {
+    'Pocco81/AutoSave.nvim',
+    config = function()
+      require('autosave').setup {
+        enabled = true
+      }
+    end
+  }
+
   -- UI enhancements
   use 'morhetz/gruvbox'
   use {
@@ -41,6 +52,7 @@ return require('packer').startup(function()
       require('which-key').setup {}
     end
   }
+  use 'mg979/vim-visual-multi'
 
   -- Telescope
   use {
@@ -52,6 +64,18 @@ return require('packer').startup(function()
       util.nmap('<C-f>', '<cmd>Telescope live_grep<CR>')
       util.nmap('<C-h>', '<cmd>Telescope help_tags<CR>')
       util.nmap('<C-b>', '<cmd>Telescope buffers<CR>')
+
+      require("telescope").setup {
+        pickers = {
+          buffers = {
+            mappings = {
+              i = {
+                ["<C-d>"] = "delete_buffer",
+              }
+            }
+          }
+        }
+      }
     end
   }
 
@@ -66,7 +90,14 @@ return require('packer').startup(function()
       vim.cmd([[autocmd BufRead,BufNewFile *.bqn setf bqn]])
     end
   }
-  use 'https://git.sr.ht/~detegr/nvim-bqn'
+  use {
+    'https://git.sr.ht/~detegr/nvim-bqn',
+    config = function()
+      local util = require('util')
+      util.nmap('<C-Space>', '<cmd>BQNEvalFile<CR>')
+      util.nmap('<Space>', '<cmd>BQNClearFile<CR>')
+    end
+  }
 
   -- language support
   use 'sheerun/vim-polyglot'
