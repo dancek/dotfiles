@@ -1,0 +1,8 @@
+profile mobile {
+  output eDP-1 enable scale 1.75
+}
+
+profile agon-32 {
+  output eDP-1 position 550,1440
+  output "Unknown AG322QWG4 0x000008E4" position 0,0
+}
