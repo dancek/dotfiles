@@ -21,7 +21,6 @@
 
 [fetch]
     prune = true
-    recurseSubmodules = no
 [pull]
     rebase = true
 [push]
