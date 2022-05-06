@@ -1,0 +1,21 @@
+xkb_symbols {
+  include "pc+eu+inet(evdev)+capslock(escape)"
+
+  name[Group1] = "HH2";
+
+  // ä/ö in altgr+q/p and iso key
+  key <AD01> { [ q, Q, adiaeresis, Adiaeresis ] };
+  key <AD10> { [ p, P, odiaeresis, Odiaeresis ] };
+  key <LSGT> { [ adiaeresis, Adiaeresis, odiaeresis, Odiaeresis ] };
+
+  // Print screen = compose
+  key <PRSC> { [ Multi_key ] };
+
+  // T/F swap
+  key <AC04> { [	   t,          T,         thorn,            THORN ] };
+  key <AD05> { [	   f,          F,      function,        dead_hook ] };
+
+  // J/N swap
+  key <AB06> { [	   j,          J,         U2206,          onehalf ] };
+  key <AC07> { [	   n,          N,    dead_tilde,            U02DC ] };
+};

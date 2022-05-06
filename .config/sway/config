@@ -1,0 +1,11 @@
+### my i3 config as base
+include ../i3/config
+
+### Sway specific
+
+output eDP-1 enable scale 1.75
+
+hide_edge_borders smart
+titlebar_padding 4 1
+
+input type:keyboard xkb_layout hh2
