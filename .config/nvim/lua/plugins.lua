@@ -28,10 +28,9 @@ return require('packer').startup(function()
   
   -- autosave
   use {
-    'Pocco81/AutoSave.nvim',
+    'Pocco81/auto-save.nvim',
     config = function()
-      require('autosave').setup {
-        enabled = true
+      require('auto-save').setup {
       }
     end
   }
@@ -94,13 +93,105 @@ return require('packer').startup(function()
     'https://git.sr.ht/~detegr/nvim-bqn',
     config = function()
       local util = require('util')
-      util.nmap('<C-Space>', '<cmd>BQNEvalFile<CR>')
+      -- util.nmap('<C-Space>', '<cmd>BQNEvalFile<CR>')
       util.nmap('<Space>', '<cmd>BQNClearFile<CR>')
     end
   }
 
+  -- completion
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use {
+    'hrsh7th/nvim-cmp',
+    config = function()
+      local cmp = require('cmp')
+      cmp.setup {
+        snippet = {
+          -- REQUIRED - you must specify a snippet engine
+          expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+          end,
+        },
+        window = {
+          -- completion = cmp.config.window.bordered(),
+          -- documentation = cmp.config.window.bordered(),
+        },
+        mapping = cmp.mapping.preset.insert({
+            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<C-e>'] = cmp.mapping.abort(),
+            ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          }),
+        sources = cmp.config.sources({
+            { name = 'nvim_lsp' },
+            { name = 'vsnip' }, -- For vsnip users.
+          }, {
+            { name = 'buffer' },
+          })
+        }
+    end
+  }
+
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/vim-vsnip'  
+
   -- language support
-  use 'sheerun/vim-polyglot'
+  -- use 'sheerun/vim-polyglot'
+
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        ensure_installed = {
+          "bash",
+          "c",
+          "clojure",
+          "cmake",
+          "comment",
+          "cpp",
+          "css",
+          "devicetree",
+          "dockerfile",
+          "dot",
+          "fennel",
+          "haskell",
+          "html",
+          "http",
+          "java",
+          "javascript",
+          "jsdoc",
+          "json",
+          "json5",
+          "jsonc",
+          "latex",
+          "lua",
+          "make",
+          "markdown",
+          "proto",
+          "python",
+          "regex",
+          "rst",
+          "ruby",
+          "rust",
+          "scss",
+          "toml",
+          "vala",
+          "vim",
+          "yaml",
+          "zig",
+        },
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+          disable = {},
+        },
+      }
+    end
+  }
 
   use {
     'neovim/nvim-lspconfig',
@@ -135,7 +226,19 @@ return require('packer').startup(function()
         bnmap(']d',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
         bnmap('<space>q',  '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
         bnmap('<space>f',  '<cmd>lua vim.lsp.buf.formatting()<CR>')
+
+        -- Use automatic formatting on save
+        -- if client.resolved_capabilities.document_formatting then
+        --   vim.api.nvim_create_augroup("Format", {})
+        --   vim.api.nvim_create_autocmd({"BufWritePre"}, {
+        --     group = "Format",
+        --     callback = vim.lsp.buf.formatting_sync,
+        --   })
+        -- end
       end
+
+      local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()) --nvim-cmp
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
@@ -145,12 +248,13 @@ return require('packer').startup(function()
           on_attach = on_attach,
           flags = {
             debounce_text_changes = 150,
-          }
+          },
+          capabilities = capabilities
         }
       end
 
     end
   }
 
-  vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
+  -- vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 end)

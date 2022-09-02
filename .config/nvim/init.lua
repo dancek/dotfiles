@@ -12,6 +12,8 @@ vim.opt.shiftwidth    = 4
 vim.opt.expandtab     = true
 vim.opt.autoindent    = true
 
+vim.opt.number        = true
+
 vim.opt.mouse         = 'a'
 
 vim.opt.timeoutlen    = 500
@@ -22,6 +24,8 @@ vim.opt.inccommand    = 'nosplit'
 vim.opt.writebackup   = false
 
 vim.opt.helpheight    = 30
+
+vim.opt.pumheight     = 10
 
 ---- KEYMAP
 -- buffers
