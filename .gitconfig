@@ -9,6 +9,8 @@
     pager = delta
 
 [alias]
+    cl = clone --recursive
+    sw = switch --recurse-submodules
     st = status --short
     tree = log --graph --oneline --all --decorate --abbrev-commit
     delete-merged-branches = !git branch --merged | egrep -v '^\\*| master$| main$' | ifne vipe | ifne xargs -n1 git branch -d
@@ -30,13 +32,24 @@
     autoSquash = true
     missingCommitsCheck = warn
     stat = true
+
 [merge]
-    tool = kdiff3
+    tool = nvimdiff
+
+[mergetool]
+    keepBackup = false
+    
+[mergetool "nvimdiff"]
+    cmd = nvim -d $LOCAL $REMOTE $MERGED
 
 [sendemail]
     from = "Hannu Hartikainen <hannu@hrtk.in>"
     smtpServer = /usr/bin/msmtp
     annotate = yes
+
+[sendemail.linux]
+    tocmd ="./scripts/get_maintainer.pl --nogit --nogit-fallback --norolestats --nol"
+    cccmd ="./scripts/get_maintainer.pl --nogit --nogit-fallback --norolestats --nom"
 
 [include]
     path = .gitconfig-local
