@@ -1,12 +1,9 @@
-theme = "slick"
 icons = "awesome5"
 
-[[block]]
-block = "custom"
-command = "echo '{\"text\":\" 📷\"}'"
-interval = "once"
-json = true
-on_click = "maim -s | xclip -selection clipboard -t image/png"
+[theme]
+name = "slick"
+[theme.overrides]
+separator = ""
 
 [[block]]
 block = "backlight"
@@ -23,7 +20,7 @@ click_temp = 3500
 block = "battery"
 driver = "upower"
 format = "{percentage} {time}"
-allow_missing = true
+#allow_missing = true
 
 [[block]]
 block = "disk_space"
@@ -55,6 +52,7 @@ format = "{1m}"
 [[block]]
 block = "sound"
 max_vol = 100
+name = "alsa_output.pci-0000_00_1f.3.analog-stereo"
 
 [[block]]
 block = "music"
@@ -76,14 +74,6 @@ hide_inactive = true
 
 [[block]]
 block = "net"
-device = "enp0s31f6"
-format = "{ip}"
-hide_missing = true
-hide_inactive = true
-
-[[block]]
-block = "net"
-device = "ens1u2u1u2"
 format = "{ip}"
 hide_missing = true
 hide_inactive = true
@@ -95,3 +85,12 @@ format = "%F %T"
 
 [[block]]
 block = "pacman"
+hide_when_uptodate = true
+
+[[block]]
+block = "custom"
+command = "echo '{\"text\":\" 📷\"}'"
+interval = "once"
+json = true
+on_click = "grim -g \"$(slurp)\" - | wl-copy"
+
