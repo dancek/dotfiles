@@ -42,7 +42,7 @@ return require('packer').startup(function()
     config = function()
       vim.g['airline_powerline_fonts'] = 1
       vim.g['airline_section_x'] = vim.call('airline#section#create_right',
-        {'tagbar', 'filetype', '%{CodeStatsXp()}'})
+        {'tagbar', 'filetype'})
     end
   }
   use {
@@ -79,7 +79,7 @@ return require('packer').startup(function()
   }
 
   -- C::S
-  use 'https://gitlab.com/code-stats/code-stats-vim.git'
+  -- use 'https://gitlab.com/code-stats/code-stats-vim.git'
 
   -- BQN
   use {
