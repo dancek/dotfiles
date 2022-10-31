@@ -271,7 +271,7 @@ fi
 
 # gif utils
 parrotify() {convert -bordercolor transparent -border 1x1 -delay 4x100 -dispose background "$1" -duplicate 9 -distort SRT '0,0 1 0 %[fx:-30*sin(2*pi*t/10)],%[fx:10-10*cos((2*pi*t-3)/10)]' -shave 1x1 "$(echo $1 | sed 's/\..*/-parrot.gif/')"}
-foreverify() {convert -delay 8x100 -dispose background "$1" -duplicate 17 -distort SRT '%[fx:10*t]' "$(echo $1 | sed 's/\..*/-forever.gif/')"}
+foreverify() {convert -delay 8x100 -dispose background "$@" -duplicate 17 -distort SRT '%[fx:20*t]' "$(echo $1 | sed 's/\..*/-forever.gif/')"}
 
 # device tree
 show_dtb() {
