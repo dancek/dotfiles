@@ -7,6 +7,7 @@ local function mapfn(type)
 end
 
 util.map = mapfn('')
+util.imap = mapfn('i')
 util.nmap = mapfn('n')
 util.vmap = mapfn('v')
 
