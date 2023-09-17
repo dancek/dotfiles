@@ -257,8 +257,12 @@ __alias pip pip3
 alias mosh="LC_ALL=en_US.UTF-8 mosh"
 
 # docker
-docker-here() { docker run --rm --interactive --tty --volume "$(pwd)":/here --workdir /here "$1" bash }
-docker-wtf() { docker run --rm --interactive --tty --volume "$(pwd)":/here --workdir /here $(docker build --quiet --file="$1" "$(mktemp -d)") bash }
+docker-here() {
+    docker run --rm --interactive --tty --volume "$(pwd)":/here --workdir /here "$1" bash
+}
+docker-wtf() {
+    docker run --rm --interactive --tty --volume "$(pwd)":/here --workdir /here $(docker build --quiet --file="$1" "$(mktemp -d)") bash
+}
 alias docker-cleanup="docker system prune --volumes"
 
 # rust
@@ -270,12 +274,16 @@ if __cmd clojure; then
 fi
 
 # gif utils
-parrotify() {convert -bordercolor transparent -border 1x1 -delay 4x100 -dispose background "$1" -duplicate 9 -distort SRT '0,0 1 0 %[fx:-30*sin(2*pi*t/10)],%[fx:10-10*cos((2*pi*t-3)/10)]' -shave 1x1 "$(echo $1 | sed 's/\..*/-parrot.gif/')"}
-foreverify() {convert -delay 8x100 -dispose background "$@" -duplicate 17 -distort SRT '%[fx:20*t]' "$(echo $1 | sed 's/\..*/-forever.gif/')"}
+parrotify() {
+    convert -bordercolor transparent -border 1x1 -delay 4x100 -dispose background "$1" -duplicate 9 -distort SRT '0,0 1 0 %[fx:-30*sin(2*pi*t/10)],%[fx:10-10*cos((2*pi*t-3)/10)]' -shave 1x1 "$(echo $1 | sed 's/\..*/-parrot.gif/')"
+}
+foreverify() {
+    convert -delay 8x100 -dispose background "$@" -duplicate 17 -distort SRT '%[fx:20*t]' "$(echo $1 | sed 's/\..*/-forever.gif/')"
+}
 
 # device tree
 show_dtb() {
-    dtc -I dtb -O dts $@ | bat -l c
+    dtc -I dtb -O dts "$@" | bat -l c
 }
 
 # directory aliases
@@ -290,5 +298,5 @@ export MANPATH
 # When developing completions, uncomment this
 #autoload -U compinit && compinit -D
 
-
-
+# sccs shadows this so add manually
+compdef _gnu_generic delta
