@@ -93,7 +93,7 @@ return require('packer').startup(function()
     config = function()
       local util = require('util')
       -- util.nmap('<C-Space>', '<cmd>BQNEvalFile<CR>')
-      util.nmap('<Space>', '<cmd>BQNClearFile<CR>')
+      -- util.nmap('<Space>', '<cmd>BQNClearFile<CR>')
     end
   }
 
@@ -143,6 +143,11 @@ return require('packer').startup(function()
 
   -- language support
   -- use 'sheerun/vim-polyglot'
+  use 'Olical/conjure'
+  use {
+    'eraserhd/parinfer-rust',
+    run = 'cargo build --release'
+  }
 
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -246,7 +251,7 @@ return require('packer').startup(function()
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
-      local servers = { 'clangd', 'rust_analyzer', 'bashls', 'bqnlsp' }
+      local servers = { 'clangd', 'rust_analyzer', 'bashls', 'clojure_lsp' } -- , 'bqnlsp' }
       for _, lsp in ipairs(servers) do
         nvim_lsp[lsp].setup {
           on_attach = on_attach,
@@ -269,19 +274,19 @@ return require('packer').startup(function()
   --     util.imap("<S-Tab>", [[<Cmd>call copilot#Accept("")<CR>]])
   --   end
   -- }
-  use {
-    "zbirenbaum/copilot.lua",
-    config = function ()
-      require("copilot").setup()
-    end
-  }
-  use {
-    "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua" },
-    config = function ()
-      require("copilot_cmp").setup()
-    end
-  }
+  -- use {
+  --   "zbirenbaum/copilot.lua",
+  --   config = function ()
+  --     require("copilot").setup()
+  --   end
+  -- }
+  -- use {
+  --   "zbirenbaum/copilot-cmp",
+  --   after = { "copilot.lua" },
+  --   config = function ()
+  --     require("copilot_cmp").setup()
+  --   end
+  -- }
 
   -- vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 end)

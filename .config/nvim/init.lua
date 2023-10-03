@@ -47,3 +47,11 @@ vim.cmd([[
   runtime _secrets.vim
 ]])
 
+-- Ensure conjure logs don't get clojure-lsp
+vim.api.nvim_create_autocmd("BufNewFile", {
+  group = vim.api.nvim_create_augroup("conjure_log_disable_lsp", { clear = true }),
+  pattern = { "conjure-log-*" },
+  callback = function() vim.diagnostic.disable(0) end,
+  desc = "Conjure Log disable LSP diagnostics",
+})
+
