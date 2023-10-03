@@ -15,6 +15,8 @@ ALIGN: MIDDLE
 ORDER:
   - HDMI-A-1
   - HDMI-A-2
+  - DP-7
+  - DP-6
   - DP-5
   - DP-4
   - DP-3
@@ -31,7 +33,7 @@ AUTO_SCALE: TRUE
 # Auto scale may be overridden for each display.
 SCALE:
   - NAME_DESC: eDP-1
-    SCALE: 1.75
+    SCALE: 1.25
 
 # Override the preferred mode.
 # Warning: this may result in an unusable display.
