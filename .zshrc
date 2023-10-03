@@ -53,7 +53,7 @@ if ! zgen saved; then
     #zgen load sorin-ionescu/prezto modules/gnu-utility
 
     # Code::Stats (my plugin!)
-    zgen load https://gitlab.com/code-stats/code-stats-zsh.git
+    #zgen load https://gitlab.com/code-stats/code-stats-zsh.git
     #zgen load "${HOME}/dev/code-stats-zsh"
 
     # prezto modules that need to be loaded last (and configs)
