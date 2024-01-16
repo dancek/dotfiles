@@ -44,14 +44,23 @@ block = "load"
 interval = 1
 
 [[block]]
+block = "bluetooth"
+mac = "2C:41:A1:47:CF:EE"
+format = " $icon $percentage "
+disconnected_format = " $icon "
+
+[[block]]
+block = "music"
+format = " $icon  $play $next "
+
+[[block]]
 block = "sound"
 max_vol = 100
 
 [[block]]
 block = "time"
 interval = 1
-[block.format]
-#short = " $icon $timestamp.datetime(f:%H:%m)"
+format = " $icon $timestamp.datetime(f:'%Y-%m-%d %H:%M') "
 
 [[block]]
 block = "pacman"
