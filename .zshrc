@@ -286,6 +286,9 @@ show_dtb() {
     dtc -I dtb -O dts "$@" | bat -l c
 }
 
+# password generator
+alias pw="head -c24 < /dev/urandom | base64"
+
 # directory aliases
 hash -d dotfiles=~/.config/dotfiles
 
