@@ -38,7 +38,7 @@ util.map('<C-c>',    '"+y')
 
 -- terminal
 -- util.map('~',        '<cmd>:call jobstart(["i3-msg", "exec", "i3-sensible-terminal", getcwd()])<CR>')
-util.map('~',        '<cmd>:call jobstart(["i3-msg", "exec", "kitty --single-instance", expand("%:p:h")])<CR>')
+util.map('~',        '<cmd>:call jobstart(["swaymsg", "exec", "kitty --single-instance", expand("%:p:h")])<CR>')
 
 ----
 vim.cmd([[

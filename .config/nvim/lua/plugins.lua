@@ -288,5 +288,8 @@ return require('packer').startup(function()
   --   end
   -- }
 
+  -- ChatGPT
+  use 'madox2/vim-ai'
+
   -- vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 end)
