@@ -20,6 +20,7 @@
     theirs = "!f() { git checkout --theirs -- \"${@:-.}\"; git add -u \"${@:-.}\"; }; f"
     loggrep = "!git log -S \"$1\" --patch --format=\"commit %C(yellow)%h%Creset %s\" --color=always | egrep \"^commit |^(\\e\\[3.m)?[+-].*$1\" | sed \"s/^commit //\" | less #"
     examine-since = "!git log \"$1\"..HEAD --reverse --patch"
+    forcepush = push --force-with-lease
 
 [fetch]
     prune = true
