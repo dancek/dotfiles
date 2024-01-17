@@ -46,12 +46,12 @@ interval = 1
 [[block]]
 block = "bluetooth"
 mac = "2C:41:A1:47:CF:EE"
-format = " $icon $percentage "
+format = " $icon {$percentage|} "
 disconnected_format = " $icon "
 
 [[block]]
 block = "music"
-format = " $icon  $play $next "
+format = " $icon  $play $next |"
 
 [[block]]
 block = "sound"
