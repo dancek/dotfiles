@@ -55,7 +55,7 @@ __alias() {
     shift
     if __cmd $1; then
         alias $a="$*"
-        compdef $a="$*" &> /dev/null
+        compdef $a=$1 &> /dev/null
     fi
 }
 

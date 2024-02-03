@@ -230,13 +230,14 @@ __source /usr/local/opt/asdf/asdf.sh
 ### ALIASES
 
 unalias l # TODO: see if we should disable something in prezto
+compdef _files l
 
 # mail commands
 if __cmd notmuch; then
     source ~/.zsh/mail.zsh
 fi
 
-__alias ll exa -al
+__alias ll eza -al
 
 __alias vi nvim
 __alias netstat ss
