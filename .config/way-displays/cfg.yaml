@@ -32,8 +32,9 @@ AUTO_SCALE: TRUE
 
 # Auto scale may be overridden for each display.
 SCALE:
-  - NAME_DESC: eDP-1
-    SCALE: 1.25
+  # Thinkpad T490, 14" 2560x1440
+  - NAME_DESC: 'AU Optronics 0x2036'
+    SCALE: 1.75
 
 # Override the preferred mode.
 # Warning: this may result in an unusable display.
