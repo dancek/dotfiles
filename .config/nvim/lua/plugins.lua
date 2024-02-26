@@ -179,6 +179,7 @@ return require('packer').startup(function()
           "lua",
           "make",
           "markdown",
+          "nasm",
           "proto",
           "python",
           "regex",
@@ -186,7 +187,11 @@ return require('packer').startup(function()
           "ruby",
           "rust",
           "scss",
+          "sql",
+          "svelte",
+          "terraform",
           "toml",
+          "typescript",
           "vala",
           "vim",
           "yaml",
@@ -251,7 +256,7 @@ return require('packer').startup(function()
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
-      local servers = { 'clangd', 'rust_analyzer', 'bashls', 'clojure_lsp' } -- , 'bqnlsp' }
+      local servers = { 'clangd', 'rust_analyzer', 'bashls', 'clojure_lsp', 'tsserver', 'svelte' } -- , 'bqnlsp' }
       for _, lsp in ipairs(servers) do
         nvim_lsp[lsp].setup {
           on_attach = on_attach,
@@ -262,34 +267,37 @@ return require('packer').startup(function()
         }
       end
 
+      -- Python needs extra support for virtual envs
+      nvim_lsp.pyright.setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        on_new_config = function(config, root_dir)
+          local env = vim.trim(vim.fn.system('cd "' .. root_dir .. '"; poetry env info -p 2>/dev/null'))
+          if string.len(env) > 0 then
+            config.settings.python.pythonPath = env .. '/bin/python'
+          end
+        end
+      }
+
     end
   }
 
-  -- Github Copilot
-  -- use {
-  --   'github/copilot.vim',
-  --   config = function()
-  --     local util = require('util')
-  --     vim.g.copilot_no_tab_map = true
-  --     util.imap("<S-Tab>", [[<Cmd>call copilot#Accept("")<CR>]])
-  --   end
-  -- }
-  -- use {
-  --   "zbirenbaum/copilot.lua",
-  --   config = function ()
-  --     require("copilot").setup()
-  --   end
-  -- }
-  -- use {
-  --   "zbirenbaum/copilot-cmp",
-  --   after = { "copilot.lua" },
-  --   config = function ()
-  --     require("copilot_cmp").setup()
-  --   end
-  -- }
-
   -- ChatGPT
-  use 'madox2/vim-ai'
+  use {
+    'madox2/vim-ai',
+    setup = function()
+      vim.g.vim_ai_chat = {
+        options = {
+          model = 'gpt-4-turbo-preview',
+          temperature = 0.7,
+        },
+      }
+    end
+  }
+
+  -- Debugging
+  use 'mfussenegger/nvim-dap'
+  use 'mfussenegger/nvim-dap-python'
 
   -- vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 end)
