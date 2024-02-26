@@ -162,6 +162,10 @@ for_window [app_id="^google-chrome$"] border none
 for_window [app_id="^dlauncher$"] border none, floating enable
 for_window [app_id="^hawkeye$"] border none, floating enable
 
+### Initialization
+
+exec "mkdir /tmp/Downloads"
+
 exec_always "env XDG_CURRENT_DESKTOP=sway systemctl --user import-environment XDG_CURRENT_DESKTOP WAYLAND_DISPLAY"
 
 exec "libinput-gestures"
