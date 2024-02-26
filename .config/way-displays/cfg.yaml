@@ -35,6 +35,9 @@ SCALE:
   # Thinkpad T490, 14" 2560x1440
   - NAME_DESC: 'AU Optronics 0x2036'
     SCALE: 1.75
+  # Thinkpad X1 Carbon gen11, 14" 1920x1080
+  - NAME_DESC: 'California Institute of Technology 0x1404'
+    SCALE: 1.25
 
 # Override the preferred mode.
 # Warning: this may result in an unusable display.
