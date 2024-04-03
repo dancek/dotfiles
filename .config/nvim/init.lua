@@ -55,3 +55,11 @@ vim.api.nvim_create_autocmd("BufNewFile", {
   desc = "Conjure Log disable LSP diagnostics",
 })
 
+
+-- Set filetype mappings I'm having trouble with
+vim.filetype.add({
+  extension = {
+    bqn = "bqn",
+    phtml = "slim",
+  }
+})

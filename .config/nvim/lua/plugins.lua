@@ -59,9 +59,13 @@ return require('packer').startup(function()
     config = function()
       local util = require('util')
       util.nmap('<C-p>', '<cmd>Telescope find_files<CR>')
+      util.nmap('<C-;>', '<cmd>Telescope oldfiles<CR>')
       util.nmap('<C-f>', '<cmd>Telescope live_grep<CR>')
+      util.nmap('<C-g>', '<cmd>Telescope grep_string<CR>')
       util.nmap('<C-h>', '<cmd>Telescope help_tags<CR>')
       util.nmap('<C-b>', '<cmd>Telescope buffers<CR>')
+      util.nmap('<C-]>', '<cmd>Telescope resume<CR>')
+      util.nmap('gR', '<cmd>Telescope lsp_references<CR>')
 
       require("telescope").setup {
         pickers = {
@@ -149,6 +153,8 @@ return require('packer').startup(function()
     run = 'cargo build --release'
   }
 
+  use 'slim-template/vim-slim'
+
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
@@ -179,6 +185,7 @@ return require('packer').startup(function()
           "lua",
           "make",
           "markdown",
+          "markdown_inline",
           "nasm",
           "proto",
           "python",
@@ -298,6 +305,16 @@ return require('packer').startup(function()
   -- Debugging
   use 'mfussenegger/nvim-dap'
   use 'mfussenegger/nvim-dap-python'
+
+  -- Coverage
+  use({
+    "andythigpen/nvim-coverage",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("coverage").setup({commands = true})
+    end,
+  })
+
 
   -- vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 end)
