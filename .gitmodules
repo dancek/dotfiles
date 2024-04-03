@@ -2,7 +2,3 @@
 	path = .vim/bundle/vundle
 	url = https://github.com/gmarik/vundle.git
     branch = master
-[submodule ".zsh/zgen"]
-	path = .zsh/zgen
-	url = https://github.com/tarjoilija/zgen
-    branch = master
