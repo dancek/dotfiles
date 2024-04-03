@@ -20,7 +20,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym $mod+d exec $menu
 
 # screenshot
-bindsym $mod+Shift+s exec "maim -s | xclip -selection clipboard -t image/png"
+bindsym $mod+Shift+s exec "slurp | grim -g- - | wl-copy"
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
