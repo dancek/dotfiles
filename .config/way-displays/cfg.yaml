@@ -38,6 +38,11 @@ SCALE:
   # Thinkpad X1 Carbon gen11, 14" 1920x1080
   - NAME_DESC: 'California Institute of Technology 0x1404'
     SCALE: 1.25
+  ## misc external displays I wanted to override
+  - NAME_DESC: 'DELL P2720DC'
+    SCALE: 1.0
+  - NAME_DESC: 'Dell Inc. DELL U3421WE GNCH753'
+    SCALE: 1.0
 
 # Override the preferred mode.
 # Warning: this may result in an unusable display.
