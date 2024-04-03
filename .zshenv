@@ -1,21 +1,45 @@
-# macOS and friends are so unfriendly with the stuff they run for me
-setopt noglobalrcs
+# Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
+#
+# Do not modify this file unless you know exactly what you are doing.
+# It is strongly recommended to keep all shell customization and configuration
+# (including exported environment variables such as PATH) in ~/.zshrc or in
+# files sourced from ~/.zshrc. If you are certain that you must export some
+# environment variables in ~/.zshenv, do it where indicated by comments below.
 
-export EDITOR="nvim"
-export VISUAL="nvim"
-export HOST
+if [ -n "${ZSH_VERSION-}" ]; then
+  # If you are certain that you must export some environment variables
+  # in ~/.zshenv (see comments at the top!), do it here:
+  #
+  #   export GOPATH=$HOME/go
+  #
+  # Do not change anything else in this file.
 
-# NOTE: this probably only works on linux. shit.
-export LANG="en_DK.UTF-8"
+  : ${ZDOTDIR:=~}
+  setopt no_global_rcs
+  [[ -o no_interactive && -z "${Z4H_BOOTSTRAPPING-}" ]] && return
+  setopt no_rcs
+  unset Z4H_BOOTSTRAPPING
+fi
 
-export JAVA_TEXT_ENCODING="UTF-8"
+Z4H_URL="https://raw.githubusercontent.com/romkatv/zsh4humans/v5"
+: "${Z4H:=${XDG_CACHE_HOME:-$HOME/.cache}/zsh4humans/v5}"
 
-export RUBYOPT="rubygems"
+umask o-w
 
-export MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
+if [ ! -e "$Z4H"/z4h.zsh ]; then
+  mkdir -p -- "$Z4H" || return
+  >&2 printf '\033[33mz4h\033[0m: fetching \033[4mz4h.zsh\033[0m\n'
+  if command -v curl >/dev/null 2>&1; then
+    curl -fsSL -- "$Z4H_URL"/z4h.zsh >"$Z4H"/z4h.zsh.$$ || return
+  elif command -v wget >/dev/null 2>&1; then
+    wget -O-   -- "$Z4H_URL"/z4h.zsh >"$Z4H"/z4h.zsh.$$ || return
+  else
+    >&2 printf '\033[33mz4h\033[0m: please install \033[32mcurl\033[0m or \033[32mwget\033[0m\n'
+    return 1
+  fi
+  mv -- "$Z4H"/z4h.zsh.$$ "$Z4H"/z4h.zsh || return
+fi
 
-umask 022
+. "$Z4H"/z4h.zsh || return
 
-# npm: install globally in homedir
-export NPM_CONFIG_PREFIX="$HOME/.npm-packages"
-path+="$NPM_CONFIG_PREFIX"
+setopt rcs

@@ -1,13 +1,41 @@
+### ZSH4HUMANS
+
+zstyle ':z4h:' auto-update      'no'
+zstyle ':z4h:bindkey' keyboard  'pc'
+zstyle ':z4h:' term-shell-integration 'yes'
+zstyle ':z4h:' prompt-at-bottom 'no'
+
+# Right-arrow key accepts one character ('partial-accept') from
+# command autosuggestions or the whole thing ('accept')?
+zstyle ':z4h:autosuggestions' forward-char 'accept'
+
+# Recursively traverse directories when TAB-completing files.
+zstyle ':z4h:fzf-complete' recurse-dirs 'no'
+
+# Enable ('yes') or disable ('no') automatic teleportation of z4h over
+# SSH when connecting to these hosts.
+# The default value if none of the overrides above match the hostname.
+zstyle ':z4h:ssh:*'                   enable 'no'
+
+# Install or update core components (fzf, zsh-autosuggestions, etc.) and
+# initialize Zsh. After this point console I/O is unavailable until Zsh
+# is fully initialized. Everything that requires user interaction or can
+# perform network I/O must be done above. Everything else is best done below.
+z4h init || return
+
+### ZSH COMPONENTS
+
+autoload -Uz zmv zcalc
+
+
+### CUSTOM ZSH CONFIG
+
+# helpers we'll use later in this file
 source ~/.zsh/helpers.zsh
 
-# enable colors (prezto doesn't do this)
-autoload -Uz colors && colors
-
-### LOCAL
+# local customizations
 __source ~/.zshrc-$(hostname -s)
 
-
-### ZSH CONFIG
 
 # git aliases
 zstyle ':completion:*:*:git:*' user-commands \
@@ -15,73 +43,14 @@ zstyle ':completion:*:*:git:*' user-commands \
     'tree'
 
 
-### ZGEN
-# for hints about plugins, see https://github.com/unixorn/awesome-zsh-plugins
-
-# start by loading zgen
-source ~/.zsh/zgen/zgen.zsh
-
-# check if there's no init script
-if ! zgen saved; then
-    echo "Creating a zgen save"
-    ZGEN_PREZTO_LOAD_DEFAULT=0
-
-    # prezto config
-    zgen prezto '*:*' color true
-    zgen prezto utility safe-ops false  # things like rm=rm -i
-    zgen prezto git:alias skip yes
-    zgen prezto prompt theme sorin
-
-    # prezto preload
-    zgen prezto
-
-    # default components (minus some)
-    zgen prezto environment
-    zgen prezto terminal
-    zgen prezto editor
-    zgen prezto history
-    zgen prezto spectrum
-    zgen prezto utility
-    zgen prezto completion
-    zgen prezto prompt
-
-    # extra components
-    zgen prezto git
-
-    # i used to have this, but some gnu utils are worse than zsh builtins
-    # eg. fzf fails due to features missing in g[ and gprintf
-    #zgen load sorin-ionescu/prezto modules/gnu-utility
-
-    # Code::Stats (my plugin!)
-    #zgen load https://gitlab.com/code-stats/code-stats-zsh.git
-    #zgen load "${HOME}/dev/code-stats-zsh"
-
-    # prezto modules that need to be loaded last (and configs)
-    zgen prezto history-substring-search
-    zgen prezto syntax-highlighting
-    zgen prezto prompt
-
-    # ZLE vi mode bindings
-    zgen load softmoth/zsh-vim-mode
-
-    # save all to init script
-    zgen save
-fi
-
-# config zsh-history-substring-search
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-
-
-### CUSTOM CONFIG
-
 # vi mode
+# TODO: fix with zsh4humans
 KEYTIMEOUT=40
-bindkey -v
-bindkey -rpM viins '\e\e'
-bindkey -M viins '\e\e' vi-cmd-mode
+# bindkey -v
+# bindkey -rpM viins '\e\e'
+# bindkey -M viins '\e\e' vi-cmd-mode
 
+# directories
 setopt AUTO_PUSHD           # Push the old directory onto the stack on cd.
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
 setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
@@ -110,7 +79,6 @@ __add_path ~/bin
 __add_path ~/.cabal/bin          # Cabal (Haskell)
 __add_path ~/.local/bin          # Stack (Haskell)
 __add_path ~/.cargo/bin          # Cargo (Rust)
-__add_path ~/.npm-packages/bin   # NPM homedir global installs (Node.js)
 __add_path ~/go/bin              # Go
 
 # macOS / Homebrew GNU tools
@@ -132,7 +100,14 @@ if [[ "$(uname)" == "Darwin" ]]; then
     unfunction __use_gnu_from_homebrew
 fi
 
+
 ### TOOLS
+
+# nvim
+if __cmd nvim; then
+    export EDITOR="nvim"
+    export VISUAL="nvim"
+fi
 
 # $PAGER: less with some options
 if __cmd less; then
@@ -219,17 +194,24 @@ if __cmd zoxide; then
     eval "$(zoxide init zsh)"
 fi
 
-# utils shipped with zsh
-autoload -Uz zmv zcalc
-
 
 # asdf (version manager)
 __source /usr/local/opt/asdf/asdf.sh
 
 
+### ENV VARIABLES
+
+export LANG="en_DK.UTF-8"
+export MANPATH
+export HOST
+
+# java
+export JAVA_TEXT_ENCODING="UTF-8"
+export MAVEN_OPTS="-XX:+TieredCompilation -XX:TieredStopAtLevel=1"
+
+
 ### ALIASES
 
-unalias l # TODO: see if we should disable something in prezto
 compdef _files l
 
 # mail commands
@@ -297,10 +279,9 @@ hash -d dotfiles=~/.config/dotfiles
 __unload_helpers
 
 
-export MANPATH
-
 # When developing completions, uncomment this
 #autoload -U compinit && compinit -D
 
 # sccs shadows this so add manually
 compdef _gnu_generic delta
+
