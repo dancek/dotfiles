@@ -22,7 +22,7 @@
     examine-since = "!git log \"$1\"..HEAD --reverse --patch"
     forcepush = push --force-with-lease
     remaster = !printf \"remastering from %s...\" $(git rev-parse --short HEAD) && git fetch origin && git rebase --quiet origin/master && printf \" Done: %s\n\" $(git rev-parse --short HEAD)
-    recheckout = "!f() { ref=${1:-$(git rev-parse --abbrev-ref HEAD)} && rref=$(git rev-parse --abbrev-ref --symbolic-full-name $ref@{upstream}) && a=$(git rev-parse --short $ref) && git fetch --quiet $(echo $rref | sed 's_/.*__') && b=$(git rev-parse --short $rref) && ([ \"$a\" = \"$b\" ] && echo \"$ref already at $b\" || (git stash push -m \"before recheckout $a -> $b\" && git checkout --quiet -B $ref --track $rref && echo \"$ref reset: $a -> $b\")); }; f"
+    recheckout = "!f() { ref=${1:-$(git rev-parse --abbrev-ref HEAD)} && rref=$(git rev-parse --abbrev-ref --symbolic-full-name $ref@{upstream}) && a=$(git rev-parse --short $ref) && git fetch --quiet $(echo $rref | sed 's_/.*__') 2>/dev/null && b=$(git rev-parse --short $rref) && ([ \"$a\" = \"$b\" ] && echo \"$ref already at $b\" || (git stash push -m \"before recheckout $a -> $b\" && git checkout --quiet -B $ref --track $rref && echo \"$ref reset: $a -> $b\")); }; f"
 
 [fetch]
     prune = true
