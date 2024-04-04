@@ -1,21 +1,28 @@
 ### ZSH4HUMANS
 
-zstyle ':z4h:' auto-update      'no'
-zstyle ':z4h:bindkey' keyboard  'pc'
-zstyle ':z4h:' term-shell-integration 'yes'
-zstyle ':z4h:' prompt-at-bottom 'no'
+zstyle ':z4h:'        auto-update            'no'
+zstyle ':z4h:bindkey' keyboard               'pc'
+zstyle ':z4h:'        term-shell-integration 'yes'
+zstyle ':z4h:'        prompt-at-bottom       'no'
+zstyle ':z4h:'        start-tmux             'no'
+
+# disable all command wrapping (hacky)
+typeset -gi _z4h_wrap_ssh=2
+typeset -gi _z4h_wrap_sudo=2
+typeset -gi _z4h_wrap_docker=2
 
 # Right-arrow key accepts one character ('partial-accept') from
 # command autosuggestions or the whole thing ('accept')?
 zstyle ':z4h:autosuggestions' forward-char 'accept'
 
-# Recursively traverse directories when TAB-completing files.
+# completions
 zstyle ':z4h:fzf-complete' recurse-dirs 'no'
+zstyle ':z4h:fzf-complete' fzf-bindings 'tab:repeat'
 
-# Enable ('yes') or disable ('no') automatic teleportation of z4h over
-# SSH when connecting to these hosts.
-# The default value if none of the overrides above match the hostname.
-zstyle ':z4h:ssh:*'                   enable 'no'
+zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
+zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users
+zstyle ':completion:*:(ssh|scp|rdp):*:hosts' hosts
+
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
@@ -43,10 +50,10 @@ zstyle ':completion:*:*:git:*' user-commands \
     'tree'
 
 
-# vi mode
-# TODO: fix with zsh4humans
+# vi mode (TODO: fix with z4h)
 KEYTIMEOUT=40
 # bindkey -v
+# bindkey '^I' z4h-fzf-complete
 # bindkey -rpM viins '\e\e'
 # bindkey -M viins '\e\e' vi-cmd-mode
 
@@ -225,7 +232,7 @@ __alias vi nvim
 __alias netstat ss
 
 # sudo: refresh timeout on every use
-alias sudo="sudo -v && sudo"
+#alias sudo="sudo -v && sudo"
 
 # git
 __alias gr git-revise
