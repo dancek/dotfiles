@@ -25,6 +25,12 @@ return require('packer').startup(function()
     end
   }
 
+  use { "johmsalas/text-case.nvim",
+    config = function()
+      require('textcase').setup {}
+    end
+  }
+
   -- autosave
   use {
     'Pocco81/auto-save.nvim',
@@ -51,6 +57,23 @@ return require('packer').startup(function()
     end
   }
   use 'mg979/vim-visual-multi'
+  use 'ntpeters/vim-better-whitespace'
+
+  use {
+  "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    }
+  }
+
+  -- git
+  use {'akinsho/git-conflict.nvim', tag = "*", config = function()
+    require('git-conflict').setup()
+  end}
 
   -- Telescope
   use {
@@ -62,13 +85,22 @@ return require('packer').startup(function()
       util.nmap('<C-\\>', '<cmd>Telescope oldfiles<CR>')
       util.nmap('<C-f>', '<cmd>Telescope live_grep<CR>')
       util.nmap('<C-g>', '<cmd>Telescope grep_string<CR>')
+      util.vmap('<C-g>', '<cmd>Telescope grep_string<CR>')
       util.nmap('<C-h>', '<cmd>Telescope help_tags<CR>')
       util.nmap('<C-b>', '<cmd>Telescope buffers<CR>')
       util.nmap('<C-]>', '<cmd>Telescope resume<CR>')
       util.nmap('gR', '<cmd>Telescope lsp_references<CR>')
 
       require("telescope").setup {
+        defaults = {
+          path_display = {
+            "truncate",
+          },
+        },
         pickers = {
+          find_files = {
+            find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+          },
           buffers = {
             mappings = {
               i = {
@@ -143,11 +175,14 @@ return require('packer').startup(function()
   }
 
   use 'hrsh7th/cmp-vsnip'
-  use 'hrsh7th/vim-vsnip'  
+  use 'hrsh7th/vim-vsnip'
 
   -- language support
   -- use 'sheerun/vim-polyglot'
-  use 'Olical/conjure'
+  use {
+    'Olical/conjure',
+    branch = 'main'
+  }
   use {
     'eraserhd/parinfer-rust',
     run = 'cargo build --release'
@@ -155,6 +190,30 @@ return require('packer').startup(function()
 
   use 'slim-template/vim-slim'
 
+  -- Formatting
+  use {
+    "nvimdev/guard.nvim",
+    requires = { {"nvimdev/guard-collection"} },
+    config = function()
+      local ft = require('guard.filetype')
+      ft('typescript,javascript,typescriptreact'):fmt('prettier')
+      ft('python'):fmt('ruff')
+      ft('sql'):fmt('sqlfluff')
+      ft('rust'):fmt('rustfmt')
+      ft('c,cpp'):fmt('clang-format')
+      ft('go'):fmt('gofmt')
+
+      vim.g.guard_config = {
+        fmt_on_save = false,
+        lsp_as_default_formatter = true,
+      }
+
+      local util = require('util')
+      util.nmap('<space>f', '<cmd>Guard fmt<CR>')
+    end
+  }
+
+  -- Treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
@@ -172,6 +231,7 @@ return require('packer').startup(function()
           "dockerfile",
           "dot",
           "fennel",
+          "go",
           "haskell",
           "html",
           "http",
@@ -198,6 +258,7 @@ return require('packer').startup(function()
           "svelte",
           "terraform",
           "toml",
+          "tsx",
           "typescript",
           "vala",
           "vim",
@@ -209,10 +270,14 @@ return require('packer').startup(function()
           additional_vim_regex_highlighting = false,
           disable = {},
         },
+        indent = {
+          enable = true,
+        },
       }
     end
   }
 
+  -- LSP
   use {
     'neovim/nvim-lspconfig',
     config = function()
@@ -245,7 +310,6 @@ return require('packer').startup(function()
         bnmap('[d',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
         bnmap(']d',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
         bnmap('<space>q',  '<cmd>lua vim.diagnostic.setloclist()<CR>')
-        bnmap('<space>f',  '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
         bnmap('<space>h',  '<cmd>ClangdSwitchSourceHeader<CR>')
 
         -- Use automatic formatting on save
@@ -263,7 +327,7 @@ return require('packer').startup(function()
 
       -- Use a loop to conveniently call 'setup' on multiple servers and
       -- map buffer local keybindings when the language server attaches
-      local servers = { 'clangd', 'rust_analyzer', 'bashls', 'clojure_lsp', 'tsserver', 'svelte' } -- , 'bqnlsp' }
+      local servers = { 'clangd', 'rust_analyzer', 'bashls', 'clojure_lsp', 'ts_ls', 'svelte', 'gopls' } -- , 'bqnlsp' }
       for _, lsp in ipairs(servers) do
         nvim_lsp[lsp].setup {
           on_attach = on_attach,
@@ -295,7 +359,7 @@ return require('packer').startup(function()
     setup = function()
       vim.g.vim_ai_chat = {
         options = {
-          model = 'gpt-4-turbo-preview',
+          model = 'o1-mini',
           temperature = 0.7,
         },
       }
