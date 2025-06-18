@@ -15,6 +15,8 @@ ALIGN: MIDDLE
 ORDER:
   - HDMI-A-1
   - HDMI-A-2
+  - DP-9
+  - DP-8
   - DP-7
   - DP-6
   - DP-5
@@ -41,7 +43,11 @@ SCALE:
   ## misc external displays I wanted to override
   - NAME_DESC: 'DELL P2720DC'
     SCALE: 1.0
+  - NAME_DESC: 'DELL P2723DE'
+    SCALE: 1.0
   - NAME_DESC: 'Dell Inc. DELL U3421WE GNCH753'
+    SCALE: 1.0
+  - NAME_DESC: 'LEN P27q-10'
     SCALE: 1.0
 
 # Override the preferred mode.
@@ -73,5 +79,5 @@ LOG_THRESHOLD: INFO
 
 # Disable the specified displays.
 DISABLED:
-  #- "eDP-1"
+  # - 'Dell Inc. DELL P2719H 4550RS2 (DP-6)'
 
