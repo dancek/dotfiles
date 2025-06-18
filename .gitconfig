@@ -14,7 +14,7 @@
     st = status --short
     tree = log --graph --oneline --all --decorate --abbrev-commit
     delete-merged-branches = !git branch --merged | egrep -v '^\\*| master$| main$' | ifne vipe | ifne xargs -n1 git branch -d
-    l = log --oneline -10
+    l = log --oneline -25
     co = !git rev-parse --verify $1 && git stash && git checkout --recurse-submodules $1 && git stash pop && :
     ours = "!f() { git checkout --ours -- \"${@:-.}\"; git add -u \"${@:-.}\"; }; f"
     theirs = "!f() { git checkout --theirs -- \"${@:-.}\"; git add -u \"${@:-.}\"; }; f"
@@ -22,7 +22,8 @@
     examine-since = "!git log \"$1\"..HEAD --reverse --patch"
     forcepush = push --force-with-lease
     remaster = !printf \"remastering from %s...\" $(git rev-parse --short HEAD) && git fetch origin && git rebase --quiet origin/master && printf \" Done: %s\n\" $(git rev-parse --short HEAD)
-    recheckout = "!f() { ref=${1:-$(git rev-parse --abbrev-ref HEAD)} && rref=$(git rev-parse --abbrev-ref --symbolic-full-name $ref@{upstream}) && a=$(git rev-parse --short $ref) && git fetch --quiet $(echo $rref | sed 's_/.*__') 2>/dev/null && b=$(git rev-parse --short $rref) && ([ \"$a\" = \"$b\" ] && echo \"$ref already at $b\" || (git stash push -m \"before recheckout $a -> $b\" && git checkout --quiet -B $ref --track $rref && echo \"$ref reset: $a -> $b\")); }; f"
+    recheckout = "!f() { ref=${1:-$(git rev-parse --abbrev-ref HEAD)} && rref=$(git rev-parse --abbrev-ref --symbolic-full-name $ref@{upstream}) && a=$(git rev-parse --short $ref) && git fetch --quiet $(echo $rref | sed 's_/.*__') 2>/dev/null && b=$(git rev-parse --short $rref) && (git stash push -m \"before recheckout $a -> $b\" && git checkout --quiet -B $ref --track $rref && echo \"$ref reset: $a -> $b\"); }; f"
+    difft = !GIT_EXTERNAL_DIFF=difft git diff
 
 [fetch]
     prune = true
@@ -31,18 +32,19 @@
 [push]
     default = current
     followTags = true
+    autoSetupRemote = true
 [rebase]
     autoSquash = true
     missingCommitsCheck = warn
     stat = true
 
 [merge]
-    tool = nvimdiff
+    tool = meld
     ff = only
 
 [mergetool]
     keepBackup = false
-    
+
 [mergetool "nvimdiff"]
     cmd = nvim -d $LOCAL $REMOTE $MERGED
 
