@@ -8,6 +8,9 @@ xkb_symbols {
   key <AD10> { [ p, P, odiaeresis, Odiaeresis ] };
   key <LSGT> { [ adiaeresis, Adiaeresis, odiaeresis, Odiaeresis ] };
 
+  // š because it's in Finnish
+  key <AC02>  {[            s,               S,               scaron,              section  ]};
+
   // Print screen = compose
   key <PRSC> { [ Multi_key ] };
 
@@ -17,5 +20,5 @@ xkb_symbols {
 
   // J/N swap
   key <AB06> { [	   j,          J,         U2206,          onehalf ] };
-  key <AC07> { [	   n,          N,    dead_tilde,            U02DC ] };
+  key <AC07> { [	   n,          N,           eng,            U02DC ] };
 };
