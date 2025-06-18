@@ -16,8 +16,7 @@ typeset -gi _z4h_wrap_docker=2
 zstyle ':z4h:autosuggestions' forward-char 'accept'
 
 # completions
-zstyle ':z4h:fzf-complete' recurse-dirs 'no'
-zstyle ':z4h:fzf-complete' fzf-bindings 'tab:repeat'
+#zstyle ':z4h:fzf-complete' recurse-dirs 'no'
 
 zstyle ':completion:*:ssh:argument-1:'       tag-order  hosts users
 zstyle ':completion:*:scp:argument-rest:'    tag-order  hosts files users
@@ -210,7 +209,6 @@ __source /usr/local/opt/asdf/asdf.sh
 
 export LANG="en_DK.UTF-8"
 export MANPATH
-export HOST
 
 # java
 export JAVA_TEXT_ENCODING="UTF-8"
@@ -226,7 +224,8 @@ if __cmd notmuch; then
     source ~/.zsh/mail.zsh
 fi
 
-__alias ll eza -al
+__alias ls lsd
+__alias ll ls -al
 
 __alias vi nvim
 __alias netstat ss
