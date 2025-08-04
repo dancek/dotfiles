@@ -63,7 +63,7 @@ interval = 1
 format = " $icon $timestamp.datetime(f:'%Y-%m-%d %H:%M') "
 
 [[block]]
-block = "pacman"
+block = "packages"
 
 [[block]]
 block = "custom"
