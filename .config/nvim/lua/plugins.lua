@@ -82,6 +82,7 @@ return require('packer').startup(function()
     config = function()
       local util = require('util')
       util.nmap('<C-p>', '<cmd>Telescope find_files<CR>')
+      util.nmap('<C-M-p>', '<cmd>Telescope find_files hidden=true no_ignore=false<CR>')
       util.nmap('<C-\\>', '<cmd>Telescope oldfiles<CR>')
       util.nmap('<C-f>', '<cmd>Telescope live_grep<CR>')
       util.nmap('<C-g>', '<cmd>Telescope grep_string<CR>')
@@ -98,9 +99,6 @@ return require('packer').startup(function()
           },
         },
         pickers = {
-          find_files = {
-            find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
-          },
           buffers = {
             mappings = {
               i = {
