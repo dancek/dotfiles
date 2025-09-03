@@ -90,6 +90,25 @@ vim.filetype.add({
 })
 
 
+-- Neovide copy+paste
+if vim.g.neovide then
+  local copy_key
+  local paste_key
+
+  if vim.loop.os_uname().sysname == "Darwin" then
+    copy_key = "<D-c>"
+    paste_key = "<D-v>"
+  else
+    copy_key = "<C-S-c>"
+    paste_key = "<C-S-v>"
+  end
+
+  vim.keymap.set("v", copy_key, '"+y', { desc = "Copy to system clipboard" })
+  vim.keymap.set({ "n", "v" }, paste_key, '"+P', { desc = "Paste from system clipboard" })
+  vim.keymap.set({ "i", "c" }, paste_key, "<C-R>+", { desc = "Paste from system clipboard" })
+end
+
+
 -- read local config if exists
 local local_config_path = vim.fn.expand('~/.nvim.local.lua')
 
