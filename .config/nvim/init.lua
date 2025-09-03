@@ -88,3 +88,11 @@ vim.filetype.add({
     mdx = "jsx",
   }
 })
+
+
+-- read local config if exists
+local local_config_path = vim.fn.expand('~/.nvim.local.lua')
+
+if vim.fn.filereadable(local_config_path) == 1 then
+  dofile(local_config_path)
+end
