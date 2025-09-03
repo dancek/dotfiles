@@ -363,17 +363,17 @@ return require('packer').startup(function()
   }
 
   -- ChatGPT
-  use {
-    'madox2/vim-ai',
-    setup = function()
-      vim.g.vim_ai_chat = {
-        options = {
-          model = 'o1-mini',
-          temperature = 0.7,
-        },
-      }
-    end
-  }
+  -- use {
+  --   'madox2/vim-ai',
+  --   setup = function()
+  --     vim.g.vim_ai_chat = {
+  --       options = {
+  --         model = 'o1-mini',
+  --         temperature = 0.7,
+  --       },
+  --     }
+  --   end
+  -- }
 
   -- Debugging
   use 'mfussenegger/nvim-dap'
