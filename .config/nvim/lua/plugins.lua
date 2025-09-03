@@ -194,12 +194,23 @@ return require('packer').startup(function()
     requires = { {"nvimdev/guard-collection"} },
     config = function()
       local ft = require('guard.filetype')
-      ft('typescript,javascript,typescriptreact'):fmt('prettier')
-      ft('python'):fmt('ruff')
-      ft('sql'):fmt('sqlfluff')
-      ft('rust'):fmt('rustfmt')
-      ft('c,cpp'):fmt('clang-format')
-      ft('go'):fmt('gofmt')
+
+      -- Define all formatters in a table
+      local formatters = {
+        { exe = "prettier", filetypes = "typescript,javascript,typescriptreact" },
+        { exe = "ruff", filetypes = "python" },
+        { exe = "sqlfluff", filetypes = "sql" },
+        { exe = "rustfmt", filetypes = "rust" },
+        { exe = "clang-format", filetypes = "c,cpp" },
+        { exe = "gofmt", filetypes = "go" },
+      }
+
+      -- Loop through the formatters and only register the ones that are installed.
+      for _, formatter in ipairs(formatters) do
+        if vim.fn.executable(formatter.exe) == 1 then
+          ft(formatter.filetypes):fmt(formatter.exe)
+        end
+      end
 
       vim.g.guard_config = {
         fmt_on_save = false,
