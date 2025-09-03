@@ -1,0 +1,8 @@
+#!/bin/sh
+
+area=$(slurp)
+if [ -n "$1" ]; then
+    sleep "$1"
+fi
+echo "$area"
+grim -g "$area" -t png - | wl-copy -t image/png

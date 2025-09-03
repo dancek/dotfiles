@@ -1,0 +1,15 @@
+#!/bin/sh
+
+identities=$(mktemp)
+
+age-plugin-yubikey --identity > "$identities" 2>/dev/null
+
+if [ -s "$identities" ]; then
+    printf "\e[33m[decy] touch to decrypt secrets...\e[m\n" > /dev/stderr
+    rage -d -i "$identities" "$@"
+else
+    printf "\e[31m[decy] ERROR: no yubikey connected!\e[m\n" > /dev/stderr
+    exit 1
+fi
+
+rm -f "$identities"

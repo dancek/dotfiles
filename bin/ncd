@@ -1,0 +1,9 @@
+#!/bin/sh
+
+NVIM=${NVIM:-/tmp/nvimsocket}
+
+P="$(pwd)"
+if [ $# -gt 0 ]; then
+    P="$(realpath $@)"
+fi
+nvim --server "$NVIM" --remote-send "<esc>:cd $P<cr>"

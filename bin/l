@@ -1,0 +1,15 @@
+#!/bin/sh
+
+LS="lsd"
+
+if [ -z "$1" ]; then
+  exec "$LS"
+elif [ -f "$1" ]; then
+  exec bat --style=plain "$@"
+elif [ -d "$1" ]; then
+  exec "$LS" "$@"
+else
+  echo "$1" not found!
+  exit 1
+fi
+

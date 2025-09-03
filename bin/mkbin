@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 newcmdname"
+    exit 2
+fi
+
+file="$HOME/bin/$1"
+
+touch "$file"
+chmod a+x "$file"
+exec $VISUAL "$file"

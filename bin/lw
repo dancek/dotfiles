@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cmd=$(which $1)
+shift
+bat "$@" "$cmd"

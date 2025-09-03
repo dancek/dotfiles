@@ -80,6 +80,8 @@ typeset -U path
 
 # add my own ~/bin to $PATH (unless it exists already)
 __add_path ~/bin
+# also add dotfiles/bin
+__add_path ~/.config/dotfiles/bin
 
 # add tool-specific directories to $PATH if they exist
 __add_path ~/.cabal/bin          # Cabal (Haskell)

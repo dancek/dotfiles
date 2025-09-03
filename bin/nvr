@@ -1,0 +1,27 @@
+#!/bin/sh
+
+NVIM=${NVIM:-/tmp/nvimsocket}
+CWD=$(pwd)
+
+args_for_nvim=()
+
+for arg in "$@"; do
+    # Check if the argument starts with a protocol pattern (scheme://...)
+    if [[ "$arg" =~ ^[a-zA-Z0-9]+:// ]]; then
+        args_for_nvim+=("$arg")
+    else
+        # Assume it's a local file path. If it's not already absolute, make it absolute.
+        if [[ "$arg" =~ ^/ ]]; then
+            args_for_nvim+=("$arg")
+        else
+            args_for_nvim+=("$CWD/$arg")
+        fi
+    fi
+done
+
+
+if [ -e "$NVIM" ]; then
+    nvim --server "$NVIM" --remote "${args_for_nvim[@]}"
+else
+    neovide --fork -- --listen "$NVIM" "$@"
+fi

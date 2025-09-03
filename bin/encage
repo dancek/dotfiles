@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rage -r age1yubikey1qfhapm985vw9rl72qee2yfqtln04pxsrw3s8mz2zw6tjp04tfp95xnhzsah -r age1pdd2ndfn9ecqgezpzuyg7ezxf0y8gw3netcsjgx0slce3fscdf8qd36nmw -r age1yubikey1q0apz3zvunmdyhgw2rm9c3jgvcv83ne7g7m3h88jmym6m6xrp3pkwnqd43k -a "$@"
