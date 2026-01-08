@@ -21,6 +21,7 @@
     loggrep = "!git log -S \"$1\" --patch --format=\"commit %C(yellow)%h%Creset %s\" --color=always | egrep \"^commit |^(\\e\\[3.m)?[+-].*$1\" | sed \"s/^commit //\" | less #"
     examine-since = "!git log \"$1\"..HEAD --reverse --patch"
     forcepush = push --force-with-lease
+    remain = !printf \"remastering from %s...\" $(git rev-parse --short HEAD) && git fetch origin && git rebase --quiet origin/main && printf \" Done: %s\n\" $(git rev-parse --short HEAD)
     remaster = !printf \"remastering from %s...\" $(git rev-parse --short HEAD) && git fetch origin && git rebase --quiet origin/master && printf \" Done: %s\n\" $(git rev-parse --short HEAD)
     recheckout = "!f() { ref=${1:-$(git rev-parse --abbrev-ref HEAD)} && rref=$(git rev-parse --abbrev-ref --symbolic-full-name $ref@{upstream}) && a=$(git rev-parse --short $ref) && git fetch --quiet $(echo $rref | sed 's_/.*__') 2>/dev/null && b=$(git rev-parse --short $rref) && (git stash push -m \"before recheckout $a -> $b\" && git checkout --quiet -B $ref --track $rref && echo \"$ref reset: $a -> $b\"); }; f"
     difft = !GIT_EXTERNAL_DIFF=difft git diff
