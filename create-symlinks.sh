@@ -55,9 +55,10 @@ backup_and_symlink() {
 link_dotfiles() {
     for file in .??* # make sure we exclude . and .. even in Bourne shell
     do
-        # skip .git and .config
+        # skip .git, .jj and .config
         case "$file" in
             .git )      continue ;;
+            .jj )       continue ;;
             .config )   continue ;;
         esac
         backup_and_symlink "$HOME" "$reldir" "$file"
