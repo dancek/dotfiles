@@ -53,6 +53,11 @@ SCALE:
 # Override the preferred mode.
 # Warning: this may result in an unusable display.
 MODE:
+  - NAME_DESC: 'LG Electronics LG SIGNAGE 0x01010101'
+    WIDTH: 1920
+    HEIGHT: 1080
+    HZ: 60
+
     # Resolution and refresh
     #- NAME_DESC: HDMI-A-1
     #  WIDTH: 1920
