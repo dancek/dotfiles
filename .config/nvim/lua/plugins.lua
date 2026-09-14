@@ -60,7 +60,7 @@ return require('packer').startup(function()
   use 'ntpeters/vim-better-whitespace'
 
   use {
-  "nvim-neo-tree/neo-tree.nvim",
+    "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     requires = {
       "nvim-lua/plenary.nvim",
@@ -152,23 +152,23 @@ return require('packer').startup(function()
           -- documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert({
-            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-            ['<C-f>'] = cmp.mapping.scroll_docs(4),
-            ['<C-Space>'] = cmp.mapping.complete(),
-            ['<C-e>'] = cmp.mapping.abort(),
-            ['<Tab>'] = cmp.mapping.confirm({
-              behavior = cmp.ConfirmBehavior.Replace,
-              select = true,
-            }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          }),
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ['<Tab>'] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        }),
         sources = cmp.config.sources({
-            { name = 'copilot' },
-            { name = 'nvim_lsp' },
-            { name = 'vsnip' }, -- For vsnip users.
-          }, {
+          { name = 'copilot' },
+          { name = 'nvim_lsp' },
+          { name = 'vsnip' }, -- For vsnip users.
+        }, {
             { name = 'buffer' },
           })
-        }
+      }
     end
   }
 
@@ -225,55 +225,10 @@ return require('packer').startup(function()
   -- Treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
+    branch = "main",
     run = ':TSUpdate',
     config = function()
-      require('nvim-treesitter.configs').setup {
-        ensure_installed = {
-          "bash",
-          "c",
-          "clojure",
-          "cmake",
-          "comment",
-          "cpp",
-          "css",
-          "devicetree",
-          "dockerfile",
-          "dot",
-          "fennel",
-          "go",
-          "haskell",
-          "html",
-          "http",
-          "java",
-          "javascript",
-          "jsdoc",
-          "json",
-          "json5",
-          "jsonc",
-          "latex",
-          "lua",
-          "make",
-          "markdown",
-          "markdown_inline",
-          "nasm",
-          "proto",
-          "python",
-          "regex",
-          "rst",
-          "ruby",
-          "rust",
-          "scss",
-          "sql",
-          "svelte",
-          "terraform",
-          "toml",
-          "tsx",
-          "typescript",
-          "vala",
-          "vim",
-          "yaml",
-          "zig",
-        },
+      require('nvim-treesitter').setup {
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
@@ -281,7 +236,109 @@ return require('packer').startup(function()
         },
         indent = {
           enable = true,
-        },
+        }
+      }
+      require('nvim-treesitter').install {
+        "asm",
+        "awk",
+        "bash",
+        "c",
+        "c_sharp",
+        "caddy",
+        "clojure",
+        "cmake",
+        "comment",
+        "cpp",
+        "css",
+        "csv",
+        "desktop",
+        "devicetree",
+        "diff",
+        "dockerfile",
+        "dot",
+        "editorconfig",
+        "elixir",
+        "fennel",
+        "fish",
+        "forth",
+        "fsharp",
+        "git_config",
+        "git_rebase",
+        "gitattributes",
+        "gitcommit",
+        "gitignore",
+        "glsl",
+        "go",
+        "haskell",
+        "html",
+        "http",
+        "ini",
+        "java",
+        "javadoc",
+        "javascript",
+        "jinja",
+        "jinja_inline",
+        "jjdescription",
+        "jq",
+        "jsdoc",
+        "json",
+        "json5",
+        "kitty",
+        "latex",
+        "lua",
+        "make",
+        "markdown",
+        "markdown_inline",
+        "mermaid",
+        "meson",
+        "nasm",
+        "nginx",
+        "nix",
+        "objc",
+        "ocaml",
+        "passwd",
+        "perl",
+        "php",
+        "powershell",
+        "printf",
+        "properties",
+        "proto",
+        "python",
+        "qmljs",
+        "query",
+        "r",
+        "racket",
+        "readline",
+        "regex",
+        "requirements",
+        "robots_txt",
+        "rst",
+        "ruby",
+        "rust",
+        "scala",
+        "scheme",
+        "scss",
+        "smali",
+        "sql",
+        "ssh_config",
+        "strace",
+        "svelte",
+        "sway",
+        "terraform",
+        "toml",
+        "tsv",
+        "tsx",
+        "typescript",
+        "udev",
+        "vala",
+        "vhdl",
+        "vim",
+        "vimdoc",
+        "xml",
+        "xresources",
+        "yaml",
+        "zig",
+        "zsh",
       }
     end
   }
@@ -290,8 +347,6 @@ return require('packer').startup(function()
   use {
     'neovim/nvim-lspconfig',
     config = function()
-      local nvim_lsp = require('lspconfig')
-
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, bufnr)
@@ -338,17 +393,18 @@ return require('packer').startup(function()
       -- map buffer local keybindings when the language server attaches
       local servers = { 'clangd', 'rust_analyzer', 'bashls', 'clojure_lsp', 'ts_ls', 'svelte', 'gopls' } -- , 'bqnlsp' }
       for _, lsp in ipairs(servers) do
-        nvim_lsp[lsp].setup {
+        vim.lsp.enable(lsp)
+        vim.lsp.config(lsp, {
           on_attach = on_attach,
           flags = {
             debounce_text_changes = 150,
           },
           capabilities = capabilities
-        }
+        })
       end
 
       -- Python needs extra support for virtual envs
-      nvim_lsp.pyright.setup {
+      vim.lsp.config('pyright', {
         capabilities = capabilities,
         on_attach = on_attach,
         on_new_config = function(config, root_dir)
@@ -357,7 +413,7 @@ return require('packer').startup(function()
             config.settings.python.pythonPath = env .. '/bin/python'
           end
         end
-      }
+      })
 
     end
   }
