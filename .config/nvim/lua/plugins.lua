@@ -1,98 +1,110 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
-  vim.cmd 'packadd packer.nvim'
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
+vim.opt.rtp:prepend(lazypath)
 
-return require('packer').startup(function()
-  -- packer itself
-  use 'wbthomason/packer.nvim'
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
+require("lazy").setup({
   -- essentials
-  use 'tpope/vim-sensible'
-  use 'tpope/vim-repeat'
-  use 'tpope/vim-sleuth'
-  use 'tpope/vim-surround'
-  use 'tpope/vim-commentary'
+  "tpope/vim-sensible",
+  "tpope/vim-repeat",
+  "tpope/vim-sleuth",
+  "tpope/vim-surround",
+  "tpope/vim-commentary",
 
-  use {
-    'junegunn/vim-easy-align',
+  {
+    "junegunn/vim-easy-align",
     config = function()
-      local util = require('util')
-      util.nmap('ga', '<Plug>(LiveEasyAlign)')
-      util.vmap('ga', '<Plug>(LiveEasyAlign)')
-    end
-  }
+      local util = require("util")
+      util.nmap("ga", "<Plug>(LiveEasyAlign)")
+      util.vmap("ga", "<Plug>(LiveEasyAlign)")
+    end,
+  },
 
-  use { "johmsalas/text-case.nvim",
+  {
+    "johmsalas/text-case.nvim",
     config = function()
-      require('textcase').setup {}
-    end
-  }
+      require("textcase").setup({})
+    end,
+  },
 
   -- autosave
-  use {
-    'Pocco81/auto-save.nvim',
+  {
+    "Pocco81/auto-save.nvim",
     config = function()
-      require('auto-save').setup {
-      }
-    end
-  }
+      require("auto-save").setup({})
+    end,
+  },
 
   -- UI enhancements
-  use 'morhetz/gruvbox'
-  use {
-    'vim-airline/vim-airline',
+  "morhetz/gruvbox",
+  {
+    "vim-airline/vim-airline",
     config = function()
-      vim.g['airline_powerline_fonts'] = 1
-      vim.g['airline_section_x'] = vim.call('airline#section#create_right',
-        {'tagbar', 'filetype'})
-    end
-  }
-  use {
-    'folke/which-key.nvim',
+      vim.g["airline_powerline_fonts"] = 1
+      vim.g["airline_section_x"] = vim.call("airline#section#create_right", { "tagbar", "filetype" })
+    end,
+  },
+  {
+    "folke/which-key.nvim",
     config = function()
-      require('which-key').setup {}
-    end
-  }
-  use 'mg979/vim-visual-multi'
-  use 'ntpeters/vim-better-whitespace'
+      require("which-key").setup({})
+    end,
+  },
+  "mg979/vim-visual-multi",
+  "ntpeters/vim-better-whitespace",
 
-  use {
+  {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
-      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    }
-  }
+    },
+  },
 
   -- git
-  use {'akinsho/git-conflict.nvim', tag = "*", config = function()
-    require('git-conflict').setup()
-  end}
+  {
+    "akinsho/git-conflict.nvim",
+    version = "*",
+    config = function()
+      require("git-conflict").setup()
+    end,
+  },
 
   -- Telescope
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      local util = require('util')
-      util.nmap('<C-p>', '<cmd>Telescope find_files<CR>')
-      util.nmap('<C-M-p>', '<cmd>Telescope find_files hidden=true no_ignore=false<CR>')
-      util.nmap('<C-\\>', '<cmd>Telescope oldfiles<CR>')
-      util.nmap('<C-f>', '<cmd>Telescope live_grep<CR>')
-      util.nmap('<C-g>', '<cmd>Telescope grep_string<CR>')
-      util.vmap('<C-g>', '<cmd>Telescope grep_string<CR>')
-      util.nmap('<C-h>', '<cmd>Telescope help_tags<CR>')
-      util.nmap('<C-b>', '<cmd>Telescope buffers<CR>')
-      util.nmap('<C-]>', '<cmd>Telescope resume<CR>')
-      util.nmap('gR', '<cmd>Telescope lsp_references<CR>')
+      local util = require("util")
+      util.nmap("<C-p>", "<cmd>Telescope find_files<CR>")
+      util.nmap("<C-M-p>", "<cmd>Telescope find_files hidden=true no_ignore=false<CR>")
+      util.nmap("<C-\\>", "<cmd>Telescope oldfiles<CR>")
+      util.nmap("<C-f>", "<cmd>Telescope live_grep<CR>")
+      util.nmap("<C-g>", "<cmd>Telescope grep_string<CR>")
+      util.vmap("<C-g>", "<cmd>Telescope grep_string<CR>")
+      util.nmap("<C-h>", "<cmd>Telescope help_tags<CR>")
+      util.nmap("<C-b>", "<cmd>Telescope buffers<CR>")
+      util.nmap("<C-]>", "<cmd>Telescope resume<CR>")
+      util.nmap("gR", "<cmd>Telescope lsp_references<CR>")
 
-      require("telescope").setup {
+      require("telescope").setup({
         defaults = {
           path_display = {
             "truncate",
@@ -103,44 +115,38 @@ return require('packer').startup(function()
             mappings = {
               i = {
                 ["<C-d>"] = "delete_buffer",
-              }
-            }
-          }
-        }
-      }
-    end
-  }
-
-  -- C::S
-  -- use 'https://gitlab.com/code-stats/code-stats-vim.git'
+              },
+            },
+          },
+        },
+      })
+    end,
+  },
 
   -- BQN
-  use {
-    'mlochbaum/BQN',
-    rtp = 'editors/vim/',
-    -- config = function()
-    --   vim.cmd([[autocmd BufRead,BufNewFile *.bqn setf bqn]])
-    -- end
-  }
-  use {
-    'https://git.sr.ht/~detegr/nvim-bqn',
+  {
+    "mlochbaum/BQN",
+    rtp = "editors/vim/",
+  },
+  {
+    "https://git.sr.ht/~detegr/nvim-bqn",
     config = function()
-      local util = require('util')
+      local util = require("util")
       -- util.nmap('<C-Space>', '<cmd>BQNEvalFile<CR>')
       -- util.nmap('<Space>', '<cmd>BQNClearFile<CR>')
-    end
-  }
+    end,
+  },
 
   -- completion
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use {
-    'hrsh7th/nvim-cmp',
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-path",
+  "hrsh7th/cmp-cmdline",
+  {
+    "hrsh7th/nvim-cmp",
     config = function()
-      local cmp = require('cmp')
-      cmp.setup {
+      local cmp = require("cmp")
+      cmp.setup({
         snippet = {
           -- REQUIRED - you must specify a snippet engine
           expand = function(args)
@@ -152,48 +158,47 @@ return require('packer').startup(function()
           -- documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert({
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-e>'] = cmp.mapping.abort(),
-          ['<Tab>'] = cmp.mapping.confirm({
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<Tab>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
-          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          }),
         }),
         sources = cmp.config.sources({
-          { name = 'copilot' },
-          { name = 'nvim_lsp' },
-          { name = 'vsnip' }, -- For vsnip users.
+          { name = "copilot" },
+          { name = "nvim_lsp" },
+          { name = "vsnip" },
         }, {
-            { name = 'buffer' },
-          })
-      }
-    end
-  }
+          { name = "buffer" },
+        }),
+      })
+    end,
+  },
 
-  use 'hrsh7th/cmp-vsnip'
-  use 'hrsh7th/vim-vsnip'
+  "hrsh7th/cmp-vsnip",
+  "hrsh7th/vim-vsnip",
 
   -- language support
-  -- use 'sheerun/vim-polyglot'
-  use {
-    'Olical/conjure',
-    branch = 'main'
-  }
-  use {
-    'eraserhd/parinfer-rust',
-    run = 'cargo build --release'
-  }
+  {
+    "Olical/conjure",
+    branch = "main",
+  },
+  {
+    "eraserhd/parinfer-rust",
+    build = "cargo build --release",
+  },
 
-  use 'slim-template/vim-slim'
+  "slim-template/vim-slim",
 
   -- Formatting
-  use {
+  {
     "nvimdev/guard.nvim",
-    requires = { {"nvimdev/guard-collection"} },
+    dependencies = { "nvimdev/guard-collection" },
     config = function()
-      local ft = require('guard.filetype')
+      local ft = require("guard.filetype")
 
       -- Define all formatters in a table
       local formatters = {
@@ -217,18 +222,18 @@ return require('packer').startup(function()
         lsp_as_default_formatter = true,
       }
 
-      local util = require('util')
-      util.nmap('<space>f', '<cmd>Guard fmt<CR>')
-    end
-  }
+      local util = require("util")
+      util.nmap("<space>f", "<cmd>Guard fmt<CR>")
+    end,
+  },
 
   -- Treesitter
-  use {
-    'nvim-treesitter/nvim-treesitter',
+  {
+    "nvim-treesitter/nvim-treesitter",
     branch = "main",
-    run = ':TSUpdate',
+    build = ":TSUpdate",
     config = function()
-      require('nvim-treesitter').setup {
+      require("nvim-treesitter").setup({
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
@@ -236,9 +241,9 @@ return require('packer').startup(function()
         },
         indent = {
           enable = true,
-        }
-      }
-      require('nvim-treesitter').install {
+        },
+      })
+      require("nvim-treesitter").install({
         "asm",
         "awk",
         "bash",
@@ -339,59 +344,48 @@ return require('packer').startup(function()
         "yaml",
         "zig",
         "zsh",
-      }
-    end
-  }
+      })
+    end,
+  },
 
   -- LSP
-  use {
-    'neovim/nvim-lspconfig',
+  {
+    "neovim/nvim-lspconfig",
     config = function()
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, bufnr)
         local function bnmap(lhs, rhs)
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, { noremap = true, silent = true})
+          vim.api.nvim_buf_set_keymap(bufnr, "n", lhs, rhs, { noremap = true, silent = true })
         end
 
         -- Enable completion triggered by <c-x><c-o>
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
         -- See `:help vim.lsp.*` for documentation on any of the below functions
-        bnmap('gD',        '<cmd>lua vim.lsp.buf.declaration()<CR>')
-        bnmap('gd',        '<cmd>lua vim.lsp.buf.definition()<CR>')
-        bnmap('K',         '<cmd>lua vim.lsp.buf.hover()<CR>')
-        bnmap('gi',        '<cmd>lua vim.lsp.buf.implementation()<CR>')
-        bnmap('<C-k>',     '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-        bnmap('<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>')
-        bnmap('<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>')
-        bnmap('<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>')
-        bnmap('<space>D',  '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-        bnmap('<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-        bnmap('<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-        bnmap('gr',        '<cmd>lua vim.lsp.buf.references()<CR>')
-        bnmap('<space>e',  '<cmd>lua vim.diagnostic.open_float()<CR>')
-        bnmap('[d',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-        bnmap(']d',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-        bnmap('<space>q',  '<cmd>lua vim.diagnostic.setloclist()<CR>')
-        bnmap('<space>h',  '<cmd>ClangdSwitchSourceHeader<CR>')
-
-        -- Use automatic formatting on save
-        -- if client.resolved_capabilities.document_formatting then
-        --   vim.api.nvim_create_augroup("Format", {})
-        --   vim.api.nvim_create_autocmd({"BufWritePre"}, {
-        --     group = "Format",
-        --     callback = vim.lsp.buf.formatting_sync,
-        --   })
-        -- end
+        bnmap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
+        bnmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+        bnmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+        bnmap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
+        bnmap("<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
+        bnmap("<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
+        bnmap("<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
+        bnmap("<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
+        bnmap("<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
+        bnmap("<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
+        bnmap("<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+        bnmap("gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+        bnmap("<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>")
+        bnmap("[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
+        bnmap("]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
+        bnmap("<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
+        bnmap("<space>h", "<cmd>ClangdSwitchSourceHeader<CR>")
       end
 
-      local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()) --nvim-cmp
+      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
       capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-      -- Use a loop to conveniently call 'setup' on multiple servers and
-      -- map buffer local keybindings when the language server attaches
-      local servers = { 'clangd', 'rust_analyzer', 'bashls', 'clojure_lsp', 'ts_ls', 'svelte', 'gopls' } -- , 'bqnlsp' }
+      local servers = { "clangd", "rust_analyzer", "bashls", "clojure_lsp", "ts_ls", "svelte", "gopls" }
       for _, lsp in ipairs(servers) do
         vim.lsp.enable(lsp)
         vim.lsp.config(lsp, {
@@ -399,51 +393,34 @@ return require('packer').startup(function()
           flags = {
             debounce_text_changes = 150,
           },
-          capabilities = capabilities
+          capabilities = capabilities,
         })
       end
 
       -- Python needs extra support for virtual envs
-      vim.lsp.config('pyright', {
+      vim.lsp.config("pyright", {
         capabilities = capabilities,
         on_attach = on_attach,
         on_new_config = function(config, root_dir)
           local env = vim.trim(vim.fn.system('cd "' .. root_dir .. '"; poetry env info -p 2>/dev/null'))
           if string.len(env) > 0 then
-            config.settings.python.pythonPath = env .. '/bin/python'
+            config.settings.python.pythonPath = env .. "/bin/python"
           end
         end
       })
-
-    end
-  }
-
-  -- ChatGPT
-  -- use {
-  --   'madox2/vim-ai',
-  --   setup = function()
-  --     vim.g.vim_ai_chat = {
-  --       options = {
-  --         model = 'o1-mini',
-  --         temperature = 0.7,
-  --       },
-  --     }
-  --   end
-  -- }
+    end,
+  },
 
   -- Debugging
-  use 'mfussenegger/nvim-dap'
-  use 'mfussenegger/nvim-dap-python'
+  "mfussenegger/nvim-dap",
+  "mfussenegger/nvim-dap-python",
 
   -- Coverage
-  use({
+  {
     "andythigpen/nvim-coverage",
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
-      require("coverage").setup({commands = true})
+      require("coverage").setup({ commands = true })
     end,
-  })
-
-
-  -- vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
-end)
+  },
+})

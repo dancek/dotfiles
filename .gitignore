@@ -28,3 +28,7 @@
 
 # rg
 .rgignore
+
+# AI
+.copilot/
+.junie/
