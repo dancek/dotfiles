@@ -1,0 +1,47 @@
+#:schema https://jj-vcs.github.io/jj/latest/config-schema.json
+
+[ui]
+default-command = "log"
+diff-formatter = ["difft", "--color=always", "--display=inline", "$left", "$right"]
+
+[[--scope]]
+--when.commands = ["diff"]
+[--scope.ui]
+diff-formatter = ":git"
+pager = "delta"
+
+[user]
+name = "Hannu Hartikainen"
+email = "hannu@hrtk.in"
+
+[git]
+private-commits = "description(glob:'WIP') | bookmarks(regex:'(wip|deadend)/*')"
+
+[revsets]
+log = "present(@) | ancestors(immutable_heads().. ~ ..bookmarks(regex:'(wip|deadend)/.*'), 2) | present(trunk())"
+
+# [fsmonitor]
+# backend = "watchman"
+# watchman.register-snapshot-trigger = true
+
+[remotes.origin]
+auto-track-bookmarks = "glob:hannu/*"
+
+[templates]
+git_push_bookmark = '"hannu/" ++ change_id.short()'
+
+[aliases]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+bc = ["bookmark", "create", "--revision", "@-"]
+log-hidden = ["log", "-r", "ancestors(bookmarks(regex:'(wip|deadend)/.*'), 2)"]
+ll = ["log", "--no-graph", "-T=builtin_log_detailed",
+    "--config=revsets.log='::@'",
+    # "--config=ui.pager=delta",
+    # "--config=ui.diff-formatter=:git",
+]
+
+[revset-aliases]
+"a:x" = "author_name(substring-i:x)"
+"d:x" = "description(substring-i:x)"
+"S:x" = "diff_lines(substring-i:x)"
+"G:x" = "diff_lines(regex:x)"
