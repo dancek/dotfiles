@@ -3,8 +3,6 @@
 
 require('plugins')
 
-local util = require('util')
-
 -- options
 
 vim.opt.softtabstop   = 4
@@ -53,16 +51,17 @@ end)
 
 ---- KEYMAP
 -- buffers
-util.nmap('<Tab>',   '<cmd>bnext<CR>')
-util.nmap('<S-Tab>', '<cmd>bprevious<CR>')
-util.nmap('Q',       '<cmd>bdelete<CR>')
+vim.keymap.set("n", "<Tab>", "<cmd>bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "Q", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
 
 -- clipboard
-util.map('<C-c>',    '"+y')
+vim.keymap.set({ "n", "v" }, "<C-c>", '"+y', { desc = "Copy to system clipboard" })
 
 -- terminal
--- util.map('~',        '<cmd>:call jobstart(["i3-msg", "exec", "i3-sensible-terminal", getcwd()])<CR>')
-util.map('~',        '<cmd>:call jobstart(["swaymsg", "exec", "kitty --single-instance", expand("%:p:h")])<CR>')
+vim.keymap.set("n", "~", function()
+  vim.fn.jobstart({ "swaymsg", "exec", "kitty --single-instance", vim.fn.expand("%:p:h") }, { detach = true })
+end, { desc = "Open kitty terminal in buffer directory" })
 
 ----
 vim.cmd([[
@@ -95,7 +94,7 @@ if vim.g.neovide then
   local copy_key
   local paste_key
 
-  if vim.loop.os_uname().sysname == "Darwin" then
+  if (vim.uv or vim.loop).os_uname().sysname == "Darwin" then
     copy_key = "<D-c>"
     paste_key = "<D-v>"
   else

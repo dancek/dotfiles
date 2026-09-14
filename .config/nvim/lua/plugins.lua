@@ -20,18 +20,15 @@ vim.g.maplocalleader = "\\"
 
 require("lazy").setup({
   -- essentials
-  "tpope/vim-sensible",
   "tpope/vim-repeat",
   "tpope/vim-sleuth",
   "tpope/vim-surround",
-  "tpope/vim-commentary",
 
   {
     "junegunn/vim-easy-align",
     config = function()
-      local util = require("util")
-      util.nmap("ga", "<Plug>(LiveEasyAlign)")
-      util.vmap("ga", "<Plug>(LiveEasyAlign)")
+      vim.keymap.set("n", "ga", "<Plug>(LiveEasyAlign)", { remap = true, desc = "Live EasyAlign" })
+      vim.keymap.set("x", "ga", "<Plug>(LiveEasyAlign)", { remap = true, desc = "Live EasyAlign" })
     end,
   },
 
@@ -92,17 +89,16 @@ require("lazy").setup({
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      local util = require("util")
-      util.nmap("<C-p>", "<cmd>Telescope find_files<CR>")
-      util.nmap("<C-M-p>", "<cmd>Telescope find_files hidden=true no_ignore=false<CR>")
-      util.nmap("<C-\\>", "<cmd>Telescope oldfiles<CR>")
-      util.nmap("<C-f>", "<cmd>Telescope live_grep<CR>")
-      util.nmap("<C-g>", "<cmd>Telescope grep_string<CR>")
-      util.vmap("<C-g>", "<cmd>Telescope grep_string<CR>")
-      util.nmap("<C-h>", "<cmd>Telescope help_tags<CR>")
-      util.nmap("<C-b>", "<cmd>Telescope buffers<CR>")
-      util.nmap("<C-]>", "<cmd>Telescope resume<CR>")
-      util.nmap("gR", "<cmd>Telescope lsp_references<CR>")
+      vim.keymap.set("n", "<C-p>", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
+      vim.keymap.set("n", "<C-M-p>", "<cmd>Telescope find_files hidden=true no_ignore=false<CR>", { desc = "Find all files" })
+      vim.keymap.set("n", "<C-\\>", "<cmd>Telescope oldfiles<CR>", { desc = "Recent files" })
+      vim.keymap.set("n", "<C-f>", "<cmd>Telescope live_grep<CR>", { desc = "Live grep" })
+      vim.keymap.set("n", "<C-g>", "<cmd>Telescope grep_string<CR>", { desc = "Grep string under cursor" })
+      vim.keymap.set("v", "<C-g>", "<cmd>Telescope grep_string<CR>", { desc = "Grep selection" })
+      vim.keymap.set("n", "<C-h>", "<cmd>Telescope help_tags<CR>", { desc = "Help tags" })
+      vim.keymap.set("n", "<C-b>", "<cmd>Telescope buffers<CR>", { desc = "Find buffers" })
+      vim.keymap.set("n", "<C-]>", "<cmd>Telescope resume<CR>", { desc = "Resume telescope" })
+      vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", { desc = "LSP references" })
 
       require("telescope").setup({
         defaults = {
@@ -130,11 +126,6 @@ require("lazy").setup({
   },
   {
     "https://git.sr.ht/~detegr/nvim-bqn",
-    config = function()
-      local util = require("util")
-      -- util.nmap('<C-Space>', '<cmd>BQNEvalFile<CR>')
-      -- util.nmap('<Space>', '<cmd>BQNClearFile<CR>')
-    end,
   },
 
   -- completion
@@ -168,9 +159,9 @@ require("lazy").setup({
           }),
         }),
         sources = cmp.config.sources({
-          { name = "copilot" },
           { name = "nvim_lsp" },
           { name = "vsnip" },
+          { name = "path" },
         }, {
           { name = "buffer" },
         }),
@@ -222,8 +213,7 @@ require("lazy").setup({
         lsp_as_default_formatter = true,
       }
 
-      local util = require("util")
-      util.nmap("<space>f", "<cmd>Guard fmt<CR>")
+      vim.keymap.set("n", "<space>f", "<cmd>Guard fmt<CR>", { desc = "Format buffer" })
     end,
   },
 
@@ -352,44 +342,52 @@ require("lazy").setup({
   {
     "neovim/nvim-lspconfig",
     config = function()
-      -- Use an on_attach function to only map the following keys
-      -- after the language server attaches to the current buffer
-      local on_attach = function(client, bufnr)
-        local function bnmap(lhs, rhs)
-          vim.api.nvim_buf_set_keymap(bufnr, "n", lhs, rhs, { noremap = true, silent = true })
-        end
+      -- Use LspAttach autocommand to map keys when a language server attaches
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
+        callback = function(ev)
+          local bufnr = ev.buf
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
-        -- Enable completion triggered by <c-x><c-o>
-        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+          -- Enable completion triggered by <c-x><c-o>
+          vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        bnmap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-        bnmap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-        bnmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-        bnmap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-        bnmap("<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>")
-        bnmap("<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>")
-        bnmap("<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>")
-        bnmap("<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>")
-        bnmap("<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>")
-        bnmap("<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-        bnmap("<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-        bnmap("gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-        bnmap("<space>e", "<cmd>lua vim.diagnostic.open_float()<CR>")
-        bnmap("[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>")
-        bnmap("]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>")
-        bnmap("<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>")
-        bnmap("<space>h", "<cmd>ClangdSwitchSourceHeader<CR>")
-      end
+          local function map(lhs, rhs, desc)
+            vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
+          end
+
+          map("gD", vim.lsp.buf.declaration, "LSP declaration")
+          map("gd", vim.lsp.buf.definition, "LSP definition")
+          map("K", vim.lsp.buf.hover, "LSP hover")
+          map("gi", vim.lsp.buf.implementation, "LSP implementation")
+          map("<C-k>", vim.lsp.buf.signature_help, "LSP signature help")
+          map("<space>wa", vim.lsp.buf.add_workspace_folder, "LSP add workspace folder")
+          map("<space>wr", vim.lsp.buf.remove_workspace_folder, "LSP remove workspace folder")
+          map("<space>wl", function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+          end, "LSP list workspace folders")
+          map("<space>D", vim.lsp.buf.type_definition, "LSP type definition")
+          map("<space>rn", vim.lsp.buf.rename, "LSP rename")
+          map("<space>ca", vim.lsp.buf.code_action, "LSP code action")
+          map("gr", vim.lsp.buf.references, "LSP references")
+          map("<space>e", vim.diagnostic.open_float, "LSP diagnostic float")
+          map("[d", vim.diagnostic.goto_prev, "LSP previous diagnostic")
+          map("]d", vim.diagnostic.goto_next, "LSP next diagnostic")
+          map("<space>q", vim.diagnostic.setloclist, "LSP setloclist")
+
+          if client and client.name == "clangd" then
+            map("<space>h", "<cmd>ClangdSwitchSourceHeader<CR>", "Clangd switch source/header")
+          end
+        end,
+      })
 
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
       capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+      local lspconfig = require("lspconfig")
       local servers = { "clangd", "rust_analyzer", "bashls", "clojure_lsp", "ts_ls", "svelte", "gopls" }
       for _, lsp in ipairs(servers) do
-        vim.lsp.enable(lsp)
-        vim.lsp.config(lsp, {
-          on_attach = on_attach,
+        lspconfig[lsp].setup({
           flags = {
             debounce_text_changes = 150,
           },
@@ -398,15 +396,19 @@ require("lazy").setup({
       end
 
       -- Python needs extra support for virtual envs
-      vim.lsp.config("pyright", {
+      lspconfig.pyright.setup({
         capabilities = capabilities,
-        on_attach = on_attach,
-        on_new_config = function(config, root_dir)
-          local env = vim.trim(vim.fn.system('cd "' .. root_dir .. '"; poetry env info -p 2>/dev/null'))
-          if string.len(env) > 0 then
-            config.settings.python.pythonPath = env .. "/bin/python"
+        before_init = function(params, config)
+          local root_dir = config.root_dir or (params and params.rootPath)
+          if root_dir then
+            local env = vim.trim(vim.fn.system('cd "' .. root_dir .. '"; poetry env info -p 2>/dev/null'))
+            if #env > 0 then
+              config.settings = config.settings or {}
+              config.settings.python = config.settings.python or {}
+              config.settings.python.pythonPath = env .. "/bin/python"
+            end
           end
-        end
+        end,
       })
     end,
   },
