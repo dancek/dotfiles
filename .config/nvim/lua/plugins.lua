@@ -15,9 +15,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
 require("lazy").setup({
   -- essentials
   "tpope/vim-repeat",
@@ -48,7 +45,11 @@ require("lazy").setup({
   },
 
   -- UI enhancements
-  "ellisonleao/gruvbox.nvim",
+  {
+    "ellisonleao/gruvbox.nvim",
+    lazy = false,
+    priority = 1000,
+  },
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },

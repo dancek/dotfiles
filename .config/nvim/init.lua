@@ -1,5 +1,14 @@
 -- Hannu Hartikainen's Neovim config
+--
+-- written in ancient times
+-- edited slowly over time
+-- added to version control in 2010
+-- adapted for Neovim in 2017
 -- rewritten in lua in 2021
+-- modernized in 2026
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 require('plugins')
 
@@ -8,16 +17,10 @@ require('plugins')
 vim.opt.softtabstop   = 4
 vim.opt.shiftwidth    = 4
 vim.opt.expandtab     = true
-vim.opt.autoindent    = true
 
 vim.opt.number        = true
 
-vim.opt.mouse         = 'a'
-
 vim.opt.timeoutlen    = 500
-
-vim.opt.termguicolors = true
-vim.opt.inccommand    = 'nosplit'
 
 vim.opt.writebackup   = false
 
@@ -74,7 +77,9 @@ vim.cmd([[
 vim.api.nvim_create_autocmd("BufNewFile", {
   group = vim.api.nvim_create_augroup("conjure_log_disable_lsp", { clear = true }),
   pattern = { "conjure-log-*" },
-  callback = function() vim.diagnostic.enable(false) end,
+  callback = function(args)
+    vim.diagnostic.enable(false, { bufnr = args.buf })
+  end,
   desc = "Conjure Log disable LSP diagnostics",
 })
 
