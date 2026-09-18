@@ -64,17 +64,6 @@ require("lazy").setup({
     end,
   },
   "mg979/vim-visual-multi",
-  "ntpeters/vim-better-whitespace",
-
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-    },
-  },
 
   -- git
   {
@@ -410,10 +399,6 @@ require("lazy").setup({
       vim.lsp.enable("pyright")
     end,
   },
-
-  -- Debugging
-  "mfussenegger/nvim-dap",
-  "mfussenegger/nvim-dap-python",
 
   -- Coverage
   {
