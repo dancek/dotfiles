@@ -48,13 +48,13 @@ require("lazy").setup({
   },
 
   -- UI enhancements
-  "morhetz/gruvbox",
+  "ellisonleao/gruvbox.nvim",
   {
-    "vim-airline/vim-airline",
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      vim.g["airline_powerline_fonts"] = 1
-      vim.g["airline_section_x"] = vim.call("airline#section#create_right", { "tagbar", "filetype" })
-    end,
+      require('lualine').setup()
+    end
   },
   {
     "folke/which-key.nvim",
