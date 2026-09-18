@@ -223,16 +223,7 @@ require("lazy").setup({
     branch = "main",
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter").setup({
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-          disable = {},
-        },
-        indent = {
-          enable = true,
-        },
-      })
+      require("nvim-treesitter").setup({})
       require("nvim-treesitter").install({
         "asm",
         "awk",
@@ -384,32 +375,38 @@ require("lazy").setup({
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
       capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-      local lspconfig = require("lspconfig")
+      -- Set default capabilities for all servers
+      vim.lsp.config("*", {
+        capabilities = capabilities,
+      })
+
       local servers = { "clangd", "rust_analyzer", "bashls", "clojure_lsp", "ts_ls", "svelte", "gopls" }
       for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup({
+        vim.lsp.config(lsp, {
           flags = {
             debounce_text_changes = 150,
           },
-          capabilities = capabilities,
         })
+        vim.lsp.enable(lsp)
       end
 
       -- Python needs extra support for virtual envs
-      lspconfig.pyright.setup({
-        capabilities = capabilities,
+      vim.lsp.config("pyright", {
         before_init = function(params, config)
           local root_dir = config.root_dir or (params and params.rootPath)
           if root_dir then
             local env = vim.trim(vim.fn.system('cd "' .. root_dir .. '"; poetry env info -p 2>/dev/null'))
             if #env > 0 then
-              config.settings = config.settings or {}
-              config.settings.python = config.settings.python or {}
-              config.settings.python.pythonPath = env .. "/bin/python"
+              config.settings = vim.tbl_deep_extend("force", config.settings or {}, {
+                python = {
+                  pythonPath = env .. "/bin/python",
+                },
+              })
             end
           end
         end,
       })
+      vim.lsp.enable("pyright")
     end,
   },
 
