@@ -46,9 +46,16 @@ require("lazy").setup({
 
   -- UI enhancements
   {
-    "ellisonleao/gruvbox.nvim",
-    lazy = false,
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
+    config = function()
+      require("catppuccin").setup({
+        flavor = "mocha",
+        transparent_background = true,
+      });
+      vim.cmd.colorscheme "catppuccin-nvim";
+    end
   },
   {
     'nvim-lualine/lualine.nvim',

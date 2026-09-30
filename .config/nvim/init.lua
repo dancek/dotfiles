@@ -67,11 +67,7 @@ vim.keymap.set("n", "~", function()
 end, { desc = "Open kitty terminal in buffer directory" })
 
 ----
-vim.cmd([[
-  colorscheme gruvbox
-
-  runtime _secrets.vim
-]])
+vim.cmd.runtime "_secrets.vim"
 
 -- Ensure conjure logs don't get clojure-lsp
 vim.api.nvim_create_autocmd("BufNewFile", {
