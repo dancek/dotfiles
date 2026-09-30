@@ -180,6 +180,8 @@ require("lazy").setup({
   },
 
   "slim-template/vim-slim",
+  
+  'Apeiros-46B/uiua.vim',
 
   -- Formatting
   {
@@ -313,6 +315,7 @@ require("lazy").setup({
         "tsx",
         "typescript",
         "udev",
+        "uiua",
         "vala",
         "vhdl",
         "vim",
